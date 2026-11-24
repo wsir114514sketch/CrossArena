@@ -1,0 +1,12 @@
+{
+  "id": "test_pack",
+  "name_zh": "测试内容包",
+  "name_en": "Test Pack",
+  "cover": "cover.png",
+  "description": "Placeholder content for Phase 1 engine tests.",
+  "featured_characters": [
+    "test_pack.dummy_a"
+  ],
+  "status": "open",
+  "test_only": true
+}

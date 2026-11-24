@@ -1,0 +1,9 @@
+{
+  "id": "arknights",
+  "name_zh": "明日方舟",
+  "name_en": "Arknights",
+  "cover": "cover.png",
+  "description": "首个 IP。角色内容在 Phase 3/4 加入，目前未开放。",
+  "featured_characters": [],
+  "status": "locked"
+}

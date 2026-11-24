@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "path": "*",
+      "source": "programmatic placeholder",
+      "author": "cross-arena",
+      "license": "project-internal",
+      "redistributable": true,
+      "placeholder": true
+    }
+  ]
+}

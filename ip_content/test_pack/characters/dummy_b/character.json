@@ -1,0 +1,38 @@
+{
+  "id": "test_pack.dummy_b",
+  "ip_id": "test_pack",
+  "name_zh": "测试人偶乙",
+  "name_en": "Dummy B",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1000,
+    "walk_speed": 2800,
+    "jump_velocity": 14000,
+    "gravity": 700,
+    "defense": 100
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/test_bolt.json"
+  ],
+  "unsupported_core_moves": [
+    "dash",
+    "light_02",
+    "medium_01",
+    "air_attack",
+    "throw",
+    "skill_02",
+    "skill_03",
+    "skill_ultimate",
+    "intro",
+    "victory",
+    "defeat"
+  ],
+  "ai_profile": {
+    "aggression": 0.5,
+    "zoning": 0.8
+  },
+  "bio": "Phase 1 placeholder fighter. Not a real character."
+}

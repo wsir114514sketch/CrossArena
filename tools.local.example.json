@@ -1,0 +1,6 @@
+{
+  "godot": "<path to Godot_v4.7.2-stable_win64.exe>",
+  "godot_console": "<path to Godot_v4.7.2-stable_win64_console.exe>",
+  "blender": "<path to blender.exe>",
+  "python": "<path to Python 3.12 used to create .venv>"
+}

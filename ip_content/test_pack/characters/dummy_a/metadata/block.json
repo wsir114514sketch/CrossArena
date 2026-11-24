@@ -1,0 +1,23 @@
+{
+  "animation_id": "block",
+  "character_id": "test_pack.dummy_a",
+  "animation_type": "combat",
+  "source_frames": "animations/block/",
+  "frame_count": 2,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

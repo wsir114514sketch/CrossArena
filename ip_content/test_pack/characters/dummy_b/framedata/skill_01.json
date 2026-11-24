@@ -1,0 +1,38 @@
+{
+  "move_id": "skill_01",
+  "animation_id": "skill_01",
+  "startup": 14,
+  "active": 1,
+  "recovery": 20,
+  "hitboxes": [],
+  "cancel_windows": [],
+  "invuln_frames": [],
+  "armor_frames": [],
+  "projectile_spawn": [
+    {
+      "frame": 14,
+      "offset": [
+        60000,
+        -120000
+      ],
+      "rect": [
+        -15000,
+        -15000,
+        30000,
+        30000
+      ],
+      "hit": {
+        "damage": 40,
+        "knockback": [
+          5000,
+          0
+        ],
+        "hitstun": 16,
+        "blockstun": 10,
+        "hitstop": 6,
+        "air_hit": true,
+        "priority": 1
+      }
+    }
+  ]
+}

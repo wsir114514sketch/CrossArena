@@ -1,0 +1,35 @@
+{
+  "move_id": "heavy_01",
+  "animation_id": "heavy_01",
+  "startup": 12,
+  "active": 4,
+  "recovery": 18,
+  "hitboxes": [
+    {
+      "frames": [
+        12,
+        15
+      ],
+      "hit_index": 0,
+      "rect": [
+        25000,
+        -140000,
+        85000,
+        50000
+      ],
+      "damage": 80,
+      "knockback": [
+        9000,
+        0
+      ],
+      "hitstun": 22,
+      "blockstun": 14,
+      "hitstop": 10,
+      "air_hit": true,
+      "priority": 2
+    }
+  ],
+  "cancel_windows": [],
+  "invuln_frames": [],
+  "armor_frames": []
+}

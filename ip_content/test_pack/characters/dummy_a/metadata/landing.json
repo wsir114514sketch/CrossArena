@@ -1,0 +1,29 @@
+{
+  "animation_id": "landing",
+  "character_id": "test_pack.dummy_a",
+  "animation_type": "core",
+  "source_frames": "animations/landing/",
+  "frame_count": 3,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": [
+    {
+      "frame": 0,
+      "type": "sfx",
+      "id": "land"
+    }
+  ]
+}

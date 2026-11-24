@@ -1,0 +1,23 @@
+{
+  "animation_id": "skill_01",
+  "character_id": "test_pack.dummy_b",
+  "animation_type": "skill",
+  "source_frames": "animations/skill_01/",
+  "frame_count": 18,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}
