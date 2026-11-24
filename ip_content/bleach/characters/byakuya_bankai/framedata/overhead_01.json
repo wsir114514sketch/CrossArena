@@ -1,0 +1,62 @@
+{
+  "move_id": "overhead_01",
+  "animation_id": "overhead_01",
+  "startup": 6,
+  "active": 6,
+  "recovery": 6,
+  "meter_gain_on_whiff": 12,
+  "move_velocity": [
+    {
+      "frames": [
+        1,
+        11
+      ],
+      "vel": [
+        4500,
+        0
+      ]
+    }
+  ],
+  "cancel_windows": [
+    {
+      "frames": [
+        6,
+        14
+      ],
+      "into": [
+        "skill",
+        "ultimate"
+      ]
+    }
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        6,
+        11
+      ],
+      "rect": [
+        12000,
+        -109000,
+        80000,
+        87000
+      ],
+      "hit_index": 0,
+      "damage": 74,
+      "knockback": [
+        26000,
+        0
+      ],
+      "hitstun": 20,
+      "blockstun": 12,
+      "hitstop": 8,
+      "air_hit": true,
+      "priority": 2,
+      "guard_type": "overhead",
+      "knockdown": false,
+      "guard_break": true,
+      "meter_gain_on_hit": 45,
+      "meter_gain_on_block": 20
+    }
+  ]
+}

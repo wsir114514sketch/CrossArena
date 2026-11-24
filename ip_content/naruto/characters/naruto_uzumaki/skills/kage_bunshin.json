@@ -1,0 +1,10 @@
+{
+  "skill_id": "kage_bunshin",
+  "type": "multi_hit",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 60,
+  "move_id": "skill_02",
+  "name_zh": "多重影分身连弹",
+  "name_en": "Kage Bunshin"
+}

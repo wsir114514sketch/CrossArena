@@ -1,0 +1,14 @@
+{
+  "id": "naruto.madara_assist",
+  "ip_id": "naruto",
+  "name_zh": "宇智波斑",
+  "name_en": "Uchiha Madara",
+  "skill_name_zh": "火遁·豪火灭却",
+  "portrait": "previews/portrait.png",
+  "cooldown_ticks": 720,
+  "spawn_offset": [
+    -40000,
+    0
+  ],
+  "move_id": "assist_call"
+}

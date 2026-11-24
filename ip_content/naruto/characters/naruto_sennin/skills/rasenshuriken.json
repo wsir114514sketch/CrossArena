@@ -1,0 +1,10 @@
+{
+  "skill_id": "rasenshuriken",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "仙法·风遁螺旋手里剑",
+  "name_en": "Rasenshuriken"
+}

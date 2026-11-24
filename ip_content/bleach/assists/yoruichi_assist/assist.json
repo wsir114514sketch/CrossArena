@@ -1,0 +1,14 @@
+{
+  "id": "bleach.yoruichi_assist",
+  "ip_id": "bleach",
+  "name_zh": "四枫院夜一",
+  "name_en": "Shihouin Yoruichi",
+  "skill_name_zh": "瞬哄·雷神飞踢",
+  "portrait": "previews/portrait.png",
+  "cooldown_ticks": 720,
+  "spawn_offset": [
+    60000,
+    0
+  ],
+  "move_id": "assist_call"
+}

@@ -1,0 +1,10 @@
+{
+  "skill_id": "kagutsuchi_slash",
+  "type": "area",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 58,
+  "move_id": "skill_02",
+  "name_zh": "炎遁·加具土命剑",
+  "name_en": "Kagutsuchi Slash"
+}

@@ -1,0 +1,10 @@
+{
+  "skill_id": "susanoo_fist",
+  "type": "melee",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 48,
+  "move_id": "skill_01",
+  "name_zh": "须佐骨架重击",
+  "name_en": "Susanoo Fist"
+}

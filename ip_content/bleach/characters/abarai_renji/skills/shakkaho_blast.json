@@ -1,0 +1,17 @@
+{
+  "skill_id": "shakkaho_blast",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 50,
+  "move_id": "skill_03",
+  "name_zh": "蛇牙冲击波",
+  "name_en": "Shakkaho Blast",
+  "projectile": {
+    "effect": "effects/reiatsu_wave/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

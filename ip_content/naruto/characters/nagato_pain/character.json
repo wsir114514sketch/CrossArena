@@ -1,0 +1,46 @@
+{
+  "id": "naruto.nagato_pain",
+  "ip_id": "naruto",
+  "name_zh": "佩恩·天道",
+  "name_en": "Six Paths Deva",
+  "form_name_zh": "轮回眼·天道",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1050,
+    "walk_speed": 4400,
+    "jump_velocity": 18400,
+    "gravity": 910,
+    "defense": 106,
+    "max_gauge": 3000,
+    "dash_speed": 10800,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/bansho_tenin.json",
+    "skills/shinra_tensei.json",
+    "skills/black_rod_shot.json",
+    "skills/chibaku_tensei.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "掌控引力与斥力的轮回眼统帅，万象天引拉近择投与神罗天征无敌弹反兼具。",
+  "victory_quote_zh": "从痛苦中思考，感受神罗天征吧。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/pain (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  }
+}

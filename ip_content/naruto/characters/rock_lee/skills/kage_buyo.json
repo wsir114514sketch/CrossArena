@@ -1,0 +1,10 @@
+{
+  "skill_id": "kage_buyo",
+  "type": "melee",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 48,
+  "move_id": "skill_02",
+  "name_zh": "影舞叶浮空踢",
+  "name_en": "Kage Buyo"
+}

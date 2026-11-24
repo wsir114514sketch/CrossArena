@@ -1,0 +1,12 @@
+{
+  "skill_id": "awaken_transform",
+  "type": "awaken",
+  "input": "awaken",
+  "cost": 2000,
+  "cooldown": 0,
+  "move_id": "skill_awaken",
+  "name_zh": "归刃·黑翼大魔",
+  "name_en": "Awakening",
+  "target_form_id": "bleach.ulquiorra_resurreccion",
+  "awaken_duration_ticks": 0
+}

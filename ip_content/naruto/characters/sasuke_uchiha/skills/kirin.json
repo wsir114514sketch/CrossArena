@@ -1,0 +1,10 @@
+{
+  "skill_id": "kirin",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "雷遁奥义·麒麟",
+  "name_en": "Kirin"
+}

@@ -1,0 +1,10 @@
+{
+  "skill_id": "lightning_clone",
+  "type": "invuln",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 58,
+  "move_id": "skill_02",
+  "name_zh": "雷分身反击",
+  "name_en": "Lightning Clone"
+}

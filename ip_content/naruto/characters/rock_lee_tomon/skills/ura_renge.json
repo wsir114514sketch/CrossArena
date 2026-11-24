@@ -1,0 +1,10 @@
+{
+  "skill_id": "ura_renge",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "八门奥义·里莲华",
+  "name_en": "Ura Renge"
+}

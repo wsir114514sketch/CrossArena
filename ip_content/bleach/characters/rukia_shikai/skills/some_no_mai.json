@@ -1,0 +1,10 @@
+{
+  "skill_id": "some_no_mai",
+  "type": "area",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 46,
+  "move_id": "skill_01",
+  "name_zh": "初舞·月白冰柱",
+  "name_en": "Some No Mai"
+}

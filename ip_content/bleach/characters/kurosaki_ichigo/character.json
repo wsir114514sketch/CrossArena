@@ -1,0 +1,51 @@
+{
+  "id": "bleach.kurosaki_ichigo",
+  "ip_id": "bleach",
+  "name_zh": "黑崎一护",
+  "name_en": "Kurosaki Ichigo",
+  "form_name_zh": "始解·斩月",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1020,
+    "walk_speed": 4600,
+    "jump_velocity": 18600,
+    "gravity": 920,
+    "defense": 100,
+    "max_gauge": 3000,
+    "dash_speed": 11200,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/zangetsu_cleave.json",
+    "skills/shunpo_upper.json",
+    "skills/getsuga_tensho.json",
+    "skills/reiatsu_getsuga.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "代理死神黑崎一护始解形态，巨刃斩月拥有扎实的中距离挥砍判定与月牙天冲立回。",
+  "victory_quote_zh": "我要斩断命运的利刃，守护所有人！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/ichigo (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "forms": [
+    "bleach.ichigo_bankai",
+    "bleach.ichigo_vizored"
+  ]
+}

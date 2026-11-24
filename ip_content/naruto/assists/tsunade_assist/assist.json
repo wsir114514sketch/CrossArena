@@ -1,0 +1,14 @@
+{
+  "id": "naruto.tsunade_assist",
+  "ip_id": "naruto",
+  "name_zh": "第五代火影·纲手",
+  "name_en": "Fifth Hokage Tsunade",
+  "skill_name_zh": "怪力·痛天脚破防",
+  "portrait": "previews/portrait.png",
+  "cooldown_ticks": 720,
+  "spawn_offset": [
+    110000,
+    0
+  ],
+  "move_id": "assist_call"
+}

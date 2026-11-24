@@ -1,0 +1,50 @@
+{
+  "id": "naruto.rock_lee",
+  "ip_id": "naruto",
+  "name_zh": "洛克李",
+  "name_en": "Rock Lee",
+  "form_name_zh": "常态体术",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 980,
+    "walk_speed": 5300,
+    "jump_velocity": 19400,
+    "gravity": 950,
+    "defense": 98,
+    "max_gauge": 3000,
+    "dash_speed": 12800,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/konoha_senpu.json",
+    "skills/kage_buyo.json",
+    "skills/dynamic_entry.json",
+    "skills/omote_renge.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "纯粹极致的近身体术专家，步速、冲刺与连续取消择位极具侵略性。",
+  "victory_quote_zh": "努力是可以超越天才的！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/lee (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "forms": [
+    "naruto.rock_lee_tomon"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "bleach.rukia_shikai",
+  "ip_id": "bleach",
+  "name_zh": "朽木露琪亚·始解",
+  "name_en": "Sode no Shirayuki Rukia",
+  "form_name_zh": "始解·袖白雪",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1000,
+    "walk_speed": 5000,
+    "jump_velocity": 19000,
+    "gravity": 900,
+    "defense": 102,
+    "max_gauge": 3000,
+    "dash_speed": 12000,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/some_no_mai.json",
+    "skills/tsugi_no_mai.json",
+    "skills/san_no_mai.json",
+    "skills/absolute_zero_dance.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "尸魂界最美冰雪系斩魄刀“袖白雪”解放姿态，月白防空控场与白涟远程压制极其出色。",
+  "victory_quote_zh": "凌舞吧，袖白雪——初舞·月白！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/rukia (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "bleach.kuchiki_rukia"
+}

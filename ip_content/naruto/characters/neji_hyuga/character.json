@@ -1,0 +1,46 @@
+{
+  "id": "naruto.neji_hyuga",
+  "ip_id": "naruto",
+  "name_zh": "日向宁次",
+  "name_en": "Hyuga Neji",
+  "form_name_zh": "白眼·柔拳",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 990,
+    "walk_speed": 4800,
+    "jump_velocity": 18800,
+    "gravity": 920,
+    "defense": 102,
+    "max_gauge": 3000,
+    "dash_speed": 11500,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/gentle_step.json",
+    "skills/kaiten.json",
+    "skills/hakke_kusho.json",
+    "skills/sixty_four_palms.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "日向一族天才上忍，拥有无敌升龙技“回天”与高速多段封穴连招。",
+  "victory_quote_zh": "你已踏入我的八卦领域之内！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/neji (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  }
+}

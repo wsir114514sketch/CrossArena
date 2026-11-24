@@ -1,0 +1,71 @@
+{
+  "animation_id": "knockdown",
+  "sheet": "knockdown.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        118,
+        64
+      ],
+      "crop_offset": [
+        182,
+        376
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        124,
+        2,
+        118,
+        64
+      ],
+      "crop_offset": [
+        182,
+        376
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        246,
+        2,
+        112,
+        60
+      ],
+      "crop_offset": [
+        185,
+        389
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        368,
+        2,
+        112,
+        60
+      ],
+      "crop_offset": [
+        185,
+        389
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        490,
+        2,
+        110,
+        54
+      ],
+      "crop_offset": [
+        178,
+        385
+      ]
+    }
+  ]
+}

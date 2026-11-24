@@ -1,0 +1,14 @@
+{
+  "id": "naruto.minato_assist",
+  "ip_id": "naruto",
+  "name_zh": "波风水门",
+  "name_en": "Namikaze Minato",
+  "skill_name_zh": "飞雷神·时空螺旋丸",
+  "portrait": "previews/portrait.png",
+  "cooldown_ticks": 720,
+  "spawn_offset": [
+    120000,
+    0
+  ],
+  "move_id": "assist_call"
+}

@@ -1,0 +1,49 @@
+{
+  "move_id": "air_attack",
+  "animation_id": "air_attack",
+  "startup": 4,
+  "active": 4,
+  "recovery": 6,
+  "meter_gain_on_whiff": 12,
+  "cancel_windows": [
+    {
+      "frames": [
+        4,
+        10
+      ],
+      "into": [
+        "skill"
+      ]
+    }
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        4,
+        7
+      ],
+      "rect": [
+        12000,
+        -107000,
+        86000,
+        85000
+      ],
+      "hit_index": 0,
+      "damage": 58,
+      "knockback": [
+        24000,
+        0
+      ],
+      "hitstun": 18,
+      "blockstun": 11,
+      "hitstop": 7,
+      "air_hit": true,
+      "priority": 2,
+      "guard_type": "overhead",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 45,
+      "meter_gain_on_block": 20
+    }
+  ]
+}

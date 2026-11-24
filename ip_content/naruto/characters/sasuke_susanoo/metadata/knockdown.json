@@ -1,0 +1,23 @@
+{
+  "animation_id": "knockdown",
+  "character_id": "naruto.sasuke_susanoo",
+  "animation_type": "combat",
+  "source_frames": "animations/knockdown/",
+  "frame_count": 5,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

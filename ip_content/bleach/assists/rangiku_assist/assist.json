@@ -1,0 +1,14 @@
+{
+  "id": "bleach.rangiku_assist",
+  "ip_id": "bleach",
+  "name_zh": "松本乱菊",
+  "name_en": "Matsumoto Rangiku",
+  "skill_name_zh": "低吟吧·灰猫刃雾",
+  "portrait": "previews/portrait.png",
+  "cooldown_ticks": 720,
+  "spawn_offset": [
+    -30000,
+    0
+  ],
+  "move_id": "assist_call"
+}

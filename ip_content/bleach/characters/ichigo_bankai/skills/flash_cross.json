@@ -1,0 +1,10 @@
+{
+  "skill_id": "flash_cross",
+  "type": "dash",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 48,
+  "move_id": "skill_02",
+  "name_zh": "瞬步残影穿刺",
+  "name_en": "Flash Cross"
+}

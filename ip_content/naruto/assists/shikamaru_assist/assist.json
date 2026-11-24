@@ -1,0 +1,14 @@
+{
+  "id": "naruto.shikamaru_assist",
+  "ip_id": "naruto",
+  "name_zh": "奈良鹿丸",
+  "name_en": "Nara Shikamaru",
+  "skill_name_zh": "秘术·影子模仿术定身",
+  "portrait": "previews/portrait.png",
+  "cooldown_ticks": 720,
+  "spawn_offset": [
+    -50000,
+    0
+  ],
+  "move_id": "assist_call"
+}

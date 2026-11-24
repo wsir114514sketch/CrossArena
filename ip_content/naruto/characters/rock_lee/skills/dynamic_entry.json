@@ -1,0 +1,10 @@
+{
+  "skill_id": "dynamic_entry",
+  "type": "dash",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 52,
+  "move_id": "skill_03",
+  "name_zh": "青春飞踢突进",
+  "name_en": "Dynamic Entry"
+}

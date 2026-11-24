@@ -1,0 +1,12 @@
+{
+  "skill_id": "awaken_transform",
+  "type": "awaken",
+  "input": "awaken",
+  "cost": 2000,
+  "cooldown": 0,
+  "move_id": "skill_awaken",
+  "name_zh": "九尾查克拉解放",
+  "name_en": "Awakening",
+  "target_form_id": "naruto.naruto_kyubi",
+  "awaken_duration_ticks": 0
+}

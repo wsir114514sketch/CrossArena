@@ -1,0 +1,10 @@
+{
+  "skill_id": "senkei_blades",
+  "type": "multi_hit",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 54,
+  "move_id": "skill_02",
+  "name_zh": "歼景·千刃葬列",
+  "name_en": "Senkei Blades"
+}

@@ -1,0 +1,10 @@
+{
+  "skill_id": "absolute_zero_dance",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "袖白雪·极寒冰华终舞",
+  "name_en": "Absolute Zero Dance"
+}

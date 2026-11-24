@@ -1,0 +1,10 @@
+{
+  "skill_id": "kawazu_kumite",
+  "type": "melee",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 42,
+  "move_id": "skill_01",
+  "name_zh": "蛙组手·仙法掌",
+  "name_en": "Kawazu Kumite"
+}

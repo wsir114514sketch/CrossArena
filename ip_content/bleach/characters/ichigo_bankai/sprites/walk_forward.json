@@ -1,0 +1,110 @@
+{
+  "animation_id": "walk_forward",
+  "sheet": "walk_forward.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        112,
+        86
+      ],
+      "crop_offset": [
+        191,
+        389
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        118,
+        2,
+        112,
+        84
+      ],
+      "crop_offset": [
+        191,
+        391
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        234,
+        2,
+        112,
+        84
+      ],
+      "crop_offset": [
+        190,
+        391
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        350,
+        2,
+        112,
+        84
+      ],
+      "crop_offset": [
+        190,
+        391
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        466,
+        2,
+        112,
+        84
+      ],
+      "crop_offset": [
+        190,
+        391
+      ]
+    },
+    {
+      "frame": 5,
+      "rect": [
+        582,
+        2,
+        112,
+        84
+      ],
+      "crop_offset": [
+        190,
+        391
+      ]
+    },
+    {
+      "frame": 6,
+      "rect": [
+        2,
+        92,
+        112,
+        84
+      ],
+      "crop_offset": [
+        190,
+        391
+      ]
+    },
+    {
+      "frame": 7,
+      "rect": [
+        118,
+        92,
+        112,
+        84
+      ],
+      "crop_offset": [
+        190,
+        391
+      ]
+    }
+  ]
+}

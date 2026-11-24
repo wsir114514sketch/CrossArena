@@ -1,0 +1,23 @@
+{
+  "animation_id": "skill_ultimate",
+  "character_id": "bleach.ulquiorra_cifer",
+  "animation_type": "skill",
+  "source_frames": "animations/skill_ultimate/",
+  "frame_count": 14,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

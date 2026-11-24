@@ -1,0 +1,123 @@
+{
+  "animation_id": "crouch_heavy",
+  "sheet": "crouch_heavy.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        100,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        198,
+        2,
+        94,
+        96
+      ],
+      "crop_offset": [
+        223,
+        377
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        296,
+        2,
+        60,
+        96
+      ],
+      "crop_offset": [
+        227,
+        377
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        394,
+        2,
+        60,
+        96
+      ],
+      "crop_offset": [
+        227,
+        377
+      ]
+    },
+    {
+      "frame": 5,
+      "rect": [
+        492,
+        2,
+        60,
+        96
+      ],
+      "crop_offset": [
+        227,
+        377
+      ]
+    },
+    {
+      "frame": 6,
+      "rect": [
+        2,
+        102,
+        60,
+        96
+      ],
+      "crop_offset": [
+        227,
+        377
+      ]
+    },
+    {
+      "frame": 7,
+      "rect": [
+        100,
+        102,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    },
+    {
+      "frame": 8,
+      "rect": [
+        198,
+        102,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    }
+  ]
+}

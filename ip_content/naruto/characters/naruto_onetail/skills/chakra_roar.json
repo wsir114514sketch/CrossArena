@@ -1,0 +1,10 @@
+{
+  "skill_id": "chakra_roar",
+  "type": "area",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 65,
+  "move_id": "skill_03",
+  "name_zh": "尾兽查克拉咆哮",
+  "name_en": "Chakra Roar"
+}

@@ -1,0 +1,52 @@
+{
+  "move_id": "crouch_light",
+  "animation_id": "crouch_light",
+  "startup": 4,
+  "active": 4,
+  "recovery": 6,
+  "meter_gain_on_whiff": 12,
+  "cancel_windows": [
+    {
+      "frames": [
+        4,
+        10
+      ],
+      "into": [
+        "medium_01",
+        "crouch_heavy",
+        "skill",
+        "ultimate"
+      ]
+    }
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        4,
+        7
+      ],
+      "rect": [
+        12000,
+        -68000,
+        78000,
+        62000
+      ],
+      "hit_index": 0,
+      "damage": 36,
+      "knockback": [
+        16000,
+        0
+      ],
+      "hitstun": 14,
+      "blockstun": 9,
+      "hitstop": 5,
+      "air_hit": true,
+      "priority": 1,
+      "guard_type": "low",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 45,
+      "meter_gain_on_block": 20
+    }
+  ]
+}

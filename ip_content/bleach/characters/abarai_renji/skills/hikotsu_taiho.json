@@ -1,0 +1,10 @@
+{
+  "skill_id": "hikotsu_taiho",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "卍解·狒狒王蛇尾丸·狒骨大炮",
+  "name_en": "Hikotsu Taiho"
+}

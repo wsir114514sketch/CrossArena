@@ -1,0 +1,23 @@
+{
+  "animation_id": "dash",
+  "character_id": "naruto.rock_lee_tomon",
+  "animation_type": "core",
+  "source_frames": "animations/dash/",
+  "frame_count": 6,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

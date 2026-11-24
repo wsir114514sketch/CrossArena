@@ -1,0 +1,10 @@
+{
+  "skill_id": "reiatsu_getsuga",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "灵压全开·大月牙天冲",
+  "name_en": "Reiatsu Getsuga"
+}

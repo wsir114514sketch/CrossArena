@@ -1,0 +1,47 @@
+{
+  "id": "naruto.naruto_kyubi",
+  "ip_id": "naruto",
+  "name_zh": "漩涡鸣人·九尾",
+  "name_en": "Kurama Link Naruto",
+  "form_name_zh": "九尾查克拉模式",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1100,
+    "walk_speed": 5500,
+    "jump_velocity": 19600,
+    "gravity": 930,
+    "defense": 108,
+    "max_gauge": 3000,
+    "dash_speed": 13200,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/planetary_rasengan.json",
+    "skills/yellow_flash_strike.json",
+    "skills/kurama_shock.json",
+    "skills/bijudama.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "与九喇嘛心意相通的金色查克拉形态，具备全场顶级的瞬身机动性与火力。",
+  "victory_quote_zh": "走吧九喇嘛，让他们见识我们的力量！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/naruto (frame 5)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "naruto.naruto_uzumaki"
+}

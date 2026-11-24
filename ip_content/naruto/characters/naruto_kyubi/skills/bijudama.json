@@ -1,0 +1,10 @@
+{
+  "skill_id": "bijudama",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "超迷你尾兽玉轰击",
+  "name_en": "Bijudama"
+}

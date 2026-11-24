@@ -1,0 +1,17 @@
+{
+  "skill_id": "wind_rasen_wave",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 60,
+  "move_id": "skill_03",
+  "name_zh": "风遁·螺旋丸投射",
+  "name_en": "Wind Rasen Wave",
+  "projectile": {
+    "effect": "effects/chakra_sphere/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

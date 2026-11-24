@@ -1,0 +1,10 @@
+{
+  "skill_id": "shinra_tensei",
+  "type": "invuln",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 62,
+  "move_id": "skill_02",
+  "name_zh": "神罗天征",
+  "name_en": "Shinra Tensei"
+}

@@ -1,0 +1,17 @@
+{
+  "skill_id": "black_rod_shot",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 50,
+  "move_id": "skill_03",
+  "name_zh": "黑棒查克拉贯刺",
+  "name_en": "Black Rod Shot",
+  "projectile": {
+    "effect": "effects/chakra_sphere/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

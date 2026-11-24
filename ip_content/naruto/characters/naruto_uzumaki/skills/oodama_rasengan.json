@@ -1,0 +1,10 @@
+{
+  "skill_id": "oodama_rasengan",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "大玉螺旋丸",
+  "name_en": "Oodama Rasengan"
+}

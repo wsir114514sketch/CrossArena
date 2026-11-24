@@ -1,0 +1,10 @@
+{
+  "skill_id": "sennen_hyoro",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "冰轮丸·千年冰牢",
+  "name_en": "Sennen Hyoro"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "bleach",
+  "name_zh": "死神",
+  "name_en": "Bleach",
+  "cover": "cover.png",
+  "description": "尸魂界与虚圈的斩魄刀立回交锋！支持瞬步差合、鬼道牵制、卍解/虚化/归刃觉醒与护廷援助。",
+  "featured_characters": [
+    "bleach.kurosaki_ichigo",
+    "bleach.kuchiki_rukia",
+    "bleach.kuchiki_byakuya",
+    "bleach.hitsugaya_toshiro",
+    "bleach.abarai_renji",
+    "bleach.zaraki_kenpachi",
+    "bleach.aizen_sosuke",
+    "bleach.ulquiorra_cifer"
+  ],
+  "status": "open",
+  "stage_name_zh": "静灵廷·双极决斗台",
+  "theme": {
+    "primary_hex": "#38bdf8",
+    "secondary_hex": "#0f172a",
+    "accent_hex": "#e2e8f0",
+    "stage_sky_top": "#090d16",
+    "stage_sky_bottom": "#1e293b",
+    "stage_floor_hex": "#1e293b",
+    "emblem_label": "SEIREITEI ARENA"
+  }
+}

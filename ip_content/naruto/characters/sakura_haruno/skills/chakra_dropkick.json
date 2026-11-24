@@ -1,0 +1,10 @@
+{
+  "skill_id": "chakra_dropkick",
+  "type": "dash",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 52,
+  "move_id": "skill_02",
+  "name_zh": "怪力飞踢",
+  "name_en": "Chakra Dropkick"
+}

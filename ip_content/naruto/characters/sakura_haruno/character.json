@@ -1,0 +1,46 @@
+{
+  "id": "naruto.sakura_haruno",
+  "ip_id": "naruto",
+  "name_zh": "春野樱",
+  "name_en": "Haruno Sakura",
+  "form_name_zh": "怪力纲手流",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1000,
+    "walk_speed": 4600,
+    "jump_velocity": 18600,
+    "gravity": 920,
+    "defense": 102,
+    "max_gauge": 3000,
+    "dash_speed": 10800,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/oka_sho.json",
+    "skills/chakra_dropkick.json",
+    "skills/boulder_toss.json",
+    "skills/shanaro_smash.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "继承第五代火影纲手怪力体术的近战破防型格斗家，单发重击与破防能力极强。",
+  "victory_quote_zh": "这一次轮到我走在大家前面了——怪力全开！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/sakura (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  }
+}

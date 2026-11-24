@@ -1,0 +1,23 @@
+{
+  "animation_id": "overhead_01",
+  "character_id": "bleach.ulquiorra_resurreccion",
+  "animation_type": "extra",
+  "source_frames": "animations/overhead_01/",
+  "frame_count": 9,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

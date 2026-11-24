@@ -1,0 +1,10 @@
+{
+  "skill_id": "tensa_finis",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "天锁斩月·终式连月牙",
+  "name_en": "Tensa Finis"
+}

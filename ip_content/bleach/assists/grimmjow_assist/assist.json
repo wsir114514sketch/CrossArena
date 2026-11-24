@@ -1,0 +1,14 @@
+{
+  "id": "bleach.grimmjow_assist",
+  "ip_id": "bleach",
+  "name_zh": "葛力姆乔",
+  "name_en": "Grimmjow Jaegerjaquez",
+  "skill_name_zh": "豹王之爪突袭",
+  "portrait": "previews/portrait.png",
+  "cooldown_ticks": 720,
+  "spawn_offset": [
+    65000,
+    0
+  ],
+  "move_id": "assist_call"
+}

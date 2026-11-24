@@ -1,0 +1,47 @@
+{
+  "id": "naruto.kakashi_kamui",
+  "ip_id": "naruto",
+  "name_zh": "旗木卡卡西·神威",
+  "name_en": "Kamui Kakashi",
+  "form_name_zh": "万花筒·神威",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1030,
+    "walk_speed": 5000,
+    "jump_velocity": 19000,
+    "gravity": 920,
+    "defense": 103,
+    "max_gauge": 3000,
+    "dash_speed": 12000,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/kamui_raikiri.json",
+    "skills/lightning_clone.json",
+    "skills/kamui_vortex.json",
+    "skills/kamui_dimension.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "开启万花筒写轮眼的神威形态，空间判定与神威雷切令对手难以固守。",
+  "victory_quote_zh": "在这双万花筒面前，防御毫无意义。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/kakashi (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "naruto.kakashi_hatake"
+}

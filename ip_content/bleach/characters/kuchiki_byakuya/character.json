@@ -1,0 +1,50 @@
+{
+  "id": "bleach.kuchiki_byakuya",
+  "ip_id": "bleach",
+  "name_zh": "朽木白哉",
+  "name_en": "Kuchiki Byakuya",
+  "form_name_zh": "始解·千本樱",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1010,
+    "walk_speed": 4700,
+    "jump_velocity": 18600,
+    "gravity": 910,
+    "defense": 103,
+    "max_gauge": 3000,
+    "dash_speed": 12200,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/senka_step.json",
+    "skills/petal_vortex.json",
+    "skills/byakurai.json",
+    "skills/senbonzakura_storm.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "护廷十三队六番队队长，以贵族瞬步“闪花”与千本樱刀瓣封锁中距离空间。",
+  "victory_quote_zh": "散落吧，千本樱。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/byakuya (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "forms": [
+    "bleach.byakuya_bankai"
+  ]
+}

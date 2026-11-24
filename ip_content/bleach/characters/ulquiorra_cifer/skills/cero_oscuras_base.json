@@ -1,0 +1,10 @@
+{
+  "skill_id": "cero_oscuras_base",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "十刃奥义·王虚闪光",
+  "name_en": "Cero Oscuras Base"
+}

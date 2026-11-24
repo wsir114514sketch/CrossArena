@@ -1,0 +1,10 @@
+{
+  "skill_id": "shunpo_upper",
+  "type": "dash",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 52,
+  "move_id": "skill_02",
+  "name_zh": "瞬步升龙斩",
+  "name_en": "Shunpo Upper"
+}

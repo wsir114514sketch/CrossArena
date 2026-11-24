@@ -1,0 +1,51 @@
+{
+  "move_id": "skill_02",
+  "animation_id": "skill_02",
+  "startup": 7,
+  "active": 7,
+  "recovery": 8,
+  "meter_gain_on_whiff": 12,
+  "cancel_windows": [
+    {
+      "frames": [
+        7,
+        17
+      ],
+      "into": [
+        "ultimate",
+        "awaken"
+      ]
+    }
+  ],
+  "hitboxes": [],
+  "projectile_spawn": [
+    {
+      "frame": 7,
+      "offset": [
+        54000,
+        -82000
+      ],
+      "rect": [
+        -32000,
+        -32000,
+        64000,
+        64000
+      ],
+      "hit": {
+        "damage": 88,
+        "knockback": [
+          28000,
+          0
+        ],
+        "hitstun": 22,
+        "blockstun": 13,
+        "hitstop": 8,
+        "air_hit": true,
+        "priority": 3,
+        "guard_type": "mid",
+        "meter_gain_on_hit": 55,
+        "meter_gain_on_block": 25
+      }
+    }
+  ]
+}

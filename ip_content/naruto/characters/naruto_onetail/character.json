@@ -1,0 +1,48 @@
+{
+  "id": "naruto.naruto_onetail",
+  "ip_id": "naruto",
+  "name_zh": "漩涡鸣人·一尾",
+  "name_en": "Naruto One-Tail",
+  "form_name_zh": "九尾一尾状态",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1020,
+    "walk_speed": 5200,
+    "jump_velocity": 19200,
+    "gravity": 940,
+    "defense": 96,
+    "max_gauge": 3000,
+    "dash_speed": 12000,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/chakra_claw.json",
+    "skills/vermilion_rush.json",
+    "skills/chakra_roar.json",
+    "skills/vermilion_rasengan.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "终结之谷爆发的九尾查克拉外衣形态，拥有极高的突进速度与利爪压制判定。",
+  "victory_quote_zh": "我绝对要把佐助带回木叶！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/naruto (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "naruto.naruto_uzumaki"
+}

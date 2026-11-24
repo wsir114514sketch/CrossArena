@@ -1,0 +1,10 @@
+{
+  "skill_id": "soren_sokatsui",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "破道之七十三·双莲苍火坠",
+  "name_en": "Soren Sokatsui"
+}

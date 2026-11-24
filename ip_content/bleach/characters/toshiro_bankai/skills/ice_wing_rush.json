@@ -1,0 +1,10 @@
+{
+  "skill_id": "ice_wing_rush",
+  "type": "dash",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 42,
+  "move_id": "skill_01",
+  "name_zh": "冰翼疾空斩",
+  "name_en": "Ice Wing Rush"
+}

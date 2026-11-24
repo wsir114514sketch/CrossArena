@@ -1,0 +1,48 @@
+{
+  "move_id": "skill_awaken",
+  "animation_id": "skill_awaken",
+  "startup": 4,
+  "active": 4,
+  "recovery": 4,
+  "meter_gain_on_whiff": 12,
+  "super_freeze": {
+    "frame": 1,
+    "duration": 24
+  },
+  "invuln_frames": [
+    [
+      0,
+      6
+    ]
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        4,
+        7
+      ],
+      "rect": [
+        12000,
+        -148000,
+        78000,
+        126000
+      ],
+      "hit_index": 0,
+      "damage": 65,
+      "knockback": [
+        48000,
+        -14000
+      ],
+      "hitstun": 26,
+      "blockstun": 14,
+      "hitstop": 10,
+      "air_hit": true,
+      "priority": 6,
+      "guard_type": "mid",
+      "knockdown": true,
+      "guard_break": false,
+      "meter_gain_on_hit": 45,
+      "meter_gain_on_block": 20
+    }
+  ]
+}

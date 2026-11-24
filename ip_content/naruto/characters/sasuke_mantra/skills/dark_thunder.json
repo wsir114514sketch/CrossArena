@@ -1,0 +1,10 @@
+{
+  "skill_id": "dark_thunder",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "黑千鸟终结斩",
+  "name_en": "Dark Thunder"
+}

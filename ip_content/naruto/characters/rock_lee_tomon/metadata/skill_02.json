@@ -1,0 +1,23 @@
+{
+  "animation_id": "skill_02",
+  "character_id": "naruto.rock_lee_tomon",
+  "animation_type": "skill",
+  "source_frames": "animations/skill_02/",
+  "frame_count": 11,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

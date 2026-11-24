@@ -1,0 +1,10 @@
+{
+  "skill_id": "lanza_del_relampago",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "二段归刃·雷霆之枪",
+  "name_en": "Lanza Del Relampago"
+}

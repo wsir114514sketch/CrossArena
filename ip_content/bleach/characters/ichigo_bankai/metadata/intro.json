@@ -1,0 +1,23 @@
+{
+  "animation_id": "intro",
+  "character_id": "bleach.ichigo_bankai",
+  "animation_type": "presentation",
+  "source_frames": "animations/intro/",
+  "frame_count": 8,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

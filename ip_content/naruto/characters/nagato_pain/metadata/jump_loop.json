@@ -1,0 +1,23 @@
+{
+  "animation_id": "jump_loop",
+  "character_id": "naruto.nagato_pain",
+  "animation_type": "core",
+  "source_frames": "animations/jump_loop/",
+  "frame_count": 5,
+  "animation_fps": 30,
+  "loop": true,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

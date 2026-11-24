@@ -1,0 +1,118 @@
+{
+  "move_id": "skill_02",
+  "animation_id": "skill_02",
+  "startup": 7,
+  "active": 7,
+  "recovery": 8,
+  "meter_gain_on_whiff": 12,
+  "move_velocity": [
+    {
+      "frames": [
+        1,
+        13
+      ],
+      "vel": [
+        15000,
+        -3000
+      ]
+    }
+  ],
+  "cancel_windows": [
+    {
+      "frames": [
+        7,
+        17
+      ],
+      "into": [
+        "ultimate",
+        "awaken"
+      ]
+    }
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        7,
+        8
+      ],
+      "rect": [
+        12000,
+        -105000,
+        88000,
+        83000
+      ],
+      "hit_index": 0,
+      "damage": 37,
+      "knockback": [
+        16000,
+        0
+      ],
+      "hitstun": 16,
+      "blockstun": 11,
+      "hitstop": 5,
+      "air_hit": true,
+      "priority": 3,
+      "guard_type": "mid",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 25,
+      "meter_gain_on_block": 12
+    },
+    {
+      "frames": [
+        9,
+        10
+      ],
+      "rect": [
+        12000,
+        -105000,
+        88000,
+        83000
+      ],
+      "hit_index": 1,
+      "damage": 37,
+      "knockback": [
+        16000,
+        0
+      ],
+      "hitstun": 16,
+      "blockstun": 11,
+      "hitstop": 5,
+      "air_hit": true,
+      "priority": 3,
+      "guard_type": "mid",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 25,
+      "meter_gain_on_block": 12
+    },
+    {
+      "frames": [
+        11,
+        13
+      ],
+      "rect": [
+        12000,
+        -105000,
+        88000,
+        83000
+      ],
+      "hit_index": 2,
+      "damage": 38,
+      "knockback": [
+        28000,
+        0
+      ],
+      "hitstun": 22,
+      "blockstun": 13,
+      "hitstop": 8,
+      "air_hit": true,
+      "priority": 3,
+      "guard_type": "mid",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 25,
+      "meter_gain_on_block": 12
+    }
+  ]
+}

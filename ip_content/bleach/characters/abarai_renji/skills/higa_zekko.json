@@ -1,0 +1,10 @@
+{
+  "skill_id": "higa_zekko",
+  "type": "area",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 56,
+  "move_id": "skill_02",
+  "name_zh": "狒牙绝咬",
+  "name_en": "Higa Zekko"
+}

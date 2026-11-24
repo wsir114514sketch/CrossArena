@@ -1,0 +1,10 @@
+{
+  "skill_id": "berserk_charge",
+  "type": "dash",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 56,
+  "move_id": "skill_02",
+  "name_zh": "金色灵压狂突",
+  "name_en": "Berserk Charge"
+}

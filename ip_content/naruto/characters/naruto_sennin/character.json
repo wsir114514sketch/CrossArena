@@ -1,0 +1,48 @@
+{
+  "id": "naruto.naruto_sennin",
+  "ip_id": "naruto",
+  "name_zh": "漩涡鸣人·仙人",
+  "name_en": "Sage Mode Naruto",
+  "form_name_zh": "仙人模式",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1060,
+    "walk_speed": 4800,
+    "jump_velocity": 19000,
+    "gravity": 920,
+    "defense": 106,
+    "max_gauge": 3000,
+    "dash_speed": 11200,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/kawazu_kumite.json",
+    "skills/senpo_rengan.json",
+    "skills/wind_rasen_wave.json",
+    "skills/rasenshuriken.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "妙木山修得自然能量的仙人模式，兼顾蛙组手大范围拳脚与高爆发螺旋手里剑。",
+  "victory_quote_zh": "自然能量已完全凝聚，一招定胜负！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/naruto (frame 4)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "naruto.naruto_uzumaki"
+}

@@ -1,0 +1,47 @@
+{
+  "id": "naruto.rock_lee_tomon",
+  "ip_id": "naruto",
+  "name_zh": "洛克李·杜门",
+  "name_en": "Fifth Gate Rock Lee",
+  "form_name_zh": "八门遁甲·杜门",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1000,
+    "walk_speed": 5800,
+    "jump_velocity": 20200,
+    "gravity": 960,
+    "defense": 95,
+    "max_gauge": 3000,
+    "dash_speed": 14500,
+    "dash_ticks": 11
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/sonic_combo.json",
+    "skills/heavenly_kick.json",
+    "skills/shockwave_rush.json",
+    "skills/ura_renge.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "开启八门遁甲第五门“杜门”，卸除负重后获得超越音速的贴身连招爆发。",
+  "victory_quote_zh": "八门遁甲第五门——杜门，开！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/lee (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "naruto.rock_lee"
+}

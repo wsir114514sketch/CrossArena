@@ -1,0 +1,46 @@
+{
+  "id": "naruto.gaara_kazekage",
+  "ip_id": "naruto",
+  "name_zh": "我爱罗",
+  "name_en": "Fifth Kazekage Gaara",
+  "form_name_zh": "第五代风影",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1060,
+    "walk_speed": 4000,
+    "jump_velocity": 17800,
+    "gravity": 910,
+    "defense": 110,
+    "max_gauge": 3000,
+    "dash_speed": 9600,
+    "dash_ticks": 14
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/sand_coffin.json",
+    "skills/sand_tsunami.json",
+    "skills/sand_shuriken.json",
+    "skills/sabaku_taiso.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "砂隐村第五代风影，绝对防御与中距离砂浪控场代表角色。",
+  "victory_quote_zh": "风影之名，由我的砂来守护。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/gaara (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  }
+}

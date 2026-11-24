@@ -1,0 +1,10 @@
+{
+  "skill_id": "chibaku_tensei",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "轮回奥义·地爆天星",
+  "name_en": "Chibaku Tensei"
+}

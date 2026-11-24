@@ -1,0 +1,23 @@
+{
+  "animation_id": "crouch_light",
+  "character_id": "naruto.sasuke_uchiha",
+  "animation_type": "extra",
+  "source_frames": "animations/crouch_light/",
+  "frame_count": 7,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

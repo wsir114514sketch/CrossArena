@@ -1,0 +1,84 @@
+{
+  "animation_id": "wakeup",
+  "sheet": "wakeup.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        62,
+        74
+      ],
+      "crop_offset": [
+        252,
+        410
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        114,
+        2,
+        62,
+        74
+      ],
+      "crop_offset": [
+        241,
+        412
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        226,
+        2,
+        108,
+        78
+      ],
+      "crop_offset": [
+        216,
+        409
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        338,
+        2,
+        108,
+        78
+      ],
+      "crop_offset": [
+        216,
+        409
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        450,
+        2,
+        108,
+        78
+      ],
+      "crop_offset": [
+        216,
+        409
+      ]
+    },
+    {
+      "frame": 5,
+      "rect": [
+        562,
+        2,
+        108,
+        78
+      ],
+      "crop_offset": [
+        216,
+        409
+      ]
+    }
+  ]
+}

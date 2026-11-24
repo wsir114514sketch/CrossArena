@@ -1,0 +1,17 @@
+{
+  "skill_id": "guncho_tsurara",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 48,
+  "move_id": "skill_03",
+  "name_zh": "群鸟冰柱",
+  "name_en": "Guncho Tsurara",
+  "projectile": {
+    "effect": "effects/reiatsu_wave/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

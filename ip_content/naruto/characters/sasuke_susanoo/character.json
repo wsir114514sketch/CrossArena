@@ -1,0 +1,47 @@
+{
+  "id": "naruto.sasuke_susanoo",
+  "ip_id": "naruto",
+  "name_zh": "宇智波佐助·须佐",
+  "name_en": "Susanoo Sasuke",
+  "form_name_zh": "万花筒·须佐能乎",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1060,
+    "walk_speed": 4600,
+    "jump_velocity": 18500,
+    "gravity": 930,
+    "defense": 108,
+    "max_gauge": 3000,
+    "dash_speed": 11000,
+    "dash_ticks": 14
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/susanoo_fist.json",
+    "skills/kagutsuchi_slash.json",
+    "skills/amaterasu_flame.json",
+    "skills/susanoo_arrow.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "觉醒万花筒写轮眼之力，以天照黑炎与须佐能乎神力掌控中远距离立回。",
+  "victory_quote_zh": "无法熄灭的黑炎会将一切燃尽。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/sasuke (frame 3)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "naruto.sasuke_uchiha"
+}

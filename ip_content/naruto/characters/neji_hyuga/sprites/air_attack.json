@@ -1,0 +1,97 @@
+{
+  "animation_id": "air_attack",
+  "sheet": "air_attack.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        90,
+        106
+      ],
+      "crop_offset": [
+        199,
+        375
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        120,
+        2,
+        114,
+        102
+      ],
+      "crop_offset": [
+        211,
+        379
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        238,
+        2,
+        106,
+        100
+      ],
+      "crop_offset": [
+        207,
+        381
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        356,
+        2,
+        74,
+        100
+      ],
+      "crop_offset": [
+        213,
+        381
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        474,
+        2,
+        74,
+        100
+      ],
+      "crop_offset": [
+        213,
+        381
+      ]
+    },
+    {
+      "frame": 5,
+      "rect": [
+        592,
+        2,
+        74,
+        100
+      ],
+      "crop_offset": [
+        213,
+        381
+      ]
+    },
+    {
+      "frame": 6,
+      "rect": [
+        2,
+        112,
+        74,
+        100
+      ],
+      "crop_offset": [
+        213,
+        381
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "animation_id": "block",
+  "sheet": "block.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        48,
+        114
+      ],
+      "crop_offset": [
+        235,
+        369
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        62,
+        2,
+        56,
+        110
+      ],
+      "crop_offset": [
+        237,
+        373
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        122,
+        2,
+        56,
+        110
+      ],
+      "crop_offset": [
+        237,
+        373
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        182,
+        2,
+        56,
+        110
+      ],
+      "crop_offset": [
+        237,
+        373
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "skill_id": "yellow_flash_strike",
+  "type": "dash",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 50,
+  "move_id": "skill_02",
+  "name_zh": "金色闪光瞬身击",
+  "name_en": "Yellow Flash Strike"
+}

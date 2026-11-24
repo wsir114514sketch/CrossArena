@@ -1,0 +1,58 @@
+{
+  "animation_id": "landing",
+  "sheet": "landing.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        66,
+        90
+      ],
+      "crop_offset": [
+        229,
+        396
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        72,
+        2,
+        66,
+        90
+      ],
+      "crop_offset": [
+        229,
+        396
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        142,
+        2,
+        66,
+        90
+      ],
+      "crop_offset": [
+        229,
+        396
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        212,
+        2,
+        66,
+        90
+      ],
+      "crop_offset": [
+        229,
+        396
+      ]
+    }
+  ]
+}

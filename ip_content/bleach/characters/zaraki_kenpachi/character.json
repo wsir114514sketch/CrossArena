@@ -1,0 +1,46 @@
+{
+  "id": "bleach.zaraki_kenpachi",
+  "ip_id": "bleach",
+  "name_zh": "更木剑八",
+  "name_en": "Zaraki Kenpachi",
+  "form_name_zh": "十一番队·剑鬼",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1120,
+    "walk_speed": 4300,
+    "jump_velocity": 18200,
+    "gravity": 960,
+    "defense": 112,
+    "max_gauge": 3000,
+    "dash_speed": 10600,
+    "dash_ticks": 14
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/armored_cleave.json",
+    "skills/berserk_charge.json",
+    "skills/reiatsu_shock.json",
+    "skills/kendo_ryodan.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "嗜战如命的十一番队队长，生命值、霸体抗打断与破防重斩威慑力冠绝全场。",
+  "victory_quote_zh": "厮杀就是要这样才够痛快啊！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/kenpachi (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  }
+}

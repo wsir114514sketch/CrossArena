@@ -1,0 +1,10 @@
+{
+  "skill_id": "shanaro_smash",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "百豪怪力·天崩地裂",
+  "name_en": "Shanaro Smash"
+}

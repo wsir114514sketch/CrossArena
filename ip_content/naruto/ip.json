@@ -1,0 +1,29 @@
+{
+  "id": "naruto",
+  "name_zh": "火影忍者",
+  "name_en": "Naruto",
+  "cover": "cover.png",
+  "description": "木叶与晓的忍道激突！融合查克拉体术连段、忍术取消、尾兽/仙人/须佐能乎觉醒与小队援助。",
+  "featured_characters": [
+    "naruto.naruto_uzumaki",
+    "naruto.sasuke_uchiha",
+    "naruto.kakashi_hatake",
+    "naruto.sakura_haruno",
+    "naruto.rock_lee",
+    "naruto.neji_hyuga",
+    "naruto.gaara_kazekage",
+    "naruto.itachi_uchiha",
+    "naruto.nagato_pain"
+  ],
+  "status": "open",
+  "stage_name_zh": "终结之谷·紧凑决斗台",
+  "theme": {
+    "primary_hex": "#ff7a18",
+    "secondary_hex": "#1e293b",
+    "accent_hex": "#fbbf24",
+    "stage_sky_top": "#172554",
+    "stage_sky_bottom": "#475569",
+    "stage_floor_hex": "#334155",
+    "emblem_label": "KONOHA ARENA"
+  }
+}

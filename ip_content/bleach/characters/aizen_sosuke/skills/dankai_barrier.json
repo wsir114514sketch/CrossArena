@@ -1,0 +1,10 @@
+{
+  "skill_id": "dankai_barrier",
+  "type": "area",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 56,
+  "move_id": "skill_02",
+  "name_zh": "缚道之八十一·断空碎击",
+  "name_en": "Dankai Barrier"
+}

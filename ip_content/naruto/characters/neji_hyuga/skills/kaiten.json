@@ -1,0 +1,10 @@
+{
+  "skill_id": "kaiten",
+  "type": "invuln",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 62,
+  "move_id": "skill_02",
+  "name_zh": "八卦掌·回天",
+  "name_en": "Kaiten"
+}

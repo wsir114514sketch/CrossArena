@@ -1,0 +1,12 @@
+{
+  "skill_id": "awaken_transform",
+  "type": "awaken",
+  "input": "awaken",
+  "cost": 2000,
+  "cooldown": 0,
+  "move_id": "skill_awaken",
+  "name_zh": "卍解·天锁斩月",
+  "name_en": "Awakening",
+  "target_form_id": "bleach.ichigo_bankai",
+  "awaken_duration_ticks": 0
+}

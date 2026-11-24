@@ -1,0 +1,84 @@
+{
+  "animation_id": "dash",
+  "sheet": "dash.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        68,
+        132
+      ],
+      "crop_offset": [
+        217,
+        343
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        74,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        146,
+        2,
+        68,
+        136
+      ],
+      "crop_offset": [
+        217,
+        339
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        218,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        290,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    },
+    {
+      "frame": 5,
+      "rect": [
+        362,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    }
+  ]
+}

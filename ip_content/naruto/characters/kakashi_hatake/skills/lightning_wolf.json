@@ -1,0 +1,10 @@
+{
+  "skill_id": "lightning_wolf",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "雷传·双雷震奥义",
+  "name_en": "Lightning Wolf"
+}

@@ -1,0 +1,10 @@
+{
+  "skill_id": "susanoo_arrow",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "须佐能乎·加具土命之箭",
+  "name_en": "Susanoo Arrow"
+}

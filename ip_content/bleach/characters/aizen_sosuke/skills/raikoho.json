@@ -1,0 +1,17 @@
+{
+  "skill_id": "raikoho",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 50,
+  "move_id": "skill_03",
+  "name_zh": "破道之六十三·雷吼炮",
+  "name_en": "Raikoho",
+  "projectile": {
+    "effect": "effects/dark_reiatsu/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

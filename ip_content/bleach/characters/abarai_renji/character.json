@@ -1,0 +1,46 @@
+{
+  "id": "bleach.abarai_renji",
+  "ip_id": "bleach",
+  "name_zh": "阿散井恋次",
+  "name_en": "Abarai Renji",
+  "form_name_zh": "蛇尾丸",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1030,
+    "walk_speed": 4600,
+    "jump_velocity": 18600,
+    "gravity": 930,
+    "defense": 102,
+    "max_gauge": 3000,
+    "dash_speed": 11000,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/zabimaru_whip.json",
+    "skills/higa_zekko.json",
+    "skills/shakkaho_blast.json",
+    "skills/hikotsu_taiho.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "六番队副队长，伸缩鞭刃“蛇尾丸”在紧凑擂台中拥有极强的中远距离摸奖与压制力。",
+  "victory_quote_zh": "咆哮吧，蛇尾丸！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/renji (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  }
+}

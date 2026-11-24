@@ -1,0 +1,14 @@
+{
+  "id": "bleach.yamamoto_assist",
+  "ip_id": "bleach",
+  "name_zh": "山本元柳斋重国",
+  "name_en": "Captain Yamamoto",
+  "skill_name_zh": "流刃若火·松明炎柱",
+  "portrait": "previews/portrait.png",
+  "cooldown_ticks": 720,
+  "spawn_offset": [
+    70000,
+    0
+  ],
+  "move_id": "assist_call"
+}

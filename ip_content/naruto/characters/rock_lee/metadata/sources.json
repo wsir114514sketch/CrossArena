@@ -1,0 +1,36 @@
+{
+  "entries": [
+    {
+      "path": "animations/*",
+      "source": "5DPLAY-Game-Studio/OpenBleachVsNaruto (swf_source/f_fighter/lee) & BleachVsNaruto_TagAssets",
+      "author": "5DPLAY Game Studio / respective anime IP rightsholders",
+      "license": "pending_authorization",
+      "redistributable": false,
+      "placeholder": false
+    },
+    {
+      "path": "sprites/*",
+      "source": "5DPLAY-Game-Studio/OpenBleachVsNaruto (swf_source/f_fighter/lee) & BleachVsNaruto_TagAssets",
+      "author": "5DPLAY Game Studio / respective anime IP rightsholders",
+      "license": "pending_authorization",
+      "redistributable": false,
+      "placeholder": false
+    },
+    {
+      "path": "previews/portrait.png",
+      "source": "5DPLAY-Game-Studio/OpenBleachVsNaruto (swf_source/f_fighter/lee) & BleachVsNaruto_TagAssets",
+      "author": "5DPLAY Game Studio / respective anime IP rightsholders",
+      "license": "pending_authorization",
+      "redistributable": false,
+      "placeholder": false
+    },
+    {
+      "path": "previews/splash.png",
+      "source": "5DPLAY-Game-Studio/OpenBleachVsNaruto (swf_source/f_fighter/lee) & BleachVsNaruto_TagAssets",
+      "author": "5DPLAY Game Studio / respective anime IP rightsholders",
+      "license": "pending_authorization",
+      "redistributable": false,
+      "placeholder": false
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "move_id": "skill_01",
+  "animation_id": "skill_01",
+  "startup": 6,
+  "active": 6,
+  "recovery": 8,
+  "meter_gain_on_whiff": 12,
+  "move_velocity": [
+    {
+      "frames": [
+        1,
+        11
+      ],
+      "vel": [
+        16000,
+        0
+      ]
+    }
+  ],
+  "cancel_windows": [
+    {
+      "frames": [
+        6,
+        15
+      ],
+      "into": [
+        "ultimate",
+        "awaken"
+      ]
+    }
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        6,
+        11
+      ],
+      "rect": [
+        12000,
+        -183000,
+        159000,
+        161000
+      ],
+      "hit_index": 0,
+      "damage": 112,
+      "knockback": [
+        36000,
+        -12000
+      ],
+      "hitstun": 22,
+      "blockstun": 13,
+      "hitstop": 8,
+      "air_hit": true,
+      "priority": 3,
+      "guard_type": "mid",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 45,
+      "meter_gain_on_block": 20
+    }
+  ]
+}

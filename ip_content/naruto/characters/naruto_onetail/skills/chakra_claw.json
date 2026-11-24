@@ -1,0 +1,10 @@
+{
+  "skill_id": "chakra_claw",
+  "type": "melee",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 40,
+  "move_id": "skill_01",
+  "name_zh": "九尾查克拉爪击",
+  "name_en": "Chakra Claw"
+}

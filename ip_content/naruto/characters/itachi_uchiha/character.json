@@ -1,0 +1,46 @@
+{
+  "id": "naruto.itachi_uchiha",
+  "ip_id": "naruto",
+  "name_zh": "宇智波鼬",
+  "name_en": "Uchiha Itachi",
+  "form_name_zh": "晓·万花筒",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 960,
+    "walk_speed": 4800,
+    "jump_velocity": 18800,
+    "gravity": 910,
+    "defense": 98,
+    "max_gauge": 3000,
+    "dash_speed": 11800,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/crow_feint.json",
+    "skills/clone_explosion.json",
+    "skills/amaterasu_cast.json",
+    "skills/tsukuyomi.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "幻术与火遁大师，擅长乌鸦瞬身惑敌、分身爆破防反与月读高伤终结。",
+  "victory_quote_zh": "人们都活在自己的认知束缚之中。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/itachi (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  }
+}

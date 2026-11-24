@@ -1,0 +1,10 @@
+{
+  "skill_id": "chidori_nagashi",
+  "type": "area",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 60,
+  "move_id": "skill_02",
+  "name_zh": "千鸟流雷网",
+  "name_en": "Chidori Nagashi"
+}

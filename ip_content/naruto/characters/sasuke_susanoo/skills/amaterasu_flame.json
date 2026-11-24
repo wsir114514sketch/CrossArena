@@ -1,0 +1,17 @@
+{
+  "skill_id": "amaterasu_flame",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 55,
+  "move_id": "skill_03",
+  "name_zh": "天照黑炎",
+  "name_en": "Amaterasu Flame",
+  "projectile": {
+    "effect": "effects/fireball/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

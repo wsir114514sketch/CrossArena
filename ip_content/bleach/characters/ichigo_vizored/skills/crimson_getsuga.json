@@ -1,0 +1,17 @@
+{
+  "skill_id": "crimson_getsuga",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 46,
+  "move_id": "skill_03",
+  "name_zh": "赤黑月牙天冲",
+  "name_en": "Crimson Getsuga",
+  "projectile": {
+    "effect": "effects/dark_reiatsu/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "skill_id": "vermilion_rush",
+  "type": "dash",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 55,
+  "move_id": "skill_02",
+  "name_zh": "妖狐狂暴突进",
+  "name_en": "Vermilion Rush"
+}

@@ -1,0 +1,17 @@
+{
+  "skill_id": "shakkaho",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 48,
+  "move_id": "skill_03",
+  "name_zh": "破道之三十一·赤火炮",
+  "name_en": "Shakkaho",
+  "projectile": {
+    "effect": "effects/reiatsu_wave/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

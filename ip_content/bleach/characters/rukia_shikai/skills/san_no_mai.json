@@ -1,0 +1,10 @@
+{
+  "skill_id": "san_no_mai",
+  "type": "dash",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 50,
+  "move_id": "skill_03",
+  "name_zh": "参舞·白刀贯刺",
+  "name_en": "San No Mai"
+}

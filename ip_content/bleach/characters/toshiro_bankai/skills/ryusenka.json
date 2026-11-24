@@ -1,0 +1,10 @@
+{
+  "skill_id": "ryusenka",
+  "type": "multi_hit",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 52,
+  "move_id": "skill_02",
+  "name_zh": "龙霰架碎冰刺",
+  "name_en": "Ryusenka"
+}

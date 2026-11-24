@@ -1,0 +1,10 @@
+{
+  "skill_id": "shockwave_rush",
+  "type": "dash",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 48,
+  "move_id": "skill_03",
+  "name_zh": "真·木叶刚力旋风",
+  "name_en": "Shockwave Rush"
+}

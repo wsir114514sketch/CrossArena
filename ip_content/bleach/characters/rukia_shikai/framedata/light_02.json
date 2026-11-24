@@ -1,0 +1,53 @@
+{
+  "move_id": "light_02",
+  "animation_id": "light_02",
+  "startup": 5,
+  "active": 5,
+  "recovery": 6,
+  "meter_gain_on_whiff": 12,
+  "cancel_windows": [
+    {
+      "frames": [
+        5,
+        12
+      ],
+      "into": [
+        "medium_01",
+        "heavy_01",
+        "crouch_heavy",
+        "skill",
+        "ultimate"
+      ]
+    }
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        5,
+        9
+      ],
+      "rect": [
+        12000,
+        -95000,
+        86000,
+        73000
+      ],
+      "hit_index": 0,
+      "damage": 44,
+      "knockback": [
+        22000,
+        0
+      ],
+      "hitstun": 16,
+      "blockstun": 10,
+      "hitstop": 6,
+      "air_hit": true,
+      "priority": 1,
+      "guard_type": "mid",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 45,
+      "meter_gain_on_block": 20
+    }
+  ]
+}

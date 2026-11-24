@@ -1,0 +1,23 @@
+{
+  "animation_id": "light_02",
+  "character_id": "naruto.sasuke_susanoo",
+  "animation_type": "combat",
+  "source_frames": "animations/light_02/",
+  "frame_count": 8,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

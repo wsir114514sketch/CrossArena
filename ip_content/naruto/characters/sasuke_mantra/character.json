@@ -1,0 +1,48 @@
+{
+  "id": "naruto.sasuke_mantra",
+  "ip_id": "naruto",
+  "name_zh": "宇智波佐助·咒印",
+  "name_en": "Curse Mark Sasuke",
+  "form_name_zh": "咒印状态二",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1020,
+    "walk_speed": 5100,
+    "jump_velocity": 19500,
+    "gravity": 900,
+    "defense": 100,
+    "max_gauge": 3000,
+    "dash_speed": 12200,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/habataku_chidori.json",
+    "skills/curse_wing_slash.json",
+    "skills/dragon_flame.json",
+    "skills/dark_thunder.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "完全解放天之咒印的黑雷形态，恸哭千鸟拥有霸体与强力破防压制。",
+  "victory_quote_zh": "感受这股黑暗雷霆的力量吧！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/sasuke (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "naruto.sasuke_uchiha"
+}

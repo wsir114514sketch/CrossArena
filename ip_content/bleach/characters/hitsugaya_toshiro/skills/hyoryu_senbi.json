@@ -1,0 +1,10 @@
+{
+  "skill_id": "hyoryu_senbi",
+  "type": "area",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 54,
+  "move_id": "skill_02",
+  "name_zh": "冰龙旋尾",
+  "name_en": "Hyoryu Senbi"
+}

@@ -1,0 +1,23 @@
+{
+  "animation_id": "assist_call",
+  "character_id": "naruto.tsunade_assist",
+  "animation_type": "extra",
+  "source_frames": "animations/assist_call/",
+  "frame_count": 10,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

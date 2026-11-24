@@ -1,0 +1,52 @@
+{
+  "id": "naruto.naruto_uzumaki",
+  "ip_id": "naruto",
+  "name_zh": "漩涡鸣人",
+  "name_en": "Uzumaki Naruto",
+  "form_name_zh": "常态",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1000,
+    "walk_speed": 4500,
+    "jump_velocity": 18500,
+    "gravity": 920,
+    "defense": 100,
+    "max_gauge": 3000,
+    "dash_speed": 10500,
+    "dash_ticks": 14
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/rasengan.json",
+    "skills/kage_bunshin.json",
+    "skills/shuriken_barrage.json",
+    "skills/oodama_rasengan.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "木叶隐村第七班忍者，体内封印着九尾妖狐，擅长影分身术与近身螺旋丸突进连段。",
+  "victory_quote_zh": "说到做到，这就是我的忍道！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/naruto (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "forms": [
+    "naruto.naruto_onetail",
+    "naruto.naruto_sennin",
+    "naruto.naruto_kyubi"
+  ]
+}

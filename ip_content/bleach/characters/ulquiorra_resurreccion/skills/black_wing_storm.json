@@ -1,0 +1,10 @@
+{
+  "skill_id": "black_wing_storm",
+  "type": "multi_hit",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 50,
+  "move_id": "skill_02",
+  "name_zh": "黑翼连斩风暴",
+  "name_en": "Black Wing Storm"
+}

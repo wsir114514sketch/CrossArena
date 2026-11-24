@@ -1,0 +1,47 @@
+{
+  "id": "bleach.toshiro_bankai",
+  "ip_id": "bleach",
+  "name_zh": "日番谷冬狮郎·卍解",
+  "name_en": "Daiguren Hyorinmaru Toshiro",
+  "form_name_zh": "卍解·大红莲冰轮丸",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1030,
+    "walk_speed": 5200,
+    "jump_velocity": 19600,
+    "gravity": 890,
+    "defense": 104,
+    "max_gauge": 3000,
+    "dash_speed": 12800,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/ice_wing_rush.json",
+    "skills/ryusenka.json",
+    "skills/glacial_lance.json",
+    "skills/hyoten_hyakkaso.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "身披红莲冰龙双翼的卍解形态，机动能力与冰天百花葬范围压制全面强化。",
+  "victory_quote_zh": "当冰之华全部凋零之时，便是你的终结——冰天百花葬！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/toushirou (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "bleach.hitsugaya_toshiro"
+}

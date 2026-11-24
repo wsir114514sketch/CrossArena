@@ -1,0 +1,10 @@
+{
+  "skill_id": "shukei_hakuteiken",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "终景·白帝剑",
+  "name_en": "Shukei Hakuteiken"
+}

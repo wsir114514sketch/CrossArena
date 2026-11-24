@@ -1,0 +1,10 @@
+{
+  "skill_id": "nin_hounds",
+  "type": "control",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 58,
+  "move_id": "skill_02",
+  "name_zh": "通灵·忍犬追牙",
+  "name_en": "Nin Hounds"
+}

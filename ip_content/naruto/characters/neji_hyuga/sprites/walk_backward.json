@@ -1,0 +1,110 @@
+{
+  "animation_id": "walk_backward",
+  "sheet": "walk_backward.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        90,
+        94
+      ],
+      "crop_offset": [
+        205,
+        389
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        116,
+        2,
+        90,
+        94
+      ],
+      "crop_offset": [
+        205,
+        389
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        230,
+        2,
+        90,
+        94
+      ],
+      "crop_offset": [
+        205,
+        389
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        344,
+        2,
+        86,
+        94
+      ],
+      "crop_offset": [
+        209,
+        389
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        458,
+        2,
+        98,
+        94
+      ],
+      "crop_offset": [
+        201,
+        385
+      ]
+    },
+    {
+      "frame": 5,
+      "rect": [
+        572,
+        2,
+        90,
+        90
+      ],
+      "crop_offset": [
+        205,
+        394
+      ]
+    },
+    {
+      "frame": 6,
+      "rect": [
+        2,
+        100,
+        86,
+        92
+      ],
+      "crop_offset": [
+        209,
+        392
+      ]
+    },
+    {
+      "frame": 7,
+      "rect": [
+        116,
+        100,
+        110,
+        92
+      ],
+      "crop_offset": [
+        194,
+        385
+      ]
+    }
+  ]
+}

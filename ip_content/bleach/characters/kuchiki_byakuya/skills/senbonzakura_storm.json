@@ -1,0 +1,10 @@
+{
+  "skill_id": "senbonzakura_storm",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "千本樱·无伤圈绝杀",
+  "name_en": "Senbonzakura Storm"
+}

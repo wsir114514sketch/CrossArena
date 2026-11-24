@@ -1,0 +1,50 @@
+{
+  "id": "naruto.kakashi_hatake",
+  "ip_id": "naruto",
+  "name_zh": "旗木卡卡西",
+  "name_en": "Hatake Kakashi",
+  "form_name_zh": "写轮眼常态",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 990,
+    "walk_speed": 4800,
+    "jump_velocity": 18700,
+    "gravity": 920,
+    "defense": 100,
+    "max_gauge": 3000,
+    "dash_speed": 11400,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/raikiri.json",
+    "skills/nin_hounds.json",
+    "skills/suiryudan.json",
+    "skills/lightning_wolf.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "拷贝上千种忍术的木叶精英上忍，兼具雷切高速差合惩罚与水遁牵制。",
+  "victory_quote_zh": "不珍惜同伴的人，连废物都不如。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/kakashi (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "forms": [
+    "naruto.kakashi_kamui"
+  ]
+}

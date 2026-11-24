@@ -1,0 +1,10 @@
+{
+  "skill_id": "hyoten_hyakkaso",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "大红莲冰轮丸·冰天百花葬",
+  "name_en": "Hyoten Hyakkaso"
+}

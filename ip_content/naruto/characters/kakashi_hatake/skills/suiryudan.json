@@ -1,0 +1,17 @@
+{
+  "skill_id": "suiryudan",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 54,
+  "move_id": "skill_03",
+  "name_zh": "水遁·水龙弹之术",
+  "name_en": "Suiryudan",
+  "projectile": {
+    "effect": "effects/chakra_sphere/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

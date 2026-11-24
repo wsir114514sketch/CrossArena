@@ -1,0 +1,38 @@
+{
+  "move_id": "throw",
+  "animation_id": "throw",
+  "startup": 6,
+  "active": 6,
+  "recovery": 6,
+  "meter_gain_on_whiff": 12,
+  "hitboxes": [
+    {
+      "frames": [
+        6,
+        11
+      ],
+      "rect": [
+        10000,
+        -135000,
+        78000,
+        115000
+      ],
+      "hit_index": 0,
+      "damage": 105,
+      "knockback": [
+        56000,
+        -14000
+      ],
+      "hitstun": 28,
+      "blockstun": 0,
+      "hitstop": 10,
+      "air_hit": true,
+      "priority": 4,
+      "guard_type": "throw",
+      "knockdown": true,
+      "guard_break": false,
+      "meter_gain_on_hit": 45,
+      "meter_gain_on_block": 20
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "skill_id": "sand_tsunami",
+  "type": "area",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 58,
+  "move_id": "skill_02",
+  "name_zh": "流砂瀑流",
+  "name_en": "Sand Tsunami"
+}

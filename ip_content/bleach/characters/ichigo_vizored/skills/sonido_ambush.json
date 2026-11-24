@@ -1,0 +1,10 @@
+{
+  "skill_id": "sonido_ambush",
+  "type": "dash",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 46,
+  "move_id": "skill_02",
+  "name_zh": "响转狂袭",
+  "name_en": "Sonido Ambush"
+}

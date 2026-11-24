@@ -1,0 +1,51 @@
+{
+  "id": "naruto.sasuke_uchiha",
+  "ip_id": "naruto",
+  "name_zh": "宇智波佐助",
+  "name_en": "Uchiha Sasuke",
+  "form_name_zh": "常态",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 980,
+    "walk_speed": 4900,
+    "jump_velocity": 18800,
+    "gravity": 920,
+    "defense": 98,
+    "max_gauge": 3000,
+    "dash_speed": 11600,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/chidori.json",
+    "skills/chidori_nagashi.json",
+    "skills/katon_gokakyu.json",
+    "skills/kirin.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "宇智波一族天才剑士与雷遁忍者，草薙剑立回距离极佳，千鸟与豪火球远近兼备。",
+  "victory_quote_zh": "我的写轮眼早已看穿你的全部动作。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/sasuke (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "forms": [
+    "naruto.sasuke_mantra",
+    "naruto.sasuke_susanoo"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "animation_id": "heavy_01",
+  "character_id": "naruto.gaara_kazekage",
+  "animation_type": "combat",
+  "source_frames": "animations/heavy_01/",
+  "frame_count": 10,
+  "animation_fps": 30,
+  "loop": false,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

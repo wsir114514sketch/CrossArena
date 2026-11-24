@@ -1,0 +1,10 @@
+{
+  "skill_id": "heavenly_kick",
+  "type": "multi_hit",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 45,
+  "move_id": "skill_02",
+  "name_zh": "八门乱舞踢",
+  "name_en": "Heavenly Kick"
+}

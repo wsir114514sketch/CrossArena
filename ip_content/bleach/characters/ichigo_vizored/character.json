@@ -1,0 +1,47 @@
+{
+  "id": "bleach.ichigo_vizored",
+  "ip_id": "bleach",
+  "name_zh": "黑崎一护·虚化",
+  "name_en": "Hollow Mask Ichigo",
+  "form_name_zh": "假面虚化状态",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1080,
+    "walk_speed": 5700,
+    "jump_velocity": 19800,
+    "gravity": 940,
+    "defense": 104,
+    "max_gauge": 3000,
+    "dash_speed": 14500,
+    "dash_ticks": 11
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/hollow_rend.json",
+    "skills/sonido_ambush.json",
+    "skills/crimson_getsuga.json",
+    "skills/gran_rey_getsuga.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "驾驭内虚假面力量的巅峰高速形态，兼具死神剑技与大虚灵压破坏力。",
+  "victory_quote_zh": "死神与虚的力量，此刻合二为一！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/ichigo (frame 4)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "bleach.kurosaki_ichigo"
+}

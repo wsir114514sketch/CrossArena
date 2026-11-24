@@ -1,0 +1,10 @@
+{
+  "skill_id": "senpo_rengan",
+  "type": "multi_hit",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 55,
+  "move_id": "skill_02",
+  "name_zh": "仙法·螺旋连丸",
+  "name_en": "Senpo Rengan"
+}

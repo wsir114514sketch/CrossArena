@@ -1,0 +1,47 @@
+{
+  "id": "bleach.ulquiorra_resurreccion",
+  "ip_id": "bleach",
+  "name_zh": "乌尔奇奥拉·归刃",
+  "name_en": "Murcielago Ulquiorra",
+  "form_name_zh": "归刃·黑翼大魔",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1070,
+    "walk_speed": 5500,
+    "jump_velocity": 19800,
+    "gravity": 890,
+    "defense": 106,
+    "max_gauge": 3000,
+    "dash_speed": 14000,
+    "dash_ticks": 11
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/luz_de_la_luna.json",
+    "skills/black_wing_storm.json",
+    "skills/cero_oscuras.json",
+    "skills/lanza_del_relampago.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "封锁吧黑翼大魔！兼具超速滞空突袭、黑虚闪与毁天灭地的雷霆之枪。",
+  "victory_quote_zh": "封锁吧，黑翼大魔——感受绝望的形态吧。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/ulquiorra (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "bleach.ulquiorra_cifer"
+}

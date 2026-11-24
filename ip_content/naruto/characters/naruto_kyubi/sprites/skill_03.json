@@ -1,0 +1,71 @@
+{
+  "animation_id": "skill_03",
+  "sheet": "skill_03.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        101,
+        96
+      ],
+      "crop_offset": [
+        188,
+        390
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        107,
+        2,
+        100,
+        96
+      ],
+      "crop_offset": [
+        189,
+        390
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        212,
+        2,
+        94,
+        96
+      ],
+      "crop_offset": [
+        195,
+        390
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        317,
+        2,
+        75,
+        96
+      ],
+      "crop_offset": [
+        214,
+        390
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        422,
+        2,
+        79,
+        96
+      ],
+      "crop_offset": [
+        210,
+        390
+      ]
+    }
+  ]
+}

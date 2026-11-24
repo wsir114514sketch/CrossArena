@@ -1,0 +1,10 @@
+{
+  "skill_id": "glove_combo",
+  "type": "melee",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 42,
+  "move_id": "skill_01",
+  "name_zh": "悟魂手甲疾踢",
+  "name_en": "Glove Combo"
+}

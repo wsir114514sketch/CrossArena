@@ -1,0 +1,17 @@
+{
+  "skill_id": "amaterasu_cast",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 54,
+  "move_id": "skill_03",
+  "name_zh": "万花筒·天照",
+  "name_en": "Amaterasu Cast",
+  "projectile": {
+    "effect": "effects/fireball/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

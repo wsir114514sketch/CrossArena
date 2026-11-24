@@ -1,0 +1,116 @@
+{
+  "move_id": "skill_ultimate",
+  "animation_id": "skill_ultimate",
+  "startup": 9,
+  "active": 9,
+  "recovery": 10,
+  "meter_gain_on_whiff": 0,
+  "super_freeze": {
+    "frame": 1,
+    "duration": 26
+  },
+  "move_velocity": [
+    {
+      "frames": [
+        1,
+        17
+      ],
+      "vel": [
+        10500,
+        0
+      ]
+    }
+  ],
+  "invuln_frames": [
+    [
+      0,
+      11
+    ]
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        9,
+        11
+      ],
+      "rect": [
+        -20000,
+        -185000,
+        165000,
+        175000
+      ],
+      "hit_index": 0,
+      "damage": 78,
+      "knockback": [
+        16000,
+        0
+      ],
+      "hitstun": 16,
+      "blockstun": 11,
+      "hitstop": 5,
+      "air_hit": true,
+      "priority": 5,
+      "guard_type": "mid",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 25,
+      "meter_gain_on_block": 12
+    },
+    {
+      "frames": [
+        12,
+        14
+      ],
+      "rect": [
+        -20000,
+        -185000,
+        165000,
+        175000
+      ],
+      "hit_index": 1,
+      "damage": 78,
+      "knockback": [
+        16000,
+        0
+      ],
+      "hitstun": 16,
+      "blockstun": 11,
+      "hitstop": 5,
+      "air_hit": true,
+      "priority": 5,
+      "guard_type": "mid",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 25,
+      "meter_gain_on_block": 12
+    },
+    {
+      "frames": [
+        15,
+        17
+      ],
+      "rect": [
+        -20000,
+        -185000,
+        165000,
+        175000
+      ],
+      "hit_index": 2,
+      "damage": 79,
+      "knockback": [
+        62000,
+        -17500
+      ],
+      "hitstun": 32,
+      "blockstun": 18,
+      "hitstop": 12,
+      "air_hit": true,
+      "priority": 5,
+      "guard_type": "mid",
+      "knockdown": true,
+      "guard_break": false,
+      "meter_gain_on_hit": 25,
+      "meter_gain_on_block": 12
+    }
+  ]
+}

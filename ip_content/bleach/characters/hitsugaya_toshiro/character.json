@@ -1,0 +1,50 @@
+{
+  "id": "bleach.hitsugaya_toshiro",
+  "ip_id": "bleach",
+  "name_zh": "日番谷冬狮郎",
+  "name_en": "Hitsugaya Toshiro",
+  "form_name_zh": "始解·冰轮丸",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 980,
+    "walk_speed": 4900,
+    "jump_velocity": 19000,
+    "gravity": 900,
+    "defense": 100,
+    "max_gauge": 3000,
+    "dash_speed": 11800,
+    "dash_ticks": 13
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/tensho_frost.json",
+    "skills/hyoryu_senbi.json",
+    "skills/guncho_tsurara.json",
+    "skills/sennen_hyoro.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "护廷十三队最年轻十番队队长，执掌冰雪系最强斩魄刀冰轮丸，空对地与防空压制极佳。",
+  "victory_quote_zh": "端坐于霜天吧，冰轮丸！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/toushirou (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "forms": [
+    "bleach.toshiro_bankai"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "skill_id": "bala_cero",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 46,
+  "move_id": "skill_03",
+  "name_zh": "虚弹·翠绿虚闪",
+  "name_en": "Bala Cero",
+  "projectile": {
+    "effect": "effects/dark_reiatsu/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

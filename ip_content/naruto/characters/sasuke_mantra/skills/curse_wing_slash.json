@@ -1,0 +1,10 @@
+{
+  "skill_id": "curse_wing_slash",
+  "type": "multi_hit",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 55,
+  "move_id": "skill_02",
+  "name_zh": "咒印翼连斩",
+  "name_en": "Curse Wing Slash"
+}

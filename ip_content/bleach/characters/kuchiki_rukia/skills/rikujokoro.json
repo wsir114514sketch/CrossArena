@@ -1,0 +1,10 @@
+{
+  "skill_id": "rikujokoro",
+  "type": "control",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 56,
+  "move_id": "skill_02",
+  "name_zh": "缚道之六十一·六杖光牢",
+  "name_en": "Rikujokoro"
+}

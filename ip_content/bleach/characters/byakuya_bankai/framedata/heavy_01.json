@@ -1,0 +1,63 @@
+{
+  "move_id": "heavy_01",
+  "animation_id": "heavy_01",
+  "startup": 6,
+  "active": 6,
+  "recovery": 8,
+  "meter_gain_on_whiff": 12,
+  "move_velocity": [
+    {
+      "frames": [
+        1,
+        11
+      ],
+      "vel": [
+        4500,
+        0
+      ]
+    }
+  ],
+  "cancel_windows": [
+    {
+      "frames": [
+        6,
+        15
+      ],
+      "into": [
+        "skill",
+        "ultimate",
+        "awaken"
+      ]
+    }
+  ],
+  "hitboxes": [
+    {
+      "frames": [
+        6,
+        11
+      ],
+      "rect": [
+        12000,
+        -109000,
+        80000,
+        87000
+      ],
+      "hit_index": 0,
+      "damage": 86,
+      "knockback": [
+        42000,
+        -13500
+      ],
+      "hitstun": 23,
+      "blockstun": 14,
+      "hitstop": 9,
+      "air_hit": true,
+      "priority": 3,
+      "guard_type": "mid",
+      "knockdown": false,
+      "guard_break": false,
+      "meter_gain_on_hit": 45,
+      "meter_gain_on_block": 20
+    }
+  ]
+}

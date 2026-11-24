@@ -1,0 +1,10 @@
+{
+  "skill_id": "tsukuyomi",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "幻术奥义·月读",
+  "name_en": "Tsukuyomi"
+}

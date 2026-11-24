@@ -1,0 +1,12 @@
+{
+  "skill_id": "awaken_transform",
+  "type": "awaken",
+  "input": "awaken",
+  "cost": 2000,
+  "cooldown": 0,
+  "move_id": "skill_awaken",
+  "name_zh": "万花筒·须佐能乎",
+  "name_en": "Awakening",
+  "target_form_id": "naruto.sasuke_susanoo",
+  "awaken_duration_ticks": 0
+}

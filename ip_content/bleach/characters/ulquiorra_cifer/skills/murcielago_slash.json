@@ -1,0 +1,10 @@
+{
+  "skill_id": "murcielago_slash",
+  "type": "melee",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 48,
+  "move_id": "skill_02",
+  "name_zh": "虚夜剑闪",
+  "name_en": "Murcielago Slash"
+}

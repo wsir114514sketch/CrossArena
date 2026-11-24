@@ -1,0 +1,23 @@
+{
+  "animation_id": "crouch",
+  "character_id": "naruto.neji_hyuga",
+  "animation_type": "core",
+  "source_frames": "animations/crouch/",
+  "frame_count": 4,
+  "animation_fps": 30,
+  "loop": true,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

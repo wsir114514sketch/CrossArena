@@ -1,0 +1,48 @@
+{
+  "id": "bleach.ichigo_bankai",
+  "ip_id": "bleach",
+  "name_zh": "黑崎一护·卍解",
+  "name_en": "Bankai Ichigo",
+  "form_name_zh": "卍解·天锁斩月",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1040,
+    "walk_speed": 5500,
+    "jump_velocity": 19500,
+    "gravity": 940,
+    "defense": 100,
+    "max_gauge": 3000,
+    "dash_speed": 13800,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/tensa_flurry.json",
+    "skills/flash_cross.json",
+    "skills/kuroi_getsuga.json",
+    "skills/tensa_finis.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "将全部卍解灵压压缩为超高速战力的天锁斩月形态，瞬步压制与黑月牙衔接极快。",
+  "victory_quote_zh": "卍解——天锁斩月！跟得上我的速度吗？",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/ichigo (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "bleach.kurosaki_ichigo"
+}

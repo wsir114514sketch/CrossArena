@@ -1,0 +1,10 @@
+{
+  "skill_id": "tensho_frost",
+  "type": "melee",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 44,
+  "move_id": "skill_01",
+  "name_zh": "端坐霜天·冰华斩",
+  "name_en": "Tensho Frost"
+}

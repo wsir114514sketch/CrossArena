@@ -1,0 +1,23 @@
+{
+  "animation_id": "idle",
+  "character_id": "naruto.neji_hyuga",
+  "animation_type": "core",
+  "source_frames": "animations/idle/",
+  "frame_count": 8,
+  "animation_fps": 30,
+  "loop": true,
+  "facing_mode": "flip",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "pivot": [
+    256,
+    480
+  ],
+  "ground_anchor": [
+    256,
+    480
+  ],
+  "presentation_events": []
+}

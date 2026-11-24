@@ -1,0 +1,58 @@
+{
+  "animation_id": "crouch",
+  "sheet": "crouch.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        274,
+        144
+      ],
+      "crop_offset": [
+        118,
+        336
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        280,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        558,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        836,
+        2,
+        4,
+        4
+      ],
+      "crop_offset": [
+        254,
+        476
+      ]
+    }
+  ]
+}

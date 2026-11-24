@@ -1,0 +1,17 @@
+{
+  "skill_id": "katon_gokakyu",
+  "type": "projectile",
+  "input": "skill_03",
+  "cost": 0,
+  "cooldown": 50,
+  "move_id": "skill_03",
+  "name_zh": "火遁·豪火球之术",
+  "name_en": "Katon Gokakyu",
+  "projectile": {
+    "effect": "effects/fireball/frame_000.png",
+    "speed": 11500,
+    "lifetime": 75,
+    "velocity_y": 0,
+    "projectile_gravity": 0
+  }
+}

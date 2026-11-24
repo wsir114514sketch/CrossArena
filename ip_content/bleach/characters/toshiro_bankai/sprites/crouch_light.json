@@ -1,0 +1,97 @@
+{
+  "animation_id": "crouch_light",
+  "sheet": "crouch_light.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        324,
+        182
+      ],
+      "crop_offset": [
+        106,
+        303
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        330,
+        2,
+        292,
+        184
+      ],
+      "crop_offset": [
+        113,
+        301
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        658,
+        2,
+        272,
+        186
+      ],
+      "crop_offset": [
+        113,
+        299
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        986,
+        2,
+        274,
+        176
+      ],
+      "crop_offset": [
+        113,
+        309
+      ]
+    },
+    {
+      "frame": 4,
+      "rect": [
+        1314,
+        2,
+        274,
+        176
+      ],
+      "crop_offset": [
+        113,
+        309
+      ]
+    },
+    {
+      "frame": 5,
+      "rect": [
+        1642,
+        2,
+        274,
+        176
+      ],
+      "crop_offset": [
+        113,
+        309
+      ]
+    },
+    {
+      "frame": 6,
+      "rect": [
+        2,
+        192,
+        274,
+        176
+      ],
+      "crop_offset": [
+        113,
+        309
+      ]
+    }
+  ]
+}

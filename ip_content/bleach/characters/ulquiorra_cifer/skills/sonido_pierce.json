@@ -1,0 +1,10 @@
+{
+  "skill_id": "sonido_pierce",
+  "type": "dash",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 42,
+  "move_id": "skill_01",
+  "name_zh": "超速响转贯手",
+  "name_en": "Sonido Pierce"
+}

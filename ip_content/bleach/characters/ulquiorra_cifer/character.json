@@ -1,0 +1,50 @@
+{
+  "id": "bleach.ulquiorra_cifer",
+  "ip_id": "bleach",
+  "name_zh": "乌尔奇奥拉",
+  "name_en": "Ulquiorra Cifer",
+  "form_name_zh": "第四十刃·常态",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1010,
+    "walk_speed": 5000,
+    "jump_velocity": 19000,
+    "gravity": 910,
+    "defense": 104,
+    "max_gauge": 3000,
+    "dash_speed": 12600,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/sonido_pierce.json",
+    "skills/murcielago_slash.json",
+    "skills/bala_cero.json",
+    "skills/cero_oscuras_base.json",
+    "skills/awaken_transform.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "破面十刃第四刃，冷静精准的响转突刺与翠绿虚闪令对手防不胜防。",
+  "victory_quote_zh": "看不见的东西，我从不相信其为心。",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/ulquiorra (frame 1)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "forms": [
+    "bleach.ulquiorra_resurreccion"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "entries": [
+    {
+      "path": "cover.png",
+      "source": "Composite banner derived from BleachVsNaruto_TagAssets standees",
+      "author": "5DPLAY Game Studio / respective anime IP rightsholders",
+      "license": "pending_authorization",
+      "redistributable": false
+    },
+    {
+      "path": "effects/reiatsu_wave/frame_000.png",
+      "source": "CrossArena procedural pixel VFX sprite",
+      "author": "cross-arena",
+      "license": "project-internal",
+      "redistributable": true
+    },
+    {
+      "path": "effects/dark_reiatsu/frame_000.png",
+      "source": "CrossArena procedural pixel VFX sprite",
+      "author": "cross-arena",
+      "license": "project-internal",
+      "redistributable": true
+    }
+  ]
+}

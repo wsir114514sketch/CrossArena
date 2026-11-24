@@ -1,0 +1,10 @@
+{
+  "skill_id": "senka_step",
+  "type": "dash",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 46,
+  "move_id": "skill_01",
+  "name_zh": "闪花背身斩",
+  "name_en": "Senka Step"
+}

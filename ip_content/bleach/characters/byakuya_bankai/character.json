@@ -1,0 +1,47 @@
+{
+  "id": "bleach.byakuya_bankai",
+  "ip_id": "bleach",
+  "name_zh": "朽木白哉·卍解",
+  "name_en": "Senbonzakura Kageyoshi Byakuya",
+  "form_name_zh": "卍解·千本樱景严",
+  "portrait": "previews/portrait.png",
+  "splash": "previews/splash.png",
+  "stats": {
+    "max_hp": 1060,
+    "walk_speed": 4900,
+    "jump_velocity": 18800,
+    "gravity": 910,
+    "defense": 106,
+    "max_gauge": 3000,
+    "dash_speed": 12600,
+    "dash_ticks": 12
+  },
+  "height_scale": 1.0,
+  "hurtboxes": "hurtbox_default",
+  "skills": [
+    "skills/gokei_crush.json",
+    "skills/senkei_blades.json",
+    "skills/petal_lance.json",
+    "skills/shukei_hakuteiken.json"
+  ],
+  "unsupported_core_moves": [],
+  "ai_profile": {
+    "aggression": 0.68,
+    "anti_air": 0.65,
+    "defense": 0.62,
+    "zoning": 0.55,
+    "combo_focus": 0.72,
+    "meter_usage": 0.7,
+    "assist_usage": 0.6
+  },
+  "bio": "亿万樱瓣化作攻防一体领域的卍解形态，终景·白帝剑具备毁灭级爆发。",
+  "victory_quote_zh": "卍解——千本樱景严，终景·白帝剑！",
+  "resource_metadata": {
+    "origin_repo": "https://github.com/5DPLAY-Game-Studio/OpenBleachVsNaruto",
+    "origin_pack": "swf_source/f_fighter/byakuya (frame 2)",
+    "completeness": "complete",
+    "authorization_status": "pending_authorization",
+    "sprite_scale": 2
+  },
+  "base_character_id": "bleach.kuchiki_byakuya"
+}

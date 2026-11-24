@@ -1,0 +1,10 @@
+{
+  "skill_id": "oka_sho",
+  "type": "melee",
+  "input": "skill_01",
+  "cost": 0,
+  "cooldown": 45,
+  "move_id": "skill_01",
+  "name_zh": "樱花冲碎地",
+  "name_en": "Oka Sho"
+}

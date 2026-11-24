@@ -1,0 +1,10 @@
+{
+  "skill_id": "clone_explosion",
+  "type": "area",
+  "input": "skill_02",
+  "cost": 0,
+  "cooldown": 56,
+  "move_id": "skill_02",
+  "name_zh": "分身大爆破",
+  "name_en": "Clone Explosion"
+}

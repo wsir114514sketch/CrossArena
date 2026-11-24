@@ -1,0 +1,10 @@
+{
+  "skill_id": "sixty_four_palms",
+  "type": "ultimate",
+  "input": "skill_ultimate",
+  "cost": 1000,
+  "cooldown": 0,
+  "move_id": "skill_ultimate",
+  "name_zh": "柔拳法·八卦六十四掌",
+  "name_en": "Sixty Four Palms"
+}
