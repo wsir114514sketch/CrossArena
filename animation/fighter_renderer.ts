@@ -31,7 +31,7 @@ export class SpriteAssetCache {
     img.onerror = () => {
       this.failed.add(url);
     };
-    img.src = url;
+    img.src = url.includes("?") ? url : `${url}?v=2`;
     this.images.set(url, img);
     return null;
   }

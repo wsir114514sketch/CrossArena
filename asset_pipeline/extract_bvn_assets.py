@@ -109,6 +109,56 @@ def decode_xfl_bitmap(data: bytes) -> Image.Image:
         return Image.open(io.BytesIO(raw_jpg)).convert("RGBA")
 
     magic = data[:2]
+    if magic == b"\x03\x03":
+        row_bytes, w, h = struct.unpack_from("<HHH", data, 2)
+        if w <= 0 or h <= 0:
+            return Image.new("RGBA", (4, 4), (0, 0, 0, 0))
+        # 8-bit indexed ARGB palette format (row_bytes == padded 1-byte-per-pixel stride)
+        if row_bytes < w * 4:
+            has_alpha = data[24] != 0
+            n_colors = struct.unpack_from("<H", data, 25)[0]
+            if n_colors <= 0 or n_colors > 256:
+                n_colors = 256
+            pal_start = 27
+            pal_end = pal_start + n_colors * 4
+            palette_rgba: list[tuple[int, int, int, int]] = []
+            for i in range(n_colors):
+                po = pal_start + i * 4
+                if po + 4 > len(data):
+                    palette_rgba.append((0, 0, 0, 0))
+                    continue
+                pa = data[po] if has_alpha else 255
+                pr = data[po + 1]
+                pg = data[po + 2]
+                pb = data[po + 3]
+                if pa == 0:
+                    palette_rgba.append((0, 0, 0, 0))
+                else:
+                    if pa < 255:
+                        pr = min(255, (pr * 255 + (pa >> 1)) // pa)
+                        pg = min(255, (pg * 255 + (pa >> 1)) // pa)
+                        pb = min(255, (pb * 255 + (pa >> 1)) // pa)
+                    palette_rgba.append((pr, pg, pb, pa))
+            raw = _decompress_xfl_zlib(data, offsets=(pal_end + 1, pal_end, pal_end + 2))
+            rgba = bytearray(w * h * 4)
+            n_pal = len(palette_rgba)
+            for y in range(h):
+                row_off = y * row_bytes
+                out_off = y * w * 4
+                if row_off + w > len(raw):
+                    break
+                for x in range(w):
+                    idx = raw[row_off + x]
+                    if idx < n_pal:
+                        pr, pg, pb, pa = palette_rgba[idx]
+                        if pa > 0:
+                            rgba[out_off] = pr
+                            rgba[out_off + 1] = pg
+                            rgba[out_off + 2] = pb
+                            rgba[out_off + 3] = pa
+                    out_off += 4
+            return Image.frombytes("RGBA", (w, h), bytes(rgba))
+
     if magic in (b"\x03\x05", b"\x03\x03", b"\x03\x04"):
         row_bytes, w, h = struct.unpack_from("<HHH", data, 2)
         if w <= 0 or h <= 0:
@@ -146,9 +196,9 @@ def decode_xfl_bitmap(data: bytes) -> Image.Image:
         return Image.new("RGBA", (4, 4), (0, 0, 0, 0))
 
 
-def _decompress_xfl_zlib(data: bytes) -> bytes:
-    # Try chunk-prefixed zlib at offset 26 or 25 (standard Flash XFL .dat)
-    for start in (26, 25, 24, 22):
+def _decompress_xfl_zlib(data: bytes, offsets: tuple[int, ...] = (26, 25, 24, 22)) -> bytes:
+    # Try chunk-prefixed zlib at candidate offsets (standard Flash XFL .dat)
+    for start in offsets:
         if start >= len(data):
             continue
         # Direct zlib stream

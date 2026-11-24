@@ -3,7 +3,7 @@
   "character_id": "naruto.rock_lee",
   "animation_type": "presentation",
   "source_frames": "animations/defeat/",
-  "frame_count": 2,
+  "frame_count": 4,
   "animation_fps": 30,
   "loop": false,
   "facing_mode": "flip",
