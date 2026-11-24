@@ -113,7 +113,7 @@ def decode_xfl_bitmap(data: bytes) -> Image.Image:
         row_bytes, w, h = struct.unpack_from("<HHH", data, 2)
         if w <= 0 or h <= 0:
             return Image.new("RGBA", (4, 4), (0, 0, 0, 0))
-        # 8-bit indexed ARGB palette format (row_bytes == padded 1-byte-per-pixel stride)
+        # 8-bit indexed ARGB palette format: header(24) + has_alpha(1) + n_colors_u16(2) + palette(n*4) + comp_flag(1) + payload
         if row_bytes < w * 4:
             has_alpha = data[24] != 0
             n_colors = struct.unpack_from("<H", data, 25)[0]
@@ -121,6 +121,11 @@ def decode_xfl_bitmap(data: bytes) -> Image.Image:
                 n_colors = 256
             pal_start = 27
             pal_end = pal_start + n_colors * 4
+            comp_flag = data[pal_end] if pal_end < len(data) else 1
+            if comp_flag == 0:
+                raw = data[pal_end + 1 : pal_end + 1 + row_bytes * h]
+            else:
+                raw = _decompress_xfl_zlib(data, offsets=(pal_end + 1, pal_end, pal_end + 2))
             palette_rgba: list[tuple[int, int, int, int]] = []
             for i in range(n_colors):
                 po = pal_start + i * 4
@@ -139,7 +144,6 @@ def decode_xfl_bitmap(data: bytes) -> Image.Image:
                         pg = min(255, (pg * 255 + (pa >> 1)) // pa)
                         pb = min(255, (pb * 255 + (pa >> 1)) // pa)
                     palette_rgba.append((pr, pg, pb, pa))
-            raw = _decompress_xfl_zlib(data, offsets=(pal_end + 1, pal_end, pal_end + 2))
             rgba = bytearray(w * h * 4)
             n_pal = len(palette_rgba)
             for y in range(h):
@@ -163,7 +167,11 @@ def decode_xfl_bitmap(data: bytes) -> Image.Image:
         row_bytes, w, h = struct.unpack_from("<HHH", data, 2)
         if w <= 0 or h <= 0:
             return Image.new("RGBA", (4, 4), (0, 0, 0, 0))
-        raw = _decompress_xfl_zlib(data)
+        comp_flag32 = data[25] if len(data) > 25 else 1
+        if comp_flag32 == 0:
+            raw = data[26 : 26 + row_bytes * h]
+        else:
+            raw = _decompress_xfl_zlib(data)
         has_alpha = magic != b"\x03\x03"
         rgba = bytearray(w * h * 4)
         for y in range(h):
@@ -444,7 +452,18 @@ class XflPackage:
             elems = fr.find("xfl:elements", NS)
             if elems is None:
                 continue
-            for child in list(elems):
+
+            def _iter_visual_nodes(container: ET.Element):
+                for el in list(container):
+                    t = el.tag.split("}")[-1]
+                    if t == "DOMGroup":
+                        mem = el.find("xfl:members", NS)
+                        if mem is not None:
+                            yield from _iter_visual_nodes(mem)
+                    else:
+                        yield el
+
+            for child in _iter_visual_nodes(elems):
                 tag = child.tag.split("}")[-1]
                 if tag == "DOMBitmapInstance":
                     bname = child.attrib.get("libraryItemName", "")
@@ -2073,7 +2092,17 @@ def extract_assist_bundle(
         raise RuntimeError(f"Missing root timeline in assist {xfl_pack}")
 
     total_len = _timeline_length(tl)
-    f_indices = sample_indices(1, max(6, min(total_len - 1, 75)), 10)
+    start_f = 1
+    for probe_f in range(1, min(15, total_len)):
+        has_elem = any(
+            (_find_frame_at(lyr, probe_f) is not None and len(_find_frame_at(lyr, probe_f).findall(".//xfl:DOMSymbolInstance", NS)) + len(_find_frame_at(lyr, probe_f).findall(".//xfl:DOMBitmapInstance", NS)) > 0)  # type: ignore[union-attr]
+            for lyr in tl.findall("xfl:layers/xfl:DOMLayer", NS)
+            if not any(k in lyr.attrib.get("name", "") for k in IGNORED_LAYER_KEYWORDS)
+        )
+        if has_elem:
+            start_f = probe_f
+            break
+    f_indices = sample_indices(start_f, max(6, min(total_len - start_f, 75)), 10)
     pkg.prefetch_dependencies(tl, [(min(f_indices), max(f_indices))])
 
     origin_x, origin_y = measure_stage_foot_origin(pkg, tl, f_indices[0])
