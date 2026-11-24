@@ -11,6 +11,7 @@
       "can_normal_attack": true,
       "can_skill": true,
       "can_throw": true,
+      "can_assist": true,
       "invulnerable": false
     },
     "WALK_FORWARD": {
@@ -24,6 +25,7 @@
       "can_normal_attack": true,
       "can_skill": true,
       "can_throw": true,
+      "can_assist": true,
       "invulnerable": false
     },
     "WALK_BACKWARD": {
@@ -37,9 +39,24 @@
       "can_normal_attack": true,
       "can_skill": true,
       "can_throw": true,
+      "can_assist": true,
       "invulnerable": false
     },
     "DASH": {
+      "airborne": false,
+      "locks_facing": true,
+      "can_walk": false,
+      "can_crouch": false,
+      "can_jump": true,
+      "can_dash": false,
+      "can_block": false,
+      "can_normal_attack": true,
+      "can_skill": true,
+      "can_throw": true,
+      "can_assist": true,
+      "invulnerable": false
+    },
+    "BACKDASH": {
       "airborne": false,
       "locks_facing": true,
       "can_walk": false,
@@ -50,19 +67,21 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
-      "invulnerable": false
+      "can_assist": false,
+      "invulnerable": true
     },
     "CROUCH": {
       "airborne": false,
       "locks_facing": false,
-      "can_walk": true,
+      "can_walk": false,
       "can_crouch": true,
       "can_jump": true,
-      "can_dash": true,
+      "can_dash": false,
       "can_block": true,
       "can_normal_attack": true,
       "can_skill": true,
-      "can_throw": true,
+      "can_throw": false,
+      "can_assist": true,
       "invulnerable": false
     },
     "JUMP": {
@@ -71,11 +90,12 @@
       "can_walk": false,
       "can_crouch": false,
       "can_jump": false,
-      "can_dash": false,
+      "can_dash": true,
       "can_block": false,
       "can_normal_attack": true,
       "can_skill": true,
       "can_throw": false,
+      "can_assist": true,
       "invulnerable": false
     },
     "ATTACKING": {
@@ -89,6 +109,7 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
+      "can_assist": true,
       "invulnerable": false
     },
     "BLOCKING": {
@@ -102,6 +123,35 @@
       "can_normal_attack": true,
       "can_skill": true,
       "can_throw": false,
+      "can_assist": true,
+      "invulnerable": false
+    },
+    "STAND_BLOCK": {
+      "airborne": false,
+      "locks_facing": false,
+      "can_walk": false,
+      "can_crouch": true,
+      "can_jump": true,
+      "can_dash": false,
+      "can_block": true,
+      "can_normal_attack": true,
+      "can_skill": true,
+      "can_throw": false,
+      "can_assist": true,
+      "invulnerable": false
+    },
+    "CROUCH_BLOCK": {
+      "airborne": false,
+      "locks_facing": false,
+      "can_walk": false,
+      "can_crouch": true,
+      "can_jump": true,
+      "can_dash": false,
+      "can_block": true,
+      "can_normal_attack": true,
+      "can_skill": true,
+      "can_throw": false,
+      "can_assist": true,
       "invulnerable": false
     },
     "HITSTUN": {
@@ -115,9 +165,38 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
+      "can_assist": false,
+      "invulnerable": false
+    },
+    "AIR_HITSTUN": {
+      "airborne": true,
+      "locks_facing": true,
+      "can_walk": false,
+      "can_crouch": false,
+      "can_jump": false,
+      "can_dash": false,
+      "can_block": false,
+      "can_normal_attack": false,
+      "can_skill": false,
+      "can_throw": false,
+      "can_assist": false,
       "invulnerable": false
     },
     "BLOCKSTUN": {
+      "airborne": false,
+      "locks_facing": true,
+      "can_walk": false,
+      "can_crouch": false,
+      "can_jump": false,
+      "can_dash": false,
+      "can_block": true,
+      "can_normal_attack": false,
+      "can_skill": false,
+      "can_throw": false,
+      "can_assist": false,
+      "invulnerable": false
+    },
+    "GUARD_BREAK": {
       "airborne": false,
       "locks_facing": true,
       "can_walk": false,
@@ -128,6 +207,7 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
+      "can_assist": false,
       "invulnerable": false
     },
     "KNOCKDOWN": {
@@ -141,6 +221,7 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
+      "can_assist": false,
       "invulnerable": true
     },
     "WAKEUP": {
@@ -154,7 +235,8 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
-      "invulnerable": false
+      "can_assist": false,
+      "invulnerable": true
     },
     "THROWING": {
       "airborne": false,
@@ -167,7 +249,22 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
+      "can_assist": false,
       "invulnerable": false
+    },
+    "THROWN": {
+      "airborne": false,
+      "locks_facing": true,
+      "can_walk": false,
+      "can_crouch": false,
+      "can_jump": false,
+      "can_dash": false,
+      "can_block": false,
+      "can_normal_attack": false,
+      "can_skill": false,
+      "can_throw": false,
+      "can_assist": false,
+      "invulnerable": true
     },
     "SKILL": {
       "airborne": false,
@@ -180,6 +277,7 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
+      "can_assist": true,
       "invulnerable": false
     },
     "ULTIMATE": {
@@ -193,7 +291,36 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
+      "can_assist": false,
       "invulnerable": false
+    },
+    "AWAKENING": {
+      "airborne": false,
+      "locks_facing": true,
+      "can_walk": false,
+      "can_crouch": false,
+      "can_jump": false,
+      "can_dash": false,
+      "can_block": false,
+      "can_normal_attack": false,
+      "can_skill": false,
+      "can_throw": false,
+      "can_assist": false,
+      "invulnerable": true
+    },
+    "VICTORY": {
+      "airborne": false,
+      "locks_facing": true,
+      "can_walk": false,
+      "can_crouch": false,
+      "can_jump": false,
+      "can_dash": false,
+      "can_block": false,
+      "can_normal_attack": false,
+      "can_skill": false,
+      "can_throw": false,
+      "can_assist": false,
+      "invulnerable": true
     },
     "DEAD": {
       "airborne": false,
@@ -206,6 +333,7 @@
       "can_normal_attack": false,
       "can_skill": false,
       "can_throw": false,
+      "can_assist": false,
       "invulnerable": true
     }
   }

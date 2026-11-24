@@ -4,6 +4,8 @@
 Enforces:
 - Spec part 1 section 9.5 & part 2 section 8 data/asset rules
 - Formalized decisions D1-D13 (see docs/decisions.md and docs/data_schema.md)
+- Dual-IP extensions: character forms/variants, awakening skills, assist packs,
+  roster manifests, and public-release authorization checks.
 
 Standard library only.
 
@@ -12,6 +14,7 @@ Usage:
   python asset_pipeline/validate.py --ip test_pack
   python asset_pipeline/validate.py --character test_pack.dummy_a
   python asset_pipeline/validate.py --skip-assets        # data only, ignore rendered files
+  python asset_pipeline/validate.py --public-release-check
 
 Exit code: 0 = no errors (warnings allowed), 1 = errors found, 2 = bad usage.
 A per-character report is written to <character>/metadata/check_report.md
@@ -44,8 +47,11 @@ ATTACK_MOVES = {"light_01", "light_02", "medium_01", "heavy_01", "air_attack", "
 SKILL_MOVES = set(CORE_MOVES["skill"])
 ANIMATION_TYPES = {"core", "combat", "skill", "presentation", "extra"}
 SKILL_TYPES = {"melee", "projectile", "area", "dash", "control", "guard",
-               "invuln", "multi_hit", "ultimate"}
-CANCEL_KEYWORDS = {"skill", "ultimate"}
+               "invuln", "multi_hit", "ultimate", "awaken"}
+CANCEL_KEYWORDS = {"skill", "ultimate", "awaken"}
+GUARD_TYPES = {"mid", "low", "overhead", "unblockable", "throw"}
+COMPLETENESS_STATUSES = {"complete", "partial", "placeholder", "missing", "pending_adapt"}
+AUTH_STATUSES = {"authorized", "internal_placeholder", "pending_authorization"}
 PRESENTATION_EVENT_TYPES = {"sfx", "vfx", "voice", "camera_shake", "flash"}
 FACING_MODES = {"flip", "dual"}
 IP_STATUSES = {"open", "locked"}
@@ -55,21 +61,23 @@ PUSHBOX_STATES = ("stand", "crouch", "air", "down")
 
 CORE_CODE_DIRS = frozenset({
     "core", "combat", "fighter", "hit_system", "skill_system",
-    "combo_system", "animation", "ai_system", "network", "ui",
+    "combo_system", "animation", "ai_system", "network", "ui", "src",
 })
 # Decision D11: scan all engine/project files outside excluded non-engine top-level folders.
 EXCLUDED_TOP_DIRS = frozenset({
     "ip_content", "tests", "asset_pipeline", "addons", "docs",
-    ".venv", ".cache", ".git", ".godot", "build",
+    ".venv", ".cache", ".git", ".godot", "build", "node_modules", "dist",
 })
 EXCLUDED_ROOT_FILES = frozenset({
     "tools.local.json", "tools.local.example.json", ".gutconfig.json",
+    "package.json", "package-lock.json", "tsconfig.json", "vite.config.ts",
 })
 CORE_SCAN_EXTS = frozenset({
+    ".ts", ".tsx", ".js", ".mjs", ".html", ".css",
     ".gd", ".tscn", ".tres", ".gdshader", ".godot", ".cfg", ".json", ".cs", ".py",
 })
 
-CHAR_ASSET_DIRS = ["blender", "model", "textures", "animations", "sprites", "previews"]
+CHAR_ASSET_DIRS = ["blender", "model", "textures", "animations", "sprites", "previews", "sounds", "effects"]
 IP_ASSET_DIRS = ["stages", "effects", "audio"]
 GENERATED_ASSET_DIRS = frozenset({"animations", "sprites"})
 METADATA_RESERVED = {"sources.json"}
@@ -86,12 +94,14 @@ for _k in ("damage", "knockback", "hitstun", "blockstun", "hitstop", "block_hits
            "hitboxes", "cancel_windows", "invuln_frames", "armor_frames",
            "startup", "active", "recovery", "projectile_spawn", "hurtbox_override",
            "combat_events", "super_freeze", "meter_gain_on_hit",
-           "meter_gain_on_block", "meter_gain_on_whiff"):
+           "meter_gain_on_block", "meter_gain_on_whiff",
+           "guard_type", "knockdown", "guard_break", "chip_damage", "move_velocity"):
     KEY_OWNERS[_k] = "framedata"
-for _k in ("cooldown", "cost", "projectile_gravity"):
+for _k in ("cooldown", "cost", "projectile_gravity", "target_form_id", "awaken_duration_ticks"):
     KEY_OWNERS[_k] = "skill"
 for _k in ("stats", "max_hp", "walk_speed", "jump_velocity", "defense", "gravity",
-           "max_gauge", "gauge_gain_on_hurt_pct", "gauge_gain_on_block_pct"):
+           "max_gauge", "gauge_gain_on_hurt_pct", "gauge_gain_on_block_pct",
+           "dash_speed", "dash_ticks", "backdash_speed", "backdash_ticks"):
     KEY_OWNERS[_k] = "fighter"
 
 # Keys legitimately shared by a fixed subset of file kinds and forbidden elsewhere (D8).
@@ -265,9 +275,31 @@ def check_names(base: Path, rep: Report) -> None:
             rep.error("NAME_INVALID", p, f"name '{p.name}' must be lowercase ASCII [a-z0-9_.]")
 
 
+def check_resource_metadata(rm, rep: Report, path: Path, public_release_check: bool) -> None:
+    if rm is None:
+        return
+    if not isinstance(rm, dict):
+        rep.error("FIELD_INVALID", path, "resource_metadata must be an object")
+        return
+    if "completeness" in rm and rm["completeness"] not in COMPLETENESS_STATUSES:
+        rep.error("FIELD_INVALID", path,
+                  f"resource_metadata.completeness must be one of {sorted(COMPLETENESS_STATUSES)}")
+    if "authorization_status" in rm:
+        auth = rm["authorization_status"]
+        if auth not in AUTH_STATUSES:
+            rep.error("FIELD_INVALID", path,
+                      f"resource_metadata.authorization_status must be one of {sorted(AUTH_STATUSES)}")
+        elif public_release_check and auth == "pending_authorization":
+            rep.error("NON_REDISTRIBUTABLE_ASSET", path,
+                      "entity has authorization_status='pending_authorization' and cannot be included in a public release")
+    if "sprite_scale" in rm and not (is_int(rm["sprite_scale"]) and rm["sprite_scale"] > 0):
+        rep.error("FIELD_INVALID", path, "resource_metadata.sprite_scale must be an integer > 0")
+
+
 def check_sources(owner_dir: Path, sources_path: Path, asset_dirs: list[str],
                   rep: Report, required: bool, skip_assets: bool,
-                  extra_files: list[Path] | None = None) -> None:
+                  extra_files: list[Path] | None = None,
+                  public_release_check: bool = False) -> None:
     files = sorted({*(extra_files or []), *(f for d in asset_dirs for f in list_files(owner_dir / d))})
     if not sources_path.is_file():
         if required or files:
@@ -294,6 +326,9 @@ def check_sources(owner_dir: Path, sources_path: Path, asset_dirs: list[str],
         if not isinstance(e.get("redistributable"), bool):
             rep.error("FIELD_MISSING", sources_path, f"{where}.redistributable must be true/false")
             ok = False
+        elif public_release_check and e["redistributable"] is False:
+            rep.error("NON_REDISTRIBUTABLE_ASSET", sources_path,
+                      f"{where} ('{e.get('path')}') has redistributable=false and is blocked from public release")
         if "placeholder" in e and not isinstance(e["placeholder"], bool):
             rep.error("FIELD_INVALID", sources_path, f"{where}.placeholder must be true/false")
             ok = False
@@ -415,9 +450,14 @@ def check_hit(hit: dict, what: str, rep: Report, path: Path) -> None:
     for key in ("damage", "hitstun", "blockstun", "hitstop", "priority"):
         if not (is_int(hit.get(key)) and hit[key] >= 0):
             rep.error("FIELD_INVALID", path, f"{what}.{key} must be an integer >= 0")
-    for opt_key in ("block_hitstop", "meter_gain_on_hit", "meter_gain_on_block"):
+    for opt_key in ("block_hitstop", "meter_gain_on_hit", "meter_gain_on_block", "chip_damage"):
         if opt_key in hit and not (is_int(hit[opt_key]) and hit[opt_key] >= 0):
             rep.error("FIELD_INVALID", path, f"{what}.{opt_key} must be an integer >= 0")
+    if "guard_type" in hit and hit["guard_type"] not in GUARD_TYPES:
+        rep.error("FIELD_INVALID", path, f"{what}.guard_type must be one of {sorted(GUARD_TYPES)}")
+    for bkey in ("knockdown", "guard_break"):
+        if bkey in hit and not isinstance(hit[bkey], bool):
+            rep.error("FIELD_INVALID", path, f"{what}.{bkey} must be true/false")
     kb = hit.get("knockback")
     if not (isinstance(kb, list) and len(kb) == 2 and all(is_int(x) for x in kb)):
         rep.error("FIELD_INVALID", path, f"{what}.knockback must be [x, y] integers")
@@ -464,6 +504,20 @@ def validate_framedata(path: Path, anims: dict, move_ids: set, rep: Report):
                 rep.error("FRAME_RANGE_OUT_OF_BOUNDS", path, f"super_freeze.frame {fr!r} outside 0..{total - 1}")
             if not (is_int(dur) and dur > 0):
                 rep.error("FIELD_INVALID", path, "super_freeze.duration must be an integer > 0")
+    if "move_velocity" in d:
+        mv_list = d["move_velocity"]
+        if not isinstance(mv_list, list):
+            rep.error("FIELD_INVALID", path, "move_velocity must be a list")
+        else:
+            for i, mv in enumerate(mv_list):
+                what = f"move_velocity[{i}]"
+                if not isinstance(mv, dict):
+                    rep.error("FIELD_INVALID", path, f"{what} must be an object")
+                    continue
+                check_range(mv.get("frames"), total, what, rep, path)
+                vel = mv.get("vel")
+                if not (isinstance(vel, list) and len(vel) == 2 and all(is_int(x) for x in vel)):
+                    rep.error("FIELD_INVALID", path, f"{what}.vel must be [vx, vy] integers")
     active_lo, active_hi = s, s + a - 1
     for i, hb in enumerate(d.get("hitboxes", [])):
         what = f"hitboxes[{i}]"
@@ -593,6 +647,14 @@ def validate_skill(path: Path, framedata: dict, rep: Report, ip_dir: Path, skip_
         if isinstance(fd, dict) and not fd.get("projectile_spawn"):
             rep.error("PROJECTILE_SPAWN_MISSING", path,
                       f"projectile skill but framedata/{mid}.json has no projectile_spawn")
+    elif stype == "awaken":
+        tf = require(d, "target_form_id", lambda v: isinstance(v, str) and bool(CHAR_ID_RE.match(v)), rep, path)
+        if tf is not None:
+            t_ip, t_char = tf.split(".", 1)
+            if t_ip == ip_dir.name and not (ip_dir / "characters" / t_char / "character.json").is_file():
+                rep.error("FORM_TARGET_MISSING", path, f"target_form_id '{tf}' does not exist in IP '{ip_dir.name}'")
+        if "awaken_duration_ticks" in d and not (is_int(d["awaken_duration_ticks"]) and d["awaken_duration_ticks"] >= 0):
+            rep.error("FIELD_INVALID", path, "awaken_duration_ticks must be an integer >= 0")
     return d
 
 
@@ -616,9 +678,10 @@ def validate_combat_config(path: Path, rep: Report) -> None:
     require(d, "min_damage_scaling_pct", lambda v: is_int(v) and 1 <= v <= 100, rep, path)
 
 
-# ---------------------------------------------------------------- character / IP
+# ---------------------------------------------------------------- character / assist / IP
 
-def validate_character(char_dir: Path, ip_id: str, ip_dir: Path, rep: Report, skip_assets: bool) -> dict | None:
+def validate_character(char_dir: Path, ip_id: str, ip_dir: Path, rep: Report,
+                       skip_assets: bool, public_release_check: bool = False) -> dict | None:
     path = char_dir / "character.json"
     d = load_json(path, rep)
     if not isinstance(d, dict):
@@ -641,8 +704,9 @@ def validate_character(char_dir: Path, ip_id: str, ip_dir: Path, rep: Report, sk
                 rep.error("FIELD_INVALID", path, f"stats.{key} must be an integer > 0")
         if not (is_int(stats.get("defense")) and stats["defense"] >= 0):
             rep.error("FIELD_INVALID", path, "stats.defense must be an integer >= 0")
-        if "max_gauge" in stats and not (is_int(stats["max_gauge"]) and stats["max_gauge"] > 0):
-            rep.error("FIELD_INVALID", path, "stats.max_gauge must be an integer > 0")
+        for opt_pos in ("max_gauge", "dash_speed", "dash_ticks", "backdash_speed", "backdash_ticks"):
+            if opt_pos in stats and not (is_int(stats[opt_pos]) and stats[opt_pos] > 0):
+                rep.error("FIELD_INVALID", path, f"stats.{opt_pos} must be an integer > 0")
         for gkey in ("gauge_gain_on_hurt_pct", "gauge_gain_on_block_pct"):
             if gkey in stats and not (is_int(stats[gkey]) and stats[gkey] >= 0):
                 rep.error("FIELD_INVALID", path, f"stats.{gkey} must be an integer >= 0")
@@ -650,6 +714,28 @@ def validate_character(char_dir: Path, ip_id: str, ip_dir: Path, rep: Report, sk
     ai = d.get("ai_profile", {})
     if not isinstance(ai, dict) or not all(is_num(v) and 0 <= v <= 1 for v in ai.values()):
         rep.error("FIELD_INVALID", path, "ai_profile values must be numbers in [0, 1]")
+
+    # Optional form / variant fields
+    if "base_character_id" in d:
+        bcid = d["base_character_id"]
+        if not (isinstance(bcid, str) and CHAR_ID_RE.match(bcid)):
+            rep.error("FIELD_INVALID", path, "base_character_id must match '<ip>.<char>'")
+    if "forms" in d:
+        forms = d["forms"]
+        if not (isinstance(forms, list) and all(isinstance(x, str) and CHAR_ID_RE.match(x) for x in forms)):
+            rep.error("FIELD_INVALID", path, "forms must be a list of '<ip>.<char>' character ids")
+        else:
+            for fid in forms:
+                f_ip, f_short = fid.split(".", 1)
+                if f_ip == ip_id and not (ip_dir / "characters" / f_short / "character.json").is_file():
+                    rep.error("FORM_TARGET_MISSING", path, f"listed form '{fid}' does not exist")
+    if "selectable_in_menu" in d and not isinstance(d["selectable_in_menu"], bool):
+        rep.error("FIELD_INVALID", path, "selectable_in_menu must be true/false")
+    for opt_str in ("form_name_zh", "form_name_en", "archetype"):
+        if opt_str in d and not isinstance(d[opt_str], str):
+            rep.error("FIELD_INVALID", path, f"{opt_str} must be a string")
+    check_resource_metadata(d.get("resource_metadata"), rep, path, public_release_check)
+
     unsupported = require(d, "unsupported_core_moves",
                           lambda v: isinstance(v, list) and all(isinstance(x, str) for x in v), rep, path) or []
     for m in unsupported:
@@ -729,13 +815,89 @@ def validate_character(char_dir: Path, ip_id: str, ip_dir: Path, rep: Report, sk
             rep.warn("SKILL_MOVE_UNUSED", path, f"'{move}' exists but no listed skill uses it")
 
     check_sources(char_dir, meta_dir / "sources.json", CHAR_ASSET_DIRS, rep, required=True,
-                  skip_assets=skip_assets)
+                  skip_assets=skip_assets, public_release_check=public_release_check)
     return d
 
 
-def validate_ip(ip_dir: Path, rep: Report, skip_assets: bool, only_char: str | None = None) -> dict:
-    """Returns {'ip': ip_json or None, 'characters': {id: character_json}}."""
-    out = {"ip": None, "characters": {}}
+def validate_assist(assist_dir: Path, ip_id: str, rep: Report,
+                    skip_assets: bool, public_release_check: bool = False) -> dict | None:
+    """Validate an assist-only pack under ip_content/<ip>/assists/<assist>/."""
+    path = assist_dir / "assist.json"
+    d = load_json(path, rep)
+    if not isinstance(d, dict):
+        return None
+    check_key_ownership(d, "assist", rep, path)
+    expected_id = f"{ip_id}.{assist_dir.name}"
+    aid = require(d, "id", lambda v: isinstance(v, str) and bool(CHAR_ID_RE.match(v)), rep, path)
+    if aid is not None and aid != expected_id:
+        rep.error("ID_MISMATCH", path, f"id '{aid}' must be '{expected_id}'")
+    ipf = require(d, "ip_id", str, rep, path)
+    if ipf is not None and ipf != ip_id:
+        rep.error("ID_MISMATCH", path, f"ip_id '{ipf}' must be '{ip_id}'")
+    for key in ("name_zh", "name_en", "portrait"):
+        require(d, key, lambda v: isinstance(v, str) and v != "", rep, path)
+    require(d, "cooldown_ticks", lambda v: is_int(v) and v > 0, rep, path)
+    spawn = require(d, "spawn_offset",
+                    lambda v: isinstance(v, list) and len(v) == 2 and all(is_int(x) for x in v),
+                    rep, path)
+    _ = spawn
+    mid = require(d, "move_id", lambda v: isinstance(v, str) and v != "", rep, path)
+    check_resource_metadata(d.get("resource_metadata"), rep, path, public_release_check)
+    if not skip_assets and isinstance(d.get("portrait"), str):
+        if not (assist_dir / d["portrait"]).is_file():
+            rep.error("ASSET_MISSING", path, f"portrait '{d['portrait']}' not found")
+
+    anims: dict[str, dict] = {}
+    canvas_ref: list = []
+    meta_dir = assist_dir / "metadata"
+    for mp in sorted(meta_dir.glob("*.json")) if meta_dir.is_dir() else []:
+        if mp.name in METADATA_RESERVED:
+            continue
+        info = validate_animation(mp, expected_id, canvas_ref, rep, assist_dir, skip_assets)
+        if info is not None:
+            anims[mp.stem] = info
+
+    fd_dir = assist_dir / "framedata"
+    fd_files = [p for p in sorted(fd_dir.glob("*.json"))] if fd_dir.is_dir() else []
+    move_ids = {p.stem for p in fd_files if p.name not in FRAMEDATA_RESERVED}
+    framedata: dict[str, dict] = {}
+    for fp in fd_files:
+        if fp.name in FRAMEDATA_RESERVED:
+            continue
+        fdd = validate_framedata(fp, anims, move_ids, rep)
+        if fdd is not None:
+            framedata[fp.stem] = fdd
+
+    if mid is not None and mid not in framedata:
+        rep.error("FRAMEDATA_MISSING", path, f"assist move_id '{mid}' has no framedata/{mid}.json")
+
+    check_sources(assist_dir, meta_dir / "sources.json", CHAR_ASSET_DIRS, rep, required=True,
+                  skip_assets=skip_assets, public_release_check=public_release_check)
+    return d
+
+
+def validate_roster_manifest(path: Path, ip_id: str, rep: Report) -> None:
+    if not path.is_file():
+        return
+    d = load_json(path, rep)
+    if not isinstance(d, dict):
+        return
+    check_key_ownership(d, "roster_manifest", rep, path)
+    mid = require(d, "ip_id", str, rep, path)
+    if mid is not None and mid != ip_id:
+        rep.error("ID_MISMATCH", path, f"ip_id '{mid}' must equal '{ip_id}'")
+    for key in ("playable_characters", "assist_characters"):
+        arr = require(d, key, list, rep, path)
+        if isinstance(arr, list):
+            for i, item in enumerate(arr):
+                if not isinstance(item, dict) or not isinstance(item.get("id"), str):
+                    rep.error("FIELD_INVALID", path, f"{key}[{i}] must be an object with string 'id'")
+
+
+def validate_ip(ip_dir: Path, rep: Report, skip_assets: bool,
+                only_char: str | None = None, public_release_check: bool = False) -> dict:
+    """Returns {'ip': ip_json or None, 'characters': {id: character_json}, 'assists': {id: assist_json}}."""
+    out = {"ip": None, "characters": {}, "assists": {}}
     path = ip_dir / "ip.json"
     check_names(ip_dir, rep)
     d = load_json(path, rep)
@@ -758,9 +920,20 @@ def validate_ip(ip_dir: Path, rep: Report, skip_assets: bool, only_char: str | N
         cid = f"{ip_dir.name}.{cdir.name}"
         if only_char is not None and cid != only_char:
             continue
-        cd = validate_character(cdir, ip_dir.name, ip_dir, rep, skip_assets)
+        cd = validate_character(cdir, ip_dir.name, ip_dir, rep, skip_assets, public_release_check)
         if cd is not None:
             out["characters"][cid] = cd
+
+    if only_char is None:
+        assists_dir = ip_dir / "assists"
+        assist_dirs = sorted(p for p in assists_dir.iterdir() if p.is_dir()) if assists_dir.is_dir() else []
+        for adir in assist_dirs:
+            aid = f"{ip_dir.name}.{adir.name}"
+            ad = validate_assist(adir, ip_dir.name, rep, skip_assets, public_release_check)
+            if ad is not None:
+                out["assists"][aid] = ad
+        validate_roster_manifest(ip_dir / "roster_manifest.json", ip_dir.name, rep)
+
     if isinstance(d, dict) and only_char is None:
         all_ids = {f"{ip_dir.name}.{c.name}" for c in char_dirs}
         feat = d.get("featured_characters")
@@ -775,11 +948,12 @@ def validate_ip(ip_dir: Path, rep: Report, skip_assets: bool, only_char: str | N
     ip_root_assets = [
         p for p in sorted(ip_dir.iterdir())
         if p.is_file()
-        and p.name not in {"ip.json", "sources.json"}
+        and p.name not in {"ip.json", "sources.json", "roster_manifest.json"}
         and p.suffix.lower() not in {".md", ".import", ".uid"}
     ]
     check_sources(ip_dir, ip_dir / "sources.json", IP_ASSET_DIRS, rep, required=False,
-                  skip_assets=skip_assets, extra_files=ip_root_assets)
+                  skip_assets=skip_assets, extra_files=ip_root_assets,
+                  public_release_check=public_release_check)
     return out
 
 
@@ -946,7 +1120,7 @@ def check_core_code(root: Path, rep: Report) -> None:
 # ---------------------------------------------------------------- entry points
 
 def validate_project(root: Path = PROJECT_ROOT, *, ip: str | None = None, character: str | None = None,
-                     skip_assets: bool = False) -> Report:
+                     skip_assets: bool = False, public_release_check: bool = False) -> Report:
     rep = Report(root=root)
     ip_root = root / "ip_content"
     if character is not None:
@@ -960,7 +1134,8 @@ def validate_project(root: Path = PROJECT_ROOT, *, ip: str | None = None, charac
             if not ip_dirs:
                 rep.error("FILE_MISSING", ip_root / ip, f"IP '{ip}' not found")
         for ip_dir in ip_dirs:
-            res = validate_ip(ip_dir, rep, skip_assets, only_char=character)
+            res = validate_ip(ip_dir, rep, skip_assets, only_char=character,
+                              public_release_check=public_release_check)
             if character is not None and character not in res["characters"] \
                     and not (ip_dir / "characters" / character.split(".", 1)[1]).is_dir():
                 rep.error("FILE_MISSING", ip_dir / "characters", f"character '{character}' not found")
@@ -1015,13 +1190,17 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--ip", help="IP id, e.g. arknights")
     g.add_argument("--all", action="store_true", help="validate everything (default)")
     ap.add_argument("--skip-assets", action="store_true", help="only check data, not rendered files")
+    ap.add_argument("--public-release-check", action="store_true",
+                    help="fail if any asset has redistributable=false or pending_authorization")
     ap.add_argument("--no-report", action="store_true", help="do not write metadata/check_report.md")
     ap.add_argument("--root", type=Path, default=PROJECT_ROOT, help=argparse.SUPPRESS)
     args = ap.parse_args(argv)
     if args.character and not CHAR_ID_RE.match(args.character):
         ap.error("--character must look like ip.name")
 
-    rep = validate_project(args.root, ip=args.ip, character=args.character, skip_assets=args.skip_assets)
+    rep = validate_project(args.root, ip=args.ip, character=args.character,
+                           skip_assets=args.skip_assets,
+                           public_release_check=args.public_release_check)
     if not args.no_report:
         write_character_reports(rep, args.root, ip=args.ip, character=args.character)
     for line in format_issues(rep.issues):

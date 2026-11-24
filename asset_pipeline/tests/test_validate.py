@@ -553,6 +553,157 @@ class CoreIsolationD11Tests(unittest.TestCase):
         self.assertFlagged(rep, "main.gd")
         self.assertFlagged(rep, "data_loader/registry.gd")
 
+    def test_catches_leaks_in_typescript_core_files(self):
+        (self.t.root / "core" / "sim.ts").write_text(
+            'export const BAD = "sample_ip.amiya";\n', encoding="utf-8"
+        )
+        rep = self.t.run()
+        self.assertFlagged(rep, "core/sim.ts")
+
+
+class DualIPExtensionTests(unittest.TestCase):
+    def setUp(self):
+        self.t = TempProject()
+        self.t.clone_char_as("sample_ip", "amiya", "阿米娅", "Amiya")
+
+    def tearDown(self):
+        self.t.close()
+
+    def test_forms_awakening_assist_and_public_release_guard(self):
+        # Create awakened form character + awaken skill + assist pack
+        self.t.clone_char_as("sample_ip", "amiya_awaken", "阿米娅·升变", "Amiya Awaken")
+        form_cj = self.t.root / "ip_content/sample_ip/characters/amiya_awaken/character.json"
+        fd = json.loads(form_cj.read_text(encoding="utf-8"))
+        fd["base_character_id"] = "sample_ip.amiya"
+        fd["form_name_zh"] = "升变形态"
+        fd["resource_metadata"] = {
+            "origin_repo": "test",
+            "completeness": "complete",
+            "authorization_status": "pending_authorization",
+            "sprite_scale": 2,
+        }
+        form_cj.write_text(json.dumps(fd, indent=2), encoding="utf-8")
+
+        # Mark base character forms[] and add an awaken skill + move_velocity + guard_type
+        base_dir = self.t.root / "ip_content/sample_ip/characters/amiya"
+        bcj = base_dir / "character.json"
+        bd = json.loads(bcj.read_text(encoding="utf-8"))
+        bd["forms"] = ["sample_ip.amiya_awaken"]
+        bd["skills"].append("skills/awaken.json")
+        bcj.write_text(json.dumps(bd, indent=2), encoding="utf-8")
+
+        (base_dir / "metadata/skill_awaken.json").write_text(json.dumps({
+            "animation_id": "skill_awaken",
+            "character_id": "sample_ip.amiya",
+            "animation_type": "extra",
+            "source_frames": "animations/skill_awaken/",
+            "frame_count": 10,
+            "animation_fps": 30,
+            "loop": False,
+            "facing_mode": "flip",
+            "canvas_size": [512, 512],
+            "pivot": [256, 480],
+            "ground_anchor": [256, 480],
+        }), encoding="utf-8")
+        (base_dir / "framedata/skill_awaken.json").write_text(json.dumps({
+            "move_id": "skill_awaken",
+            "animation_id": "skill_awaken",
+            "startup": 4,
+            "active": 4,
+            "recovery": 12,
+            "move_velocity": [{"frames": [0, 3], "vel": [2000, 0]}],
+            "hitboxes": [{
+                "frames": [4, 7],
+                "rect": [-60000, -160000, 120000, 160000],
+                "damage": 40,
+                "knockback": [12000, -8000],
+                "hitstun": 20,
+                "blockstun": 12,
+                "hitstop": 8,
+                "air_hit": True,
+                "priority": 3,
+                "guard_type": "overhead",
+                "knockdown": True,
+                "guard_break": True,
+                "chip_damage": 5,
+            }],
+        }), encoding="utf-8")
+        (base_dir / "skills").mkdir(parents=True, exist_ok=True)
+        (base_dir / "skills/awaken.json").write_text(json.dumps({
+            "skill_id": "awaken",
+            "type": "awaken",
+            "input": "awaken",
+            "cost": 1000,
+            "cooldown": 0,
+            "move_id": "skill_awaken",
+            "target_form_id": "sample_ip.amiya_awaken",
+            "awaken_duration_ticks": 900,
+        }), encoding="utf-8")
+
+        # Add assist pack
+        adir = self.t.root / "ip_content/sample_ip/assists/kaltsit"
+        (adir / "metadata").mkdir(parents=True)
+        (adir / "framedata").mkdir(parents=True)
+        (adir / "assist.json").write_text(json.dumps({
+            "id": "sample_ip.kaltsit",
+            "ip_id": "sample_ip",
+            "name_zh": "凯尔希",
+            "name_en": "Kaltsit",
+            "portrait": "previews/portrait.png",
+            "cooldown_ticks": 720,
+            "spawn_offset": [90000, 0],
+            "move_id": "assist_call",
+        }), encoding="utf-8")
+        (adir / "metadata/assist_call.json").write_text(json.dumps({
+            "animation_id": "assist_call",
+            "character_id": "sample_ip.kaltsit",
+            "animation_type": "extra",
+            "source_frames": "animations/assist_call/",
+            "frame_count": 8,
+            "animation_fps": 30,
+            "loop": False,
+            "facing_mode": "flip",
+            "canvas_size": [512, 512],
+            "pivot": [256, 480],
+            "ground_anchor": [256, 480],
+        }), encoding="utf-8")
+        (adir / "framedata/assist_call.json").write_text(json.dumps({
+            "move_id": "assist_call",
+            "animation_id": "assist_call",
+            "startup": 6,
+            "active": 4,
+            "recovery": 6,
+            "hitboxes": [{
+                "frames": [6, 9],
+                "rect": [10000, -120000, 90000, 80000],
+                "damage": 60,
+                "knockback": [8000, 0],
+                "hitstun": 18,
+                "blockstun": 12,
+                "hitstop": 6,
+                "air_hit": True,
+                "priority": 2,
+            }],
+        }), encoding="utf-8")
+        (adir / "metadata/sources.json").write_text(json.dumps({
+            "entries": [{
+                "path": "*",
+                "source": "test",
+                "author": "test",
+                "license": "pending_authorization",
+                "redistributable": False,
+                "placeholder": True,
+            }]
+        }), encoding="utf-8")
+
+        # Normal validation passes cleanly
+        rep_local = validate.validate_project(self.t.root, skip_assets=True, public_release_check=False)
+        self.assertEqual(rep_local.errors, [], rep_local.issues)
+
+        # Public release check catches both pending_authorization and redistributable=False
+        rep_pub = validate.validate_project(self.t.root, skip_assets=True, public_release_check=True)
+        self.assertIn("NON_REDISTRIBUTABLE_ASSET", rep_pub.codes("error"))
+
 
 if __name__ == "__main__":
     unittest.main()

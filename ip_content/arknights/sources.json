@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "path": "cover.png",
+      "source": "programmatic locked-IP placeholder cover",
+      "author": "cross-arena",
+      "license": "project-internal",
+      "redistributable": true,
+      "placeholder": true
+    }
+  ]
+}

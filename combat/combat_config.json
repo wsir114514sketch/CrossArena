@@ -1,9 +1,9 @@
 {
-  "stage_half_width": 520000,
+  "stage_half_width": 560000,
   "corner_pushback_permille": 1000,
   "input_buffer_frames": 6,
   "motion_input_window_frames": 15,
-  "juggle_max_hits": 3,
+  "juggle_max_hits": 4,
   "same_move_combo_limit": 3,
   "damage_scaling_pct": [100, 90, 80, 70, 60, 50, 40],
   "min_damage_scaling_pct": 30,
@@ -13,5 +13,13 @@
   "ko_ticks": 90,
   "round_end_ticks": 60,
   "p1_start_x": -220000,
-  "p2_start_x": 220000
+  "p2_start_x": 220000,
+  "default_gauge_cap": 3000,
+  "gauge_per_stock": 1000,
+  "guard_gauge_max": 1000,
+  "guard_regen_per_tick": 2,
+  "guard_break_stun_ticks": 54,
+  "throw_range_x": 82000,
+  "throw_tech_window_frames": 7,
+  "assist_cooldown_default_ticks": 720
 }

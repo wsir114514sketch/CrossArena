@@ -1,0 +1,20 @@
+{
+  "name": "cross-arena",
+  "version": "2.0.0",
+  "private": true,
+  "description": "CrossArena: Cross-IP Compact 2D Arcade Fighting Game Engine",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5179",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5180",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  }
+}

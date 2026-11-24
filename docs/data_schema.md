@@ -58,6 +58,10 @@
 | `hurtboxes` | `string` | 是 | 对应 `framedata/hurtboxes.json` 中的配置键名（如 `"hurtbox_default"`） |
 | `skills` | `string[]` | 是 | 相对角色目录的技能文件路径列表（如 `"skills/energy_bolt.json"`） |
 | `unsupported_core_moves` | `string[]` | 是 | 未实现的统一核心动作名列表（仅允许填 25 个核心动作清单内的名字） |
+| `base_character_id` | `string` | 否 | 派生/觉醒形态指向基础角色完整 ID（如 `"<ip>.<base_char>"`），选人界面据此聚合同一角色的多形态 |
+| `forms` | `string[]` | 否 | 基础角色拥有的可选/觉醒形态完整 ID 列表（每项须在同一 IP `characters/` 下存在） |
+| `form_name_zh` / `form_name_en` | `string` | 否 | 形态显示名（如 `"常态"` / `"仙人模式"` / `"卍解"`） |
+| `resource_metadata` | `object` | 否 | 资源溯源与完整度摘要（`origin_repo`、`completeness`、`authorization_status`、`sprite_scale` 等） |
 | `ai_profile` | `object` | 否 | 各项键值均为 `[0, 1]` 区间内的数值 |
 | `bio` | `string` | 否 | 角色简介 |
 
@@ -103,6 +107,7 @@
 | `hurtbox_override` | `object[]` | 否 | 按帧覆盖受击框：`{"frames": [a, b], "rects": [[x, y, w, h], ...]}` |
 | `projectile_spawn` | `ProjectileSpawn[]` | 否 | 投射物生成事件列表：`{"frame": int, "offset": [ox, oy], "rect": [x, y, w, h], "hit": HitSpec}` |
 | `super_freeze` | `object` | 否 | 必杀技定格：`{"frame": int, "duration": int}`（`0 <= frame < total`, `duration > 0`） |
+| `move_velocity` | `object[]` | 否 | 招式位移速度区间列表：`{"frames": [a, b], "vel": [vx, vy]}`（模拟单位/帧，`vx` 随朝向翻转） |
 | `meter_gain_on_whiff` | `int` | 否 | `>= 0`，招式挥空固定回能值 |
 
 #### `HitSpec` / `Hitbox` 字段（用于 `hitboxes[]` 与 `projectile_spawn[].hit`）
@@ -120,6 +125,10 @@
 | `block_hitstop` | `int` | 否 | `>= 0`，被防御时的冻结帧数；省略时运行时取 `hitstop` |
 | `air_hit` | `bool` | 是 | 是否允许命中空中目标 |
 | `priority` | `int` | 是 | `>= 0`，同帧互打判定优先级（相同则互打 Trade） |
+| `guard_type` | `string` | 否 | `"mid"`（默认，站防蹲防皆可）\| `"overhead"`（中段，破蹲防）\| `"low"`（下段，破站防）\| `"unblockable"` \| `"throw"` |
+| `knockdown` | `bool` | 否 | 命中后是否直接强制击倒 |
+| `guard_break` | `bool` | 否 | 防御命中时是否直接触发破防硬直 |
+| `chip_damage` | `int` | 否 | `>= 0`，被防御时的磨血伤害 |
 | `meter_gain_on_hit` | `int` | 否 | `>= 0`，命中回能值 |
 | `meter_gain_on_block` | `int` | 否 | `>= 0`，被防御回能值 |
 
@@ -149,12 +158,39 @@
 | 字段 | 类型 | 必填 | 约束与说明 |
 |---|---|---|---|
 | `skill_id` | `string` | 是 | 必须等于文件名 `<skill>` |
-| `type` | `string` | 是 | `melee` \| `projectile` \| `area` \| `dash` \| `control` \| `guard` \| `invuln` \| `multi_hit` \| `ultimate` |
-| `input` | `string` | 是 | 非空输入标识或指令串（如 `"skill_01"`、`"236_skill"`） |
+| `type` | `string` | 是 | `melee` \| `projectile` \| `area` \| `dash` \| `control` \| `guard` \| `invuln` \| `multi_hit` \| `ultimate` \| `awaken` |
+| `input` | `string` | 是 | 非空输入标识或指令串（如 `"skill_01"`、`"236_skill"`、`"awaken"`） |
 | `cost` | `int` | 是 | `>= 0`，能量消耗 |
 | `cooldown` | `int` | 是 | `>= 0`，冷却模拟帧数 |
 | `move_id` | `string` | 是 | 对应本角色 `framedata/<move_id>.json` |
+| `name_zh` / `name_en` | `string` | 否 | 技能显示名称（用于角色详情、出招表与必杀横幅） |
+| `target_form_id` | `string` | 条件 | `type == "awaken"` 时必填，指向觉醒后切换的目标形态角色 ID（`"<ip>.<form>"`） |
+| `awaken_duration_ticks` | `int` | 否 | `>= 0`，觉醒持续帧数（`0` 或省略表示本局持续至回合结束） |
 | `projectile` | `object` | 条件 | `type == "projectile"` 时必填，含 `effect`（相对 IP 目录路径）、`speed`（`int`）、`lifetime`（`int > 0`），可选 `velocity_y`（`int`）与 `projectile_gravity`（`int >= 0`）；同时对应 `FrameData` 必须含非空 `projectile_spawn` |
+
+---
+
+### 2.6b `ip_content/<ip>/assists/<assist>/assist.json`（AssistDefinition）
+
+紧凑擂台独立援助角色配置（角色无身体挤压盒，不可在受击硬直中呼叫）：
+
+| 字段 | 类型 | 必填 | 约束与说明 |
+|---|---|---|---|
+| `id` | `string` | 是 | 必须等于 `"<ip>.<assist>"` |
+| `ip_id` | `string` | 是 | 必须等于 `"<ip>"` |
+| `name_zh` / `name_en` | `string` | 是 | 非空显示名 |
+| `portrait` | `string` | 是 | 相对援助目录的头像路径（如 `"previews/portrait.png"`） |
+| `cooldown_ticks` | `int` | 是 | `> 0`，援助召唤冷却模拟帧数（默认 `720` = 12 秒） |
+| `spawn_offset` | `[int, int]` | 是 | 相对主控角色的登场偏移模拟坐标 `[ox, oy]` |
+| `move_id` | `string` | 是 | 对应本援助目录 `framedata/<move_id>.json` 与 `metadata/<move_id>.json` |
+| `skill_name_zh` | `string` | 否 | 援助招式名 |
+| `projectile` | `object` | 否 | 若援助发射独立飞行道具，结构同 `SkillDefinition.projectile` |
+
+---
+
+### 2.6c `ip_content/<ip>/roster_manifest.json`（全量角色与资源盘点数据库）
+
+每个正式 IP 目录提供 `roster_manifest.json`，完整登记原版可用角色、形态、觉醒形态与援助角色的来源、动画完备度与授权状态（`entries[]` 每项至少含 `id`、`name_zh`、`ip_id`、`category` [`playable` \| `form` \| `awakening_form` \| `assist`]、`completeness`、`authorization_status`）。
 
 ---
 
