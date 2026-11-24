@@ -25,8 +25,14 @@ class TempProject:
     def __init__(self):
         self._tmp = tempfile.TemporaryDirectory()
         self.root = Path(self._tmp.name)
-        shutil.copytree(PACK, self.root / "ip_content" / "test_pack",
-                        ignore=shutil.ignore_patterns("check_report.md"))
+        shutil.copytree(
+            PACK,
+            self.root / "ip_content" / "test_pack",
+            ignore=shutil.ignore_patterns(
+                "check_report.md", "*.import", "*.uid",
+                "animations", "sprites", "previews", "effects", "cover.png",
+            ),
+        )
         for d in ("core", "combat", "fighter", "hit_system", "ui", "animation"):
             (self.root / d).mkdir(exist_ok=True)
 
@@ -83,6 +89,11 @@ class TempProject:
 class RealProjectTests(unittest.TestCase):
     def test_repository_content_has_no_errors_or_warnings(self):
         rep = validate.validate_project(PROJECT, skip_assets=True)
+        self.assertEqual([], [f"{i.code} {i.path} {i.message}" for i in rep.errors])
+        self.assertEqual([], [f"{i.code} {i.path} {i.message}" for i in rep.warnings])
+
+    def test_repository_test_pack_full_assets_pass(self):
+        rep = validate.validate_project(PROJECT, ip="test_pack", skip_assets=False)
         self.assertEqual([], [f"{i.code} {i.path} {i.message}" for i in rep.errors])
         self.assertEqual([], [f"{i.code} {i.path} {i.message}" for i in rep.warnings])
 

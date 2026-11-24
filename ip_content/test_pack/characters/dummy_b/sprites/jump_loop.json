@@ -1,0 +1,58 @@
+{
+  "animation_id": "jump_loop",
+  "sheet": "jump_loop.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        81,
+        174
+      ],
+      "crop_offset": [
+        223,
+        288
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        87,
+        2,
+        81,
+        177
+      ],
+      "crop_offset": [
+        223,
+        288
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        172,
+        2,
+        81,
+        174
+      ],
+      "crop_offset": [
+        223,
+        288
+      ]
+    },
+    {
+      "frame": 3,
+      "rect": [
+        257,
+        2,
+        81,
+        171
+      ],
+      "crop_offset": [
+        223,
+        288
+      ]
+    }
+  ]
+}

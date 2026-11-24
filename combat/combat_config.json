@@ -1,0 +1,17 @@
+{
+  "stage_half_width": 520000,
+  "corner_pushback_permille": 1000,
+  "input_buffer_frames": 6,
+  "motion_input_window_frames": 15,
+  "juggle_max_hits": 3,
+  "same_move_combo_limit": 3,
+  "damage_scaling_pct": [100, 90, 80, 70, 60, 50, 40],
+  "min_damage_scaling_pct": 30,
+  "round_time_seconds": 99,
+  "rounds_to_win": 2,
+  "intro_ticks": 60,
+  "ko_ticks": 90,
+  "round_end_ticks": 60,
+  "p1_start_x": -220000,
+  "p2_start_x": 220000
+}

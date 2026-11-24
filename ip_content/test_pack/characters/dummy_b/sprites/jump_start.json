@@ -1,0 +1,45 @@
+{
+  "animation_id": "jump_start",
+  "sheet": "jump_start.png",
+  "frames": [
+    {
+      "frame": 0,
+      "rect": [
+        2,
+        2,
+        75,
+        159
+      ],
+      "crop_offset": [
+        225,
+        326
+      ]
+    },
+    {
+      "frame": 1,
+      "rect": [
+        81,
+        2,
+        75,
+        159
+      ],
+      "crop_offset": [
+        225,
+        326
+      ]
+    },
+    {
+      "frame": 2,
+      "rect": [
+        160,
+        2,
+        75,
+        159
+      ],
+      "crop_offset": [
+        225,
+        326
+      ]
+    }
+  ]
+}

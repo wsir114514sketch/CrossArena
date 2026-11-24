@@ -252,7 +252,10 @@ def check_key_ownership(obj, kind: str, rep: Report, path: Path, trail: str = ""
 def list_files(base: Path) -> list[Path]:
     if not base.is_dir():
         return []
-    return sorted(p for p in base.rglob("*") if p.is_file())
+    return sorted(
+        p for p in base.rglob("*")
+        if p.is_file() and p.suffix.lower() not in {".import", ".uid"}
+    )
 
 
 def check_names(base: Path, rep: Report) -> None:
@@ -386,6 +389,8 @@ def check_frames(frames_dir: Path, expected: int, rep: Report, meta_path: Path) 
         return
     idx = []
     for f in frames_dir.iterdir():
+        if f.suffix.lower() in {".import", ".uid"}:
+            continue
         m = FRAME_RE.match(f.name)
         if m:
             idx.append(int(m.group(1)))
@@ -769,7 +774,9 @@ def validate_ip(ip_dir: Path, rep: Report, skip_assets: bool, only_char: str | N
             rep.warn("IP_OPEN_EMPTY", path, "IP is open but has no characters")
     ip_root_assets = [
         p for p in sorted(ip_dir.iterdir())
-        if p.is_file() and p.name not in {"ip.json", "sources.json"} and p.suffix.lower() != ".md"
+        if p.is_file()
+        and p.name not in {"ip.json", "sources.json"}
+        and p.suffix.lower() not in {".md", ".import", ".uid"}
     ]
     check_sources(ip_dir, ip_dir / "sources.json", IP_ASSET_DIRS, rep, required=False,
                   skip_assets=skip_assets, extra_files=ip_root_assets)

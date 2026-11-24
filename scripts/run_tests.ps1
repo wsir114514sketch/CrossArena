@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Run all Cross Arena checks: git root guard, Python tool tests, content validation, GUT.
+  Run all Cross Arena checks: git root guard, Python tool tests, content & asset validation, GUT.
   Tool paths come from tools.local.json (gitignored). System PATH is not used or modified.
 #>
 $ErrorActionPreference = "Stop"
@@ -18,11 +18,15 @@ Write-Host "== Python unit tests"
 & $py -m unittest discover -s (Join-Path $root "asset_pipeline\tests")
 if ($LASTEXITCODE -ne 0) { $fail++ }
 
-Write-Host "== Content validation (data only)"
+Write-Host "== Whole-project data & core-isolation validation"
 & $py (Join-Path $root "asset_pipeline\validate.py") --skip-assets
 if ($LASTEXITCODE -ne 0) { $fail++ }
 
-Write-Host "== GUT"
+Write-Host "== Full asset & frame sequence validation (test_pack)"
+& $py (Join-Path $root "asset_pipeline\validate.py") --ip test_pack
+if ($LASTEXITCODE -ne 0) { $fail++ }
+
+Write-Host "== GUT (unit + combat mechanics + deterministic replay)"
 & $cfg.godot_console --headless --path $root --import | Out-Null
 & $cfg.godot_console --headless --path $root -s res://addons/gut/gut_cmdln.gd
 if ($LASTEXITCODE -ne 0) { $fail++ }
