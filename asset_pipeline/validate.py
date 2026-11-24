@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""Cross Arena content validator (spec part 1 section 9.5, part 2 section 8).
+"""Cross Arena content & architecture validator.
 
-Checks IP content packs under ip_content/ and the core code directories.
+Enforces:
+- Spec part 1 section 9.5 & part 2 section 8 data/asset rules
+- Formalized decisions D1-D13 (see docs/decisions.md and docs/data_schema.md)
+
 Standard library only.
 
 Usage:
@@ -13,9 +16,6 @@ Usage:
 Exit code: 0 = no errors (warnings allowed), 1 = errors found, 2 = bad usage.
 A per-character report is written to <character>/metadata/check_report.md
 unless --no-report is given.
-
-Image-level checks (alpha corners, edge contact, ground anchor drift) belong
-to the render pipeline and are added in checkpoint 2.
 """
 from __future__ import annotations
 
@@ -50,13 +50,28 @@ PRESENTATION_EVENT_TYPES = {"sfx", "vfx", "voice", "camera_shake", "flash"}
 FACING_MODES = {"flip", "dual"}
 IP_STATUSES = {"open", "locked"}
 HURTBOX_STATES = ("stand", "crouch", "air", "down")
-PUSHBOX_STATES = ("stand", "crouch", "air")
+# Decision D6: pushbox requires all 4 states including 'down' to prevent wakeup overlap jitter.
+PUSHBOX_STATES = ("stand", "crouch", "air", "down")
 
-CORE_CODE_DIRS = ["core", "combat", "fighter", "hit_system", "skill_system",
-                  "combo_system", "animation", "ai_system", "network", "ui"]
-CODE_EXTS = {".gd", ".tscn", ".tres", ".gdshader", ".cfg", ".json", ".py", ".cs", ".md"}
+CORE_CODE_DIRS = frozenset({
+    "core", "combat", "fighter", "hit_system", "skill_system",
+    "combo_system", "animation", "ai_system", "network", "ui",
+})
+# Decision D11: scan all engine/project files outside excluded non-engine top-level folders.
+EXCLUDED_TOP_DIRS = frozenset({
+    "ip_content", "tests", "asset_pipeline", "addons", "docs",
+    ".venv", ".cache", ".git", ".godot", "build",
+})
+EXCLUDED_ROOT_FILES = frozenset({
+    "tools.local.json", "tools.local.example.json", ".gutconfig.json",
+})
+CORE_SCAN_EXTS = frozenset({
+    ".gd", ".tscn", ".tres", ".gdshader", ".godot", ".cfg", ".json", ".cs", ".py",
+})
+
 CHAR_ASSET_DIRS = ["blender", "model", "textures", "animations", "sprites", "previews"]
 IP_ASSET_DIRS = ["stages", "effects", "audio"]
+GENERATED_ASSET_DIRS = frozenset({"animations", "sprites"})
 METADATA_RESERVED = {"sources.json"}
 FRAMEDATA_RESERVED = {"hurtboxes.json"}
 
@@ -65,17 +80,45 @@ CHAR_ID_RE = re.compile(r"^[a-z0-9_]+\.[a-z0-9_]+$")
 NAME_RE = re.compile(r"^[a-z0-9_]+(\.[a-z0-9_]+)*$")
 FRAME_RE = re.compile(r"^frame_(\d{3})\.png$")
 
-# Single-owner rule (part 1 section 9.2): each key may only appear in files of
-# its owner kind. Any other kind containing it (at any depth) is an error.
+# Decision D8: single-owner rule (part 1 section 9.2).
 KEY_OWNERS: dict[str, str] = {}
-for _k in ("damage", "knockback", "hitstun", "blockstun", "hitstop", "hitboxes",
-           "cancel_windows", "invuln_frames", "armor_frames", "startup", "active",
-           "recovery", "projectile_spawn", "hurtbox_override", "combat_events"):
+for _k in ("damage", "knockback", "hitstun", "blockstun", "hitstop", "block_hitstop",
+           "hitboxes", "cancel_windows", "invuln_frames", "armor_frames",
+           "startup", "active", "recovery", "projectile_spawn", "hurtbox_override",
+           "combat_events", "super_freeze", "meter_gain_on_hit",
+           "meter_gain_on_block", "meter_gain_on_whiff"):
     KEY_OWNERS[_k] = "framedata"
-for _k in ("cooldown", "cost"):
+for _k in ("cooldown", "cost", "projectile_gravity"):
     KEY_OWNERS[_k] = "skill"
-for _k in ("stats", "max_hp", "walk_speed", "jump_velocity", "defense"):
+for _k in ("stats", "max_hp", "walk_speed", "jump_velocity", "defense", "gravity",
+           "max_gauge", "gauge_gain_on_hurt_pct", "gauge_gain_on_block_pct"):
     KEY_OWNERS[_k] = "fighter"
+
+# Keys legitimately shared by a fixed subset of file kinds and forbidden elsewhere (D8).
+MULTI_KEY_OWNERS: dict[str, frozenset[str]] = {
+    "animation_id": frozenset({"animation", "framedata"}),
+}
+
+# Decision D11: standard engine, color, geometry, and combat terms that may collide with
+# short English character codenames (e.g. "Red" vs Color.RED, "Ash" vs ash_fade, "Spot" vs spot).
+ENGINE_COLLISION_WORDS: frozenset[str] = frozenset({
+    # Colors & visual terms
+    "red", "blue", "green", "white", "black", "gray", "grey", "cyan",
+    "pink", "gold", "silver", "orange", "yellow", "purple", "violet",
+    "brown", "indigo", "crimson", "scarlet", "amber", "ivory", "azure",
+    "ash", "frost", "blaze", "flame", "spark", "flash", "shadow", "glow",
+    "haze", "mist", "snow", "rain", "wind", "storm", "cloud", "smoke",
+    # Geometry, combat & engine identifiers
+    "spot", "point", "line", "rect", "box", "edge", "grid", "node", "root",
+    "light", "medium", "heavy", "block", "guard", "shield", "armor",
+    "dash", "rush", "jump", "walk", "idle", "hit", "throw", "slash",
+    "pierce", "strike", "impact", "charge", "burst", "pulse", "wave",
+    "rock", "stone", "iron", "steel", "sand", "dust", "ice", "fire",
+    "fang", "claw", "wing", "horn", "tail", "plume", "thorn", "leaf",
+    "dawn", "dusk", "night", "noon", "star", "moon", "sun", "sky", "void",
+    "zero", "one", "ace", "king", "queen", "jack", "ghost", "phantom",
+    "silence", "peace", "hope", "rope", "bena", "iris", "april", "may", "june",
+})
 
 
 # ---------------------------------------------------------------- reporting
@@ -188,14 +231,18 @@ def check_rect(rect, what: str, rep: Report, path: Path) -> bool:
 def check_key_ownership(obj, kind: str, rep: Report, path: Path, trail: str = "") -> None:
     if isinstance(obj, dict):
         for k, v in obj.items():
-            owner = KEY_OWNERS.get(k)
             here = f"{trail}.{k}" if trail else k
+            owner = KEY_OWNERS.get(k)
             if owner is not None and owner != kind:
                 if k == "combat_events":
                     msg = "combat_events are not allowed in animation data; move them to FrameData"
                 else:
                     msg = f"key '{here}' belongs to {owner} data only (single-owner rule)"
                 rep.error("DUPLICATE_OWNERSHIP", path, msg)
+            allowed_kinds = MULTI_KEY_OWNERS.get(k)
+            if allowed_kinds is not None and kind not in allowed_kinds:
+                rep.error("DUPLICATE_OWNERSHIP", path,
+                          f"key '{here}' belongs to {sorted(allowed_kinds)} data only (single-owner rule)")
             check_key_ownership(v, kind, rep, path, here)
     elif isinstance(obj, list):
         for i, v in enumerate(obj):
@@ -216,8 +263,9 @@ def check_names(base: Path, rep: Report) -> None:
 
 
 def check_sources(owner_dir: Path, sources_path: Path, asset_dirs: list[str],
-                  rep: Report, required: bool, skip_assets: bool) -> None:
-    files = [f for d in asset_dirs for f in list_files(owner_dir / d)]
+                  rep: Report, required: bool, skip_assets: bool,
+                  extra_files: list[Path] | None = None) -> None:
+    files = sorted({*(extra_files or []), *(f for d in asset_dirs for f in list_files(owner_dir / d))})
     if not sources_path.is_file():
         if required or files:
             rep.error("SOURCES_MISSING", sources_path, "sources.json is required")
@@ -229,7 +277,7 @@ def check_sources(owner_dir: Path, sources_path: Path, asset_dirs: list[str],
     if not isinstance(entries, list):
         rep.error("FIELD_INVALID", sources_path, "'entries' must be a list")
         return
-    patterns = []
+    patterns: list[str] = []
     for i, e in enumerate(entries):
         where = f"entries[{i}]"
         if not isinstance(e, dict):
@@ -243,8 +291,19 @@ def check_sources(owner_dir: Path, sources_path: Path, asset_dirs: list[str],
         if not isinstance(e.get("redistributable"), bool):
             rep.error("FIELD_MISSING", sources_path, f"{where}.redistributable must be true/false")
             ok = False
+        if "placeholder" in e and not isinstance(e["placeholder"], bool):
+            rep.error("FIELD_INVALID", sources_path, f"{where}.placeholder must be true/false")
+            ok = False
         if ok:
-            patterns.append(e["path"])
+            pat = e["path"]
+            patterns.append(pat)
+            is_placeholder = e.get("placeholder") is True
+            if not is_placeholder and ("*" in pat or "?" in pat):
+                top_seg = pat.split("/", 1)[0]
+                if top_seg not in GENERATED_ASSET_DIRS:
+                    rep.warn("SOURCES_BROAD_WILDCARD", sources_path,
+                             f"{where}: wildcard '{pat}' on non-generated source assets; "
+                             f"register concrete files or set placeholder=true")
     # fnmatch '*' also matches '/', so "animations/*" covers the whole subtree.
     for f in files:
         rel = f.relative_to(owner_dir).as_posix()
@@ -351,6 +410,9 @@ def check_hit(hit: dict, what: str, rep: Report, path: Path) -> None:
     for key in ("damage", "hitstun", "blockstun", "hitstop", "priority"):
         if not (is_int(hit.get(key)) and hit[key] >= 0):
             rep.error("FIELD_INVALID", path, f"{what}.{key} must be an integer >= 0")
+    for opt_key in ("block_hitstop", "meter_gain_on_hit", "meter_gain_on_block"):
+        if opt_key in hit and not (is_int(hit[opt_key]) and hit[opt_key] >= 0):
+            rep.error("FIELD_INVALID", path, f"{what}.{opt_key} must be an integer >= 0")
     kb = hit.get("knockback")
     if not (isinstance(kb, list) and len(kb) == 2 and all(is_int(x) for x in kb)):
         rep.error("FIELD_INVALID", path, f"{what}.knockback must be [x, y] integers")
@@ -384,6 +446,19 @@ def validate_framedata(path: Path, anims: dict, move_ids: set, rep: Report):
             rep.error("FRAMEDATA_TOO_LONG", path,
                       f"move lasts {total} sim frames but animation '{aid}' covers only "
                       f"{anim['sim_length']} ({anim['frame_count']} frames @ {anim['fps']} fps)")
+    if "meter_gain_on_whiff" in d and not (is_int(d["meter_gain_on_whiff"]) and d["meter_gain_on_whiff"] >= 0):
+        rep.error("FIELD_INVALID", path, "meter_gain_on_whiff must be an integer >= 0")
+    if "super_freeze" in d:
+        sf = d["super_freeze"]
+        if not isinstance(sf, dict):
+            rep.error("FIELD_INVALID", path, "super_freeze must be an object")
+        else:
+            fr = sf.get("frame")
+            dur = sf.get("duration")
+            if not (is_int(fr) and 0 <= fr < total):
+                rep.error("FRAME_RANGE_OUT_OF_BOUNDS", path, f"super_freeze.frame {fr!r} outside 0..{total - 1}")
+            if not (is_int(dur) and dur > 0):
+                rep.error("FIELD_INVALID", path, "super_freeze.duration must be an integer > 0")
     active_lo, active_hi = s, s + a - 1
     for i, hb in enumerate(d.get("hitboxes", [])):
         what = f"hitboxes[{i}]"
@@ -471,6 +546,9 @@ def validate_hurtboxes(path: Path, config: str, rep: Report) -> None:
         rep.error("HURTBOX_CONFIG_MISSING", path, f"'{config}.pushbox' must define {list(PUSHBOX_STATES)}")
         return
     for st in PUSHBOX_STATES:
+        if st not in push:
+            rep.error("HURTBOX_CONFIG_MISSING", path, f"'{config}.pushbox.{st}' is required")
+            continue
         check_rect(push.get(st), f"{config}.pushbox.{st}", rep, path)
 
 
@@ -503,10 +581,34 @@ def validate_skill(path: Path, framedata: dict, rep: Report, ip_dir: Path, skip_
                 rep.error("FIELD_INVALID", path, "projectile.speed must be an integer")
             if not (is_int(proj.get("lifetime")) and proj["lifetime"] > 0):
                 rep.error("FIELD_INVALID", path, "projectile.lifetime must be an integer > 0")
+            if "velocity_y" in proj and not is_int(proj["velocity_y"]):
+                rep.error("FIELD_INVALID", path, "projectile.velocity_y must be an integer")
+            if "projectile_gravity" in proj and not (is_int(proj["projectile_gravity"]) and proj["projectile_gravity"] >= 0):
+                rep.error("FIELD_INVALID", path, "projectile.projectile_gravity must be an integer >= 0")
         if isinstance(fd, dict) and not fd.get("projectile_spawn"):
             rep.error("PROJECTILE_SPAWN_MISSING", path,
                       f"projectile skill but framedata/{mid}.json has no projectile_spawn")
     return d
+
+
+def validate_combat_config(path: Path, rep: Report) -> None:
+    """Validate optional global non-IP combat config (Decision D6)."""
+    if not path.is_file():
+        return
+    d = load_json(path, rep)
+    if not isinstance(d, dict):
+        return
+    check_key_ownership(d, "combat_config", rep, path)
+    require(d, "stage_half_width", lambda v: is_int(v) and v > 0, rep, path)
+    require(d, "corner_pushback_permille", lambda v: is_int(v) and 0 <= v <= 2000, rep, path)
+    require(d, "input_buffer_frames", lambda v: is_int(v) and v >= 0, rep, path)
+    require(d, "motion_input_window_frames", lambda v: is_int(v) and v > 0, rep, path)
+    require(d, "juggle_max_hits", lambda v: is_int(v) and v >= 0, rep, path)
+    require(d, "same_move_combo_limit", lambda v: is_int(v) and v > 0, rep, path)
+    require(d, "damage_scaling_pct",
+            lambda v: isinstance(v, list) and len(v) > 0 and all(is_int(x) and 1 <= x <= 100 for x in v),
+            rep, path)
+    require(d, "min_damage_scaling_pct", lambda v: is_int(v) and 1 <= v <= 100, rep, path)
 
 
 # ---------------------------------------------------------------- character / IP
@@ -534,6 +636,11 @@ def validate_character(char_dir: Path, ip_id: str, ip_dir: Path, rep: Report, sk
                 rep.error("FIELD_INVALID", path, f"stats.{key} must be an integer > 0")
         if not (is_int(stats.get("defense")) and stats["defense"] >= 0):
             rep.error("FIELD_INVALID", path, "stats.defense must be an integer >= 0")
+        if "max_gauge" in stats and not (is_int(stats["max_gauge"]) and stats["max_gauge"] > 0):
+            rep.error("FIELD_INVALID", path, "stats.max_gauge must be an integer > 0")
+        for gkey in ("gauge_gain_on_hurt_pct", "gauge_gain_on_block_pct"):
+            if gkey in stats and not (is_int(stats[gkey]) and stats[gkey] >= 0):
+                rep.error("FIELD_INVALID", path, f"stats.{gkey} must be an integer >= 0")
     require(d, "height_scale", lambda v: is_num(v) and v > 0, rep, path)
     ai = d.get("ai_profile", {})
     if not isinstance(ai, dict) or not all(is_num(v) and 0 <= v <= 1 for v in ai.values()):
@@ -600,7 +707,7 @@ def validate_character(char_dir: Path, ip_id: str, ip_dir: Path, rep: Report, sk
             rep.warn("SKILL_UNREFERENCED", sp, "skill file is not listed in character.json")
 
     # core move list (part 1 section 7)
-    for move, cat in CORE_MOVE_CATEGORY.items():
+    for move in CORE_MOVE_CATEGORY:
         exists = move in anims or (meta_dir / f"{move}.json").is_file()
         if move in unsupported:
             if exists:
@@ -628,13 +735,14 @@ def validate_ip(ip_dir: Path, rep: Report, skip_assets: bool, only_char: str | N
     check_names(ip_dir, rep)
     d = load_json(path, rep)
     if isinstance(d, dict):
+        check_key_ownership(d, "ip", rep, path)
         out["ip"] = d
         iid = require(d, "id", lambda v: isinstance(v, str) and ID_RE.match(v), rep, path)
         if iid is not None and iid != ip_dir.name:
             rep.error("ID_MISMATCH", path, f"id '{iid}' must equal folder name '{ip_dir.name}'")
         for key in ("name_zh", "name_en", "description", "cover"):
             require(d, key, str, rep, path)
-        status = require(d, "status", lambda v: v in IP_STATUSES, rep, path)
+        require(d, "status", lambda v: v in IP_STATUSES, rep, path)
         if "test_only" in d and not isinstance(d["test_only"], bool):
             rep.error("FIELD_INVALID", path, "test_only must be true/false")
         if not skip_assets and isinstance(d.get("cover"), str) and not (ip_dir / d["cover"]).is_file():
@@ -659,56 +767,173 @@ def validate_ip(ip_dir: Path, rep: Report, skip_assets: bool, only_char: str | N
                     rep.error("FEATURED_MISSING", path, f"featured character '{fc}' does not exist")
         if d.get("status") == "open" and not char_dirs:
             rep.warn("IP_OPEN_EMPTY", path, "IP is open but has no characters")
+    ip_root_assets = [
+        p for p in sorted(ip_dir.iterdir())
+        if p.is_file() and p.name not in {"ip.json", "sources.json"} and p.suffix.lower() != ".md"
+    ]
     check_sources(ip_dir, ip_dir / "sources.json", IP_ASSET_DIRS, rep, required=False,
-                  skip_assets=skip_assets)
+                  skip_assets=skip_assets, extra_files=ip_root_assets)
     return out
 
 
-# ---------------------------------------------------------------- core code check
+# ---------------------------------------------------------------- core code check (Decision D11)
 
-def ip_tokens(ip_root: Path) -> set[str]:
-    """Strings that identify specific IP content and must never appear in core code."""
-    tokens: set[str] = set()
+def collect_ip_patterns(ip_root: Path) -> list[tuple[str, re.Pattern]]:
+    """Build tiered regex patterns for IP-specific identifiers that must never appear in core code."""
+    rules: list[tuple[str, re.Pattern]] = []
+    seen: set[tuple[str, int]] = set()
+
+    def add(label: str, pat: re.Pattern) -> None:
+        sig = (pat.pattern, pat.flags)
+        if sig not in seen:
+            seen.add(sig)
+            rules.append((label, pat))
+
+    def add_word(tok: str) -> None:
+        # Treat '_' as a token separator so snake_case leaks like 'amiya_bonus' or
+        # 'is_arknights' are caught, while substrings inside words ('dummy_ab') are not.
+        add(tok, re.compile(r"(?<![A-Za-z0-9])" + re.escape(tok) + r"(?![A-Za-z0-9])", re.I))
+
+    def add_non_ascii_name(tok: str) -> None:
+        t = tok.strip()
+        if not t:
+            return
+        if len(t) >= 2:
+            add(t, re.compile(re.escape(t)))
+        else:
+            # Single CJK character (e.g. "红", "陈", "空"): forbid as string literal, allow prose comments.
+            add(t, re.compile(r"""["']""" + re.escape(t) + r"""["']"""))
+
     if not ip_root.is_dir():
-        return tokens
+        return rules
+
     for ip_dir in sorted(p for p in ip_root.iterdir() if p.is_dir()):
-        tokens.add(ip_dir.name)
-        for jp in [ip_dir / "ip.json", *sorted((ip_dir / "characters").glob("*/character.json"))]:
+        ip_name = ip_dir.name
+        # Tier 1a: ip_content/<ip> path fragment
+        add(f"ip_content/{ip_name}",
+            re.compile(r"ip_content[/\\]+" + re.escape(ip_name) + r"(?![A-Za-z0-9_])", re.I))
+        # Tier 1b: IP folder / id
+        if len(ip_name) >= 3:
+            add_word(ip_name)
+        elif ip_name:
+            add(ip_name, re.compile(r"""["']""" + re.escape(ip_name) + r"""["']""", re.I))
+
+        ip_json_path = ip_dir / "ip.json"
+        try:
+            ip_d = json.loads(ip_json_path.read_text(encoding="utf-8")) if ip_json_path.is_file() else None
+        except (OSError, ValueError):
+            ip_d = None
+        if isinstance(ip_d, dict):
+            for key in ("id", "name_en"):
+                val = ip_d.get(key)
+                if isinstance(val, str) and val.strip():
+                    v = val.strip()
+                    if v.isascii():
+                        if len(v) >= 3:
+                            add_word(v)
+                        else:
+                            add(v, re.compile(r"""["']""" + re.escape(v) + r"""["']""", re.I))
+                    else:
+                        add_non_ascii_name(v)
+            zh = ip_d.get("name_zh")
+            if isinstance(zh, str) and zh.strip():
+                if zh.isascii():
+                    if len(zh.strip()) >= 3:
+                        add_word(zh.strip())
+                else:
+                    add_non_ascii_name(zh)
+
+        chars_dir = ip_dir / "characters"
+        if not chars_dir.is_dir():
+            continue
+        for cdir in sorted(p for p in chars_dir.iterdir() if p.is_dir()):
+            cname = cdir.name
+            full_id = f"{ip_name}.{cname}"
+            # Tier 1c: full <ip>.<char> ID (even for 1-char cname like arknights.w) & characters/<char> path
+            add_word(full_id)
+            add(f"characters/{cname}",
+                re.compile(r"characters[/\\]+" + re.escape(cname) + r"(?![A-Za-z0-9_])", re.I))
+
+            # Tier 2 vs Tier 3 for character short directory name
+            norm_c = cname.lower()
+            if len(norm_c) >= 3 and norm_c not in ENGINE_COLLISION_WORDS:
+                add_word(cname)
+            elif norm_c:
+                add(f".{cname}", re.compile(r"""["']\.""" + re.escape(cname) + r"""["']""", re.I))
+
+            cj = cdir / "character.json"
             try:
-                d = json.loads(jp.read_text(encoding="utf-8"))
+                cd = json.loads(cj.read_text(encoding="utf-8")) if cj.is_file() else None
             except (OSError, ValueError):
+                cd = None
+            if not isinstance(cd, dict):
                 continue
-            if not isinstance(d, dict):
+            cid_val = cd.get("id")
+            if isinstance(cid_val, str) and "." in cid_val:
+                add_word(cid_val.strip())
+            en_val = cd.get("name_en")
+            if isinstance(en_val, str) and en_val.strip():
+                en_s = en_val.strip()
+                if en_s.isascii():
+                    norm_en = en_s.lower()
+                    if len(norm_en) >= 3 and norm_en not in ENGINE_COLLISION_WORDS:
+                        add_word(en_s)
+                    elif norm_en:
+                        add(f".{en_s}", re.compile(r"""["']\.""" + re.escape(en_s) + r"""["']""", re.I))
+                else:
+                    add_non_ascii_name(en_s)
+            zh_val = cd.get("name_zh")
+            if isinstance(zh_val, str) and zh_val.strip():
+                zh_s = zh_val.strip()
+                if zh_s.isascii():
+                    norm_zh = zh_s.lower()
+                    if len(norm_zh) >= 3 and norm_zh not in ENGINE_COLLISION_WORDS:
+                        add_word(zh_s)
+                else:
+                    add_non_ascii_name(zh_s)
+
+    return rules
+
+
+def iter_core_scan_files(root: Path) -> list[Path]:
+    """Return all repository files subject to core IP-isolation scanning (Decision D11)."""
+    out: list[Path] = []
+    if not root.is_dir():
+        return out
+    for entry in sorted(root.iterdir()):
+        if entry.is_file():
+            if entry.name in EXCLUDED_ROOT_FILES:
                 continue
-            for key in ("id", "name_zh", "name_en"):
-                if isinstance(d.get(key), str):
-                    tokens.add(d[key])
-            if jp.name == "character.json":
-                tokens.add(jp.parent.name)
-    return {t for t in tokens if t and (not t.isascii() or len(t) >= 3)}
+            if entry.suffix.lower() in CORE_SCAN_EXTS:
+                out.append(entry)
+        elif entry.is_dir():
+            if entry.name in EXCLUDED_TOP_DIRS or entry.name == "__pycache__":
+                continue
+            in_core_mod = entry.name in CORE_CODE_DIRS
+            for f in list_files(entry):
+                if "__pycache__" in f.parts:
+                    continue
+                sfx = f.suffix.lower()
+                if sfx in CORE_SCAN_EXTS or (in_core_mod and sfx == ".md"):
+                    out.append(f)
+    return out
 
 
 def check_core_code(root: Path, rep: Report) -> None:
-    tokens = ip_tokens(root / "ip_content")
-    patterns = []
-    for t in sorted(tokens):
-        if t.isascii():
-            patterns.append((t, re.compile(r"(?<![A-Za-z0-9_])" + re.escape(t) + r"(?![A-Za-z0-9_])", re.I)))
-        else:
-            patterns.append((t, re.compile(re.escape(t))))
-    for dname in CORE_CODE_DIRS:
-        for f in list_files(root / dname):
-            if f.suffix.lower() not in CODE_EXTS:
-                continue
-            try:
-                text = f.read_text(encoding="utf-8")
-            except (OSError, UnicodeDecodeError):
-                rep.warn("CODE_UNREADABLE", f, "could not read as UTF-8")
-                continue
-            for lineno, line in enumerate(text.splitlines(), 1):
-                for tok, pat in patterns:
-                    if pat.search(line):
-                        rep.error("IP_STRING_IN_CORE", f, f"line {lineno}: contains IP-specific string '{tok}'")
+    patterns = collect_ip_patterns(root / "ip_content")
+    if not patterns:
+        return
+    for f in iter_core_scan_files(root):
+        try:
+            text = f.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            rep.warn("CODE_UNREADABLE", f, "could not read as UTF-8")
+            continue
+        for lineno, line in enumerate(text.splitlines(), 1):
+            for tok, pat in patterns:
+                if pat.search(line):
+                    rep.error("IP_STRING_IN_CORE", f, f"line {lineno}: contains IP-specific string '{tok}'")
+                    break
 
 
 # ---------------------------------------------------------------- entry points
@@ -732,6 +957,7 @@ def validate_project(root: Path = PROJECT_ROOT, *, ip: str | None = None, charac
             if character is not None and character not in res["characters"] \
                     and not (ip_dir / "characters" / character.split(".", 1)[1]).is_dir():
                 rep.error("FILE_MISSING", ip_dir / "characters", f"character '{character}' not found")
+    validate_combat_config(root / "combat" / "combat_config.json", rep)
     check_core_code(root, rep)
     if skip_assets:
         rep.notes.append("Asset files (PNG frames, portraits, covers, effects) were not checked (--skip-assets).")
