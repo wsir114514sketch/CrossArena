@@ -1,4 +1,2 @@
-# Python tool dependencies, pinned (== only).
-# Checkpoint 1: validate.py uses the standard library only, so nothing is listed.
-# Checkpoint 2 (render/pack pipeline) is expected to add an image library such as
-# Pillow; installing it needs PyPI access, which will be requested separately.
+# Python tool dependencies for asset_pipeline (installed in .venv only; pinned with ==).
+Pillow==13.0.0

@@ -1,70 +1,54 @@
-# Phase 0 环境检查报告
+# Phase 0 环境检查报告（含检查点 2 准备更新）
 
 日期：2026-11-24 · 机器：本机 Windows 11 专业版 · 对应规格第三部分第 15 节
 
-除了下载 GUT（用户已授权的唯一一次联网）和在项目目录内写文件之外，所有检查都是**只读**的。没有修改任何现有项目、配置或服务，也没有开放任何端口。
+所有环境检查与准备工作均未修改任何现有 LayUDown 项目、网站、服务器、Nginx、防火墙或端口。联网操作严格限于用户已批准的三项（GUT v9.7.1、Godot 4.7.2 标准导出模板、Pillow 13.0.0 官方 whl）。
 
-## 1. 检查结果
+## 1. 检查结果总表
 
 | 检查项 | 结果 | 状态 |
 |---|---|---|
-| 项目位置 | `D:/MyGame/CrossArena`。`git -C D:\MyGame rev-parse` 报 not a git repository，确认不在任何仓库内；已在此处 `git init`，`rev-parse --show-toplevel` = `D:/MyGame/CrossArena` | ✅ |
-| 现有项目隔离 | 旧的工作区 `D:\MyGame\GameWorkSapce` 是另一个仓库（远端 `Yhb-was-a-dick`，分支 `union-arena-2.4.5`，包含 UNO/unionarena 等项目）。未对它做任何写入，其中原有的空目录 `Game\CrossArena` 也没有动 | ✅ |
-| Godot 版本 | 4.7.2.stable.official (ed1daf0bf)，位于 `D:\GodotWorkSpace\`，有控制台版 | ✅ |
-| Godot 无头运行 | `--headless --import` 与 `-s gut_cmdln.gd` 都正常 | ✅ |
-| Godot 导出模板 | `%APPDATA%\Godot\export_templates` **不存在**，Windows 和 Web 模板都没安装 | ⚠️ 需要处理 |
-| Blender 版本 | 5.3.0（构建于 2026-11-10），位于 `D:\BlenderWorkSpace\` | ✅ |
-| EEVEE 引擎标识符 | 运行时检测结果为 `BLENDER_EEVEE`（5.x 中已不存在 `BLENDER_EEVEE_NEXT`）。代码按「名称包含 EEVEE」检测，没有写死 | ✅ |
-| Blender 后台渲染 | `blender -b --factory-startup` + EEVEE 能渲染出 256×256 RGBA PNG：四角 alpha=0，View Transform 可以设为 `Standard`，首次耗时 6.4s（含着色器编译），之后 0.9s | ✅ |
-| GPU | NVIDIA GeForce RTX 4050 Laptop + AMD Radeon 780M（核显），另外有 MuMu、GameViewer、Oray 三个虚拟显示适配器 | ℹ️ |
-| 测试框架兼容性 | GUT 9.7.1 在 Godot 4.7.2 上 4/4 测试通过，没有兼容性报错 | ✅ |
-| 本机监听端口 | 53, 135, 139, 445, 902, 912, 3306, 4001, 4301, 4310, 5040, 5283, 5284, 5357, 7897, 8000, 8100, 8300, 9080, 9097, 9210, 10087, 13508, 15561, 16602–16605, 24081, 27339, 33060, 33211, 33331, 42050, 49132, 49664–49668, 49673, 49709, 49724, 49735, 49742, 49836, 50051, 50503, 52368, 52369, 57203, 57205, 59979, 61010, 63701。**18815 不在本机监听**（它在服务器上，本轮没有访问服务器） | ✅ |
-| 磁盘空间 | C: 剩余 25.5 GB，D: 剩余 34.5 GB | ⚠️ 见下 |
-| Python | 3.12.10，已在项目内建 `.venv`；未改动 miniconda | ✅ |
-| Git | 2.56.0.windows.3 | ✅ |
+| 项目位置 | `D:/MyGame/CrossArena`。`git -C D:\MyGame rev-parse` 确认外层不属于任何仓库；`git -C D:\MyGame\CrossArena rev-parse --show-toplevel` = `D:/MyGame/CrossArena` | ✅ |
+| 现有项目隔离 | 旧工作区 `D:\MyGame\GameWorkSapce`（含 UNO / unionarena / Hon shugi 等）零写入、零改动 | ✅ |
+| Godot 版本 | `4.7.2.stable.official.ed1daf0bf`，位于 `D:\GodotWorkSpace\`，含 console 版 | ✅ |
+| Godot 无头运行 | `--headless --import`、GUT 命令行与 `--headless --export-release` 均正常 | ✅ |
+| Godot 导出模板 | 已下载官方 `Godot_v4.7.2-stable_export_templates.tpz` 并通过官方 `SHA512-SUMS.txt` 与 ZIP CRC 完整性校验；已向 `%APPDATA%\Godot\export_templates\4.7.2.stable\` 安装 **Windows + Web** 模板（共 22 个文件，约 698.8 MiB），未安装其他平台模板 | ✅ |
+| Web / Windows 空项目试导出 | 隔离临时工程无头导出 `Windows Desktop`、单线程 `Web`、多线程 `Web` 全部 `exit=0`（详数据见 `docs/checkpoint2_prep_report.md`） | ✅ |
+| Blender 版本 | `5.3.0`（构建日期 2026-11-10），位于 `D:\BlenderWorkSpace\` | ✅ |
+| EEVEE 引擎标识符 | 运行时动态检测结果为 `BLENDER_EEVEE`（不硬编码） | ✅ |
+| Blender 后台渲染 | `blender -b --factory-startup` + EEVEE 成功渲染 256×256 RGBA PNG（四角 alpha=0，`Standard` 色彩变换可用） | ✅ |
+| GPU | NVIDIA GeForce RTX 4050 Laptop + AMD Radeon 780M（另有 MuMu / GameViewer / Oray 虚拟显示适配器） | ℹ️ |
+| 测试框架兼容性 | GUT `9.7.1` 在 Godot `4.7.2` 上 4/4 测试通过 | ✅ |
+| Python 与依赖 | 项目 `.venv`（Python `3.12.10`），已锁定安装 `Pillow==13.0.0`；未修改系统 Python 与 miniconda | ✅ |
+| 本机监听端口 | 本机 `18815` 未监听；未接触生产服务器，未开启任何本地监听端口 | ✅ |
+| 磁盘空间 | 安装模板与缓存后：C 盘剩余 **24.8 GB**，D 盘剩余 **33.3 GB**（其中 `.cache/templates/*.tpz` 占 1.22 GB，审查通过后可清理回收） | ⚠️ 持续关注 |
+| 目标测试平台 | **首期**：Windows 11 专业版 + Chrome 157（本机实装 `157.0.8103.80`）；**后续**：Android iQOO Neo9 / Android 15；**暂不安排**：iOS | ✅ |
 
-### 磁盘余量估算
+## 2. 目标平台与分阶段策略
 
-按规格第二部分第 9 节估算：一个角色约 25 个动画 × 平均 15 帧，512² 透明 PNG 每帧约 0.1–0.3 MB（压缩后），PNG 序列约 40–110 MB；加上 2 倍分辨率的中间帧（如果保留）、`.blend` 文件和图集，每个角色约 **0.3–0.5 GB**。D 盘剩余 34.5 GB，够前几个角色使用，但每加一个 IP 都需要重新评估。2 倍分辨率的中间帧建议不保留，或者放到 `.cache/`（已 gitignore）。
-
-## 2. 未完成 / 需要你处理
-
-| 项 | 原因 | 建议 |
+| 阶段定位 | 目标平台 / 设备 | 当前准备情况 |
 |---|---|---|
-| Godot 导出模板（Windows + Web） | 没有安装；下载需要访问 godotengine.org 或 GitHub releases，超出本轮授权的联网范围 | 在编辑器中用「管理导出模板」下载 4.7.2 模板，或者授权我从 GitHub 下载 `Godot_v4.7.2-stable_export_templates.tpz` 并记录它的 SHA-256。Phase 1 结束时需要用它做 Windows + 浏览器的实机验证 |
-| Web 导出可行性 | 没有模板，无法用空项目试导出 | 以下内容基于已有知识，**未实测**：Godot 4.3 及以上默认采用单线程 Web 导出，不需要 `Cross-Origin-Opener-Policy` / `Cross-Origin-Embedder-Policy` 响应头；只有勾选线程支持时才需要跨源隔离。部署到你的服务器时只需新增静态目录，**不改动现有 nginx 路由**（安全红线，届时会先请你确认） |
-| 目标设备清单 | 无法自动获取 | 请告诉我要测试的安卓/iOS 机型和浏览器版本（至少 Chrome/Edge 各一个） |
-| 服务器端口（18815 等） | 本轮不访问服务器 | 留到 Phase 6 |
-| 内存预算实测 | 还没有渲染出的角色 | 放到检查点 2 的测试人偶和画布尺寸对比中一起做 |
+| **首期目标**（Phase 1–5 阶段验收门禁） | Windows 11 专业版 + Google Chrome 157（本机已核实安装 `157.0.8103.80`） | Windows x86_64 与 Web 单线程/多线程导出模板已就绪并通过空项目无头导出实测 |
+| **后续测试目标** | Android：iQOO Neo9（Android 15） | 本轮按要求未安装 Android 模板与 Android SDK；进入移动端触控与性能实测前再单独申请安装 |
+| **暂不安排** | iOS | 不安装模板，不纳入当前路线图排期 |
 
-## 3. 调研摘要（回滚 / 帧数据 / 判定）
+## 3. Web 导出与回滚方案调研结论索引
 
-> [!NOTE]
-> 本轮只授权访问 github.com 下载 GUT，没有浏览以下项目，下面的内容**基于已有知识，未联网核实**，仅作为方向参考，不复制任何代码。
+完整的官方资料核实、实测数据与未验证推测对照表已整理至 **[docs/checkpoint2_prep_report.md](docs/checkpoint2_prep_report.md)** 第 4 节，核心结论摘要如下：
 
-| 参考 | 要点 | 对本项目的影响 |
-|---|---|---|
-| Godot Rollback Netcode（Snopek Games 插件）及其格斗示例 | 依靠节点的 `_save_state` / `_load_state` / `_network_process` 约定实现回滚，要求逻辑不用 Godot 物理、使用整数或定点数 | 本项目用纯数据的 `SimState` 加 `step(state, inputs)`，比按节点逐个快照更轻；Phase 6 可以评估是否把它接为传输与预测层 |
-| Shoto Fighter Godot / Fightvania 一类开源格斗 Demo | 常见做法是用 Area2D 做判定、AnimationPlayer 驱动帧，开发快但不具备确定性 | 规格已决定判定层自研、不用 Area2D，这些项目只参考状态划分和帧数据表的组织方式 |
-| Godot 官方 2D 动画文档 | AnimatedSprite2D / AnimationPlayer 按引擎时间推进 | 按规格，显示帧号由模拟层的 `anim_tick` 直接计算，`Sprite2D.region_rect` 手动切换 |
-| Blender 绑定与渲染工作流 | 正交相机、原地动画、Fake User、次级运动烘焙 | 已写入第二部分，检查点 2 实现 |
+- **Godot 4.7.2 Web 导出**：
+  - **官方确认 + 实际测试**：关闭线程支持（`variant/thread_support=false`，Godot 4.3+ 默认推荐方案）时，生成的 `index.html` 中 `GODOT_THREADS_ENABLED = false`，`Engine.getMissingFeatures` **不要求** `SharedArrayBuffer` 与跨源隔离响应头（`COOP` / `COEP`），可直接作为纯静态文件托管；单线程空包 `index.wasm` 原始 `39.51 MB`，`gzip -6` 后仅 **`10.11 MB`**（缩小 74.4%）。
+  - **官方确认**：Web 端仅支持 `Compatibility`（WebGL 2.0）渲染器；单线程音频默认走 Web Audio Sample 模式（不支持总线 `AudioEffect` 与程序化音频，格斗常规音效播放不受影响）；Web 端**不支持** `ENet` / 裸 UDP，联机传输仅能选 `WebSocket`（客户端）或 `WebRTC`（P2P 数据通道，需信令与 STUN/TURN）。
+- **回滚联机方案**：
+  - **官方/仓库文档确认**：Snopek Games 的 `godot-rollback-netcode` 已有 Godot 4 版本（`1.0.0-alpha` 起），核心通过 `SyncManager` 驱动节点级 `save_state()` / `load_state()` / `network_process(input)`，支持配合 `WebRTC` 运行；`netfox` 则偏向通用状态同步/物理回滚而非传统 2D 帧格斗。
+  - **架构对照**：本项目规格已定采用**纯数据 `SimState` + `step(state, inputs)`**（无节点状态依赖），比节点遍历式快照更精简可控；Phase 1–5 保持零外部网络插件依赖，Phase 6 再决定是自写轻量输入同步层（WebSocket/WebRTC）还是仅借用现有插件的传输/时钟调节思路。
 
-## 4. 本检查点的交付物
+## 4. 根据实测修正与待确认项
 
-- 仓库骨架：按规格第一部分第 8 节建立目录，各模块目录带职责说明；规格三部分已复制到 `docs/spec/`。
-- 文档：`versions.md`（版本锁定，含 GUT 的 SHA-256）、`docs/decisions.md`（规格未写明处的 13 条落地决策）。
-- 数据 Schema 示例：
-  - `ip_content/test_pack/` 下两个占位角色，`dummy_b` 带投射物技能。
-  - `ip_content/arknights/ip.json`，状态为 `locked`。
-- `asset_pipeline/validate.py`：
-  - 实现第一部分第 9.5 节的全部检查，外加第二部分第 8 节中与图像无关的检查（帧文件缺失、帧号不连续、帧数不一致、核心动作缺失、`sources.json` 缺失或未覆盖全部素材）。
-  - 有 40 个单元测试，每个测试都注入一个具体缺陷再验证能报出来，不用 mock。
-- `asset_pipeline/probes/eevee_probe.py`：EEVEE 后台渲染探针。
-- `scripts/run_tests.ps1`：一键运行全部检查，开头先校验 git 根目录。
-- `tests/unit/test_gut_smoke.gd`：确认 GUT 可用，并记录整数运算语义（除法向零截断、`%` 与被除数同号、int 为 64 位）。
-
-## 5. 根据实测修正的规格数值
-
-- 第二部分第 5 节「EEVEE」的引擎标识符：确认为 `BLENDER_EEVEE`。
-- 第三部分第 2 节「固定取整方式」：GDScript 的 `/` 向零截断，向下取整需要用工具函数（见 decisions D13）。
-- 内存预算、画布尺寸：等检查点 2 实测后再修正。
+1. **已实测确认**：
+   - Blender 5.3.0 后台 EEVEE 引擎标识符为 `BLENDER_EEVEE`。
+   - Godot 4.7.2 Windows（约 104.1 MiB 裸 exe）与 Web（约 37.7 MiB 裸 wasm / 9.65 MiB gzip）无头导出流程畅通。
+   - GDScript 64 位整数 `/` 向零截断、`posmod` 非负。
+2. **待你审查拍板**：
+   - 见 [docs/decisions.md](docs/decisions.md) 中标为 `需拍板` 的 5 条架构与校验细则（D4、D5、D6、D8、D11）。
+   - 画布尺寸（384 / 512 / 768）与显存预算实测将在你批准进入检查点 2 后执行。
