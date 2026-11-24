@@ -2,30 +2,40 @@ import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin } from "vite";
 
-interface ContentIndex {
+export interface ContentIndexCharacterEntry {
+  dir: string;
+  metadataFiles: string[];
+  framedataFiles: string[];
+  skillFiles: string[];
+  spriteJsonFiles: string[];
+}
+
+export interface ContentIndexAssistEntry {
+  dir: string;
+  metadataFiles: string[];
+  framedataFiles: string[];
+  spriteJsonFiles: string[];
+}
+
+export interface ContentIndex {
   ips: Array<{
     id: string;
-    characters: string[];
-    assists: string[];
-    hasRosterManifest: boolean;
+    hasManifest: boolean;
+    characters: ContentIndexCharacterEntry[];
+    assists: ContentIndexAssistEntry[];
   }>;
 }
 
-function isEntityRedistributable(entityDir: string): boolean {
-  const metaSources = path.join(entityDir, "metadata", "sources.json");
-  const rootSources = path.join(entityDir, "sources.json");
-  const target = fs.existsSync(metaSources) ? metaSources : rootSources;
-  if (!fs.existsSync(target)) return true;
-  try {
-    const parsed = JSON.parse(fs.readFileSync(target, "utf-8"));
-    const entries = Array.isArray(parsed?.entries) ? parsed.entries : [];
-    return entries.every((e: { redistributable?: boolean }) => e.redistributable === true);
-  } catch {
-    return false;
-  }
+function listJsonFiles(dirPath: string, exclude: Set<string>): string[] {
+  if (!fs.existsSync(dirPath)) return [];
+  return fs
+    .readdirSync(dirPath, { withFileTypes: true })
+    .filter((f) => f.isFile() && f.name.endsWith(".json") && !exclude.has(f.name))
+    .map((f) => f.name)
+    .sort();
 }
 
-function scanContentIndex(rootDir: string, publicReleaseOnly: boolean): ContentIndex {
+export function scanContentIndex(rootDir: string, publicReleaseOnly: boolean): ContentIndex {
   const ipRoot = path.join(rootDir, "ip_content");
   const ips: ContentIndex["ips"] = [];
   if (!fs.existsSync(ipRoot)) return { ips };
@@ -43,7 +53,7 @@ function scanContentIndex(rootDir: string, publicReleaseOnly: boolean): ContentI
     if (publicReleaseOnly && !isEntityRedistributable(ipDir)) continue;
 
     const charsDir = path.join(ipDir, "characters");
-    const characters: string[] = [];
+    const characters: ContentIndexCharacterEntry[] = [];
     if (fs.existsSync(charsDir)) {
       const cNames = fs
         .readdirSync(charsDir, { withFileTypes: true })
@@ -54,12 +64,18 @@ function scanContentIndex(rootDir: string, publicReleaseOnly: boolean): ContentI
         const cDir = path.join(charsDir, cName);
         if (!fs.existsSync(path.join(cDir, "character.json"))) continue;
         if (publicReleaseOnly && !isEntityRedistributable(cDir)) continue;
-        characters.push(cName);
+        characters.push({
+          dir: cName,
+          metadataFiles: listJsonFiles(path.join(cDir, "metadata"), new Set(["sources.json"])),
+          framedataFiles: listJsonFiles(path.join(cDir, "framedata"), new Set(["hurtboxes.json"])),
+          skillFiles: listJsonFiles(path.join(cDir, "skills"), new Set()),
+          spriteJsonFiles: listJsonFiles(path.join(cDir, "sprites"), new Set()),
+        });
       }
     }
 
     const assistsDir = path.join(ipDir, "assists");
-    const assists: string[] = [];
+    const assists: ContentIndexAssistEntry[] = [];
     if (fs.existsSync(assistsDir)) {
       const aNames = fs
         .readdirSync(assistsDir, { withFileTypes: true })
@@ -70,7 +86,12 @@ function scanContentIndex(rootDir: string, publicReleaseOnly: boolean): ContentI
         const aDir = path.join(assistsDir, aName);
         if (!fs.existsSync(path.join(aDir, "assist.json"))) continue;
         if (publicReleaseOnly && !isEntityRedistributable(aDir)) continue;
-        assists.push(aName);
+        assists.push({
+          dir: aName,
+          metadataFiles: listJsonFiles(path.join(aDir, "metadata"), new Set(["sources.json"])),
+          framedataFiles: listJsonFiles(path.join(aDir, "framedata"), new Set()),
+          spriteJsonFiles: listJsonFiles(path.join(aDir, "sprites"), new Set()),
+        });
       }
     }
 
@@ -78,10 +99,24 @@ function scanContentIndex(rootDir: string, publicReleaseOnly: boolean): ContentI
       id: ipName,
       characters,
       assists,
-      hasRosterManifest: fs.existsSync(path.join(ipDir, "roster_manifest.json")),
+      hasManifest: fs.existsSync(path.join(ipDir, "roster_manifest.json")),
     });
   }
   return { ips };
+}
+
+function isEntityRedistributable(entityDir: string): boolean {
+  const metaSources = path.join(entityDir, "metadata", "sources.json");
+  const rootSources = path.join(entityDir, "sources.json");
+  const target = fs.existsSync(metaSources) ? metaSources : rootSources;
+  if (!fs.existsSync(target)) return true;
+  try {
+    const parsed = JSON.parse(fs.readFileSync(target, "utf-8"));
+    const entries = Array.isArray(parsed?.entries) ? parsed.entries : [];
+    return entries.every((e: { redistributable?: boolean }) => e.redistributable === true);
+  } catch {
+    return false;
+  }
 }
 
 function copyDirFiltered(srcDir: string, destDir: string, skipRawFramesIfSheetExists: boolean): void {
@@ -182,17 +217,17 @@ function crossArenaContentPlugin(): Plugin {
         for (const sub of ["effects", "stages", "audio"]) {
           copyDirFiltered(path.join(ipSrc, sub), path.join(ipDst, sub), false);
         }
-        for (const cName of ip.characters) {
+        for (const cEntry of ip.characters) {
           copyDirFiltered(
-            path.join(ipSrc, "characters", cName),
-            path.join(ipDst, "characters", cName),
+            path.join(ipSrc, "characters", cEntry.dir),
+            path.join(ipDst, "characters", cEntry.dir),
             true
           );
         }
-        for (const aName of ip.assists) {
+        for (const aEntry of ip.assists) {
           copyDirFiltered(
-            path.join(ipSrc, "assists", aName),
-            path.join(ipDst, "assists", aName),
+            path.join(ipSrc, "assists", aEntry.dir),
+            path.join(ipDst, "assists", aEntry.dir),
             true
           );
         }
