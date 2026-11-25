@@ -139,6 +139,22 @@ class CrossArenaApp {
     this.replayRecorder = new ReplayRecorder(setup);
     const f0 = this.sim.state.fighters[0];
     const f1 = this.sim.state.fighters[1];
+    // Preload base, active, and any reachable awakening form sprite sheets so transformations have zero async decode flash
+    for (const fid of [f0.activeFighterId, f1.activeFighterId]) {
+      const b = this.registry.fightersById[fid];
+      if (!b) continue;
+      this.cache.preloadFighterBundle(b);
+      for (const sk of b.skills) {
+        if (sk.target_form_id && this.registry.fightersById[sk.target_form_id]) {
+          this.cache.preloadFighterBundle(this.registry.fightersById[sk.target_form_id]!);
+        }
+      }
+    }
+    for (const aid of [f0.assistId, f1.assistId]) {
+      if (aid && this.registry.assistsById[aid]) {
+        this.cache.preloadAssistBundle(this.registry.assistsById[aid]!);
+      }
+    }
     this.hud.resetForMatch(f0.maxHp, f1.maxHp);
     this.screen = "BATTLE";
   }
