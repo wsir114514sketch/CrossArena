@@ -1713,6 +1713,45 @@ def fetch_portrait_and_splash(
     fallback_idle_frame: Image.Image,
     accent_rgba: tuple[int, int, int, int],
 ) -> None:
+    """Portrait = native face icon (50x48) at 2x nearest (100x96, never stretched);
+    splash = original standee art (300x250) untouched. Falls back to a head crop of the idle sprite."""
+    del accent_rgba
+    prev_dir = char_dir / "previews"
+    prev_dir.mkdir(parents=True, exist_ok=True)
+    base = f"shared/assets/assets/packs/{tag_kind}/{tag_pack}/face/{face_prefix}"
+    small = fetch_tag_asset(f"{base}.png")
+    big = fetch_tag_asset(f"{base}_b.png")
+    win = fetch_tag_asset(f"{base}_w.png")
+
+    bb = fallback_idle_frame.getbbox() or (200, 320, 312, 480)
+    if small:
+        ic = Image.open(io.BytesIO(small)).convert("RGBA")
+        portrait = ic.resize((ic.width * 2, ic.height * 2), resample=Image.Resampling.NEAREST)
+    else:
+        head = fallback_idle_frame.crop((bb[0], bb[1], bb[2], bb[1] + max(8, (bb[3] - bb[1]) // 3)))
+        s = min(96 / max(1, head.width), 92 / max(1, head.height))
+        head = head.resize((max(1, round(head.width * s)), max(1, round(head.height * s))), Image.Resampling.NEAREST)
+        portrait = Image.new("RGBA", (100, 96), (24, 28, 40, 255))
+        portrait.alpha_composite(head, ((100 - head.width) // 2, (96 - head.height) // 2))
+    portrait.save(prev_dir / "portrait.png", format="PNG")
+
+    src = win or big
+    if src:
+        splash = Image.open(io.BytesIO(src)).convert("RGBA")
+    else:
+        crop = fallback_idle_frame.crop(bb)
+        splash = crop.resize((crop.width * 2, crop.height * 2), Image.Resampling.NEAREST)
+    splash.save(prev_dir / "splash.png", format="PNG")
+
+
+def _legacy_fetch_portrait_and_splash(
+    char_dir: Path,
+    tag_kind: str,
+    tag_pack: str,
+    face_prefix: str,
+    fallback_idle_frame: Image.Image,
+    accent_rgba: tuple[int, int, int, int],
+) -> None:
     prev_dir = char_dir / "previews"
     prev_dir.mkdir(parents=True, exist_ok=True)
 

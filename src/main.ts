@@ -86,6 +86,28 @@ class CrossArenaApp {
     this.input.attach();
     this.canvas.tabIndex = 0;
     this.canvas.focus();
+    this.canvas.addEventListener("pointermove", (ev) => {
+      if (this.screen !== "SELECT" || !this.selectScreen) {
+        this.canvas.style.cursor = "default";
+        return;
+      }
+      const rect = this.canvas.getBoundingClientRect();
+      const cx = ((ev.clientX - rect.left) / Math.max(1, rect.width)) * VIEWPORT_W;
+      const cy = ((ev.clientY - rect.top) / Math.max(1, rect.height)) * VIEWPORT_H;
+      this.canvas.style.cursor = this.selectScreen.handlePointerMove(cx, cy) ? "pointer" : "default";
+    });
+    this.canvas.addEventListener(
+      "wheel",
+      (ev) => {
+        if (this.screen !== "SELECT" || !this.selectScreen) return;
+        ev.preventDefault();
+        const rect = this.canvas.getBoundingClientRect();
+        const cx = ((ev.clientX - rect.left) / Math.max(1, rect.width)) * VIEWPORT_W;
+        const cy = ((ev.clientY - rect.top) / Math.max(1, rect.height)) * VIEWPORT_H;
+        this.selectScreen.handleWheel(cx, cy, ev.deltaY);
+      },
+      { passive: false },
+    );
     this.canvas.addEventListener("pointerdown", (ev) => {
       this.canvas.focus();
       this.audio.unlock();

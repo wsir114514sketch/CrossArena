@@ -19,6 +19,7 @@ import type { ContentRegistry } from "../core/data_models";
 import { SIM_HZ } from "../core/fixed_math";
 import type { FighterSimState, SimEvent, SimState } from "../core/sim_state";
 import type { RollbackStats } from "../network/net_session";
+import { drawImageFit } from "./draw_fit";
 import type { ClickHotspot, GameMode } from "./select_screen";
 
 export type TrainingDummyMode = "STAND" | "CROUCH" | "JUMP" | "AUTO_GUARD" | "CPU";
@@ -203,7 +204,7 @@ export class BattleHud {
     ctx.fillRect(px, py, portraitSize, portraitSize);
     const pImg = this.cache.get(`${b.charDirUrl}/${b.fighter.portrait}`);
     if (pImg) {
-      ctx.drawImage(pImg, px + 2, py + 2, portraitSize - 4, portraitSize - 4);
+      drawImageFit(ctx, pImg, px + 2, py + 2, portraitSize - 4, portraitSize - 4);
     }
     ctx.strokeRect(px, py, portraitSize, portraitSize);
 
@@ -325,7 +326,7 @@ export class BattleHud {
         ctx.fillRect(ax, ay, 38, 38);
         const apImg = this.cache.get(`${ab.assistDirUrl}/${ab.assist.portrait}`);
         if (apImg) {
-          ctx.drawImage(apImg, ax + 1, ay + 1, 36, 36);
+          drawImageFit(ctx, apImg, ax + 1, ay + 1, 36, 36);
         }
         if (f.assistCooldownTicks > 0) {
           ctx.fillStyle = "rgba(3, 7, 18, 0.76)";
@@ -527,7 +528,7 @@ export class BattleHud {
 
     const splashImg = this.cache.get(`${b.charDirUrl}/${b.fighter.splash}`);
     if (splashImg) {
-      ctx.drawImage(splashImg, cardX + 32, cardY + 54, 256, 336);
+      drawImageFit(ctx, splashImg, cardX + 32, cardY + 54, 256, 336);
     }
 
     const rx = cardX + 320;
