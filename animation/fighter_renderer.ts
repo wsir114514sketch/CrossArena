@@ -12,6 +12,7 @@ import type {
   SpriteSheetAtlas,
 } from "../core/data_models";
 import { simTickToAnimFrame, toWorldRect, unitsToPx } from "../core/fixed_math";
+import { placeholderColor } from "../core/placeholder_color";
 import type { AssistSimState, FighterSimState, SimEvent, SimState } from "../core/sim_state";
 import { getWorldHurtboxes, getWorldPushbox } from "../hit_system/hit_resolver";
 
@@ -69,6 +70,8 @@ interface VfxSpark {
 export class BattleEntityRenderer {
   public readonly cache: SpriteAssetCache;
   public showDebugBoxes = false;
+  /** Character models are not available yet: draw placeholder geometry (logic is unaffected). */
+  public usePlaceholderModels = true;
   private readonly sparks: VfxSpark[] = [];
   private lastProcessedTick = -1;
 
@@ -180,6 +183,79 @@ export class BattleEntityRenderer {
     }
   }
 
+  private drawPlaceholderFighter(
+    ctx: CanvasRenderingContext2D,
+    state: SimState,
+    f: FighterSimState,
+    bundle: FighterBundle,
+    floorY: number,
+  ): void {
+    const airborne = f.posY < 0 || f.state === "JUMP" || f.state === "AIR_HITSTUN";
+    const pose: "stand" | "crouch" | "air" | "down" =
+      f.state === "KNOCKDOWN" || f.state === "DEAD"
+        ? "down"
+        : airborne
+          ? "air"
+          : f.state === "CROUCH" || f.state === "CROUCH_BLOCK"
+            ? "crouch"
+            : "stand";
+    const local = bundle.hurtbox[pose][0]!;
+    const w = toWorldRect(local, f.posX, f.posY, f.facing);
+    const x = unitsToPx(w[0]);
+    const y = floorY + unitsToPx(w[1]);
+    const bw = Math.max(8, unitsToPx(w[2]));
+    const bh = Math.max(8, unitsToPx(w[3]));
+
+    const hurt = f.state === "HITSTUN" || f.state === "AIR_HITSTUN" || f.state === "GUARD_BREAK";
+    const base = placeholderColor(f.baseFighterId);
+    ctx.save();
+    ctx.fillStyle = hurt && state.tick % 4 < 2 ? "#ffffff" : base;
+    ctx.fillRect(x, y, bw, bh);
+    ctx.strokeStyle = f.slot === 0 ? "#60a5fa" : "#f87171";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(x, y, bw, bh);
+
+    // head + facing eye
+    const cx = x + bw / 2;
+    ctx.fillStyle = "rgba(255,255,255,0.88)";
+    ctx.beginPath();
+    ctx.arc(cx, y + Math.min(26, bh * 0.2), Math.min(16, bw * 0.3), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#0b0f19";
+    ctx.fillRect(cx + f.facing * 6 - 3, y + Math.min(26, bh * 0.2) - 4, 6, 6);
+
+    // guard shield
+    if (f.state === "STAND_BLOCK" || f.state === "CROUCH_BLOCK" || f.state === "BLOCKSTUN") {
+      ctx.fillStyle = "rgba(56,189,248,0.55)";
+      ctx.fillRect(f.facing > 0 ? x + bw : x - 10, y + 6, 10, bh - 12);
+    }
+
+    // attack: arm bar during the move, brighter during active frames
+    const fd = f.currentMoveId ? bundle.framedata[f.currentMoveId] : undefined;
+    if (fd && (f.state === "ATTACKING" || f.state === "SKILL" || f.state === "ULTIMATE" || f.state === "THROWING" || f.state === "AWAKENING")) {
+      const tick = Math.max(0, f.moveTick - 1);
+      let active = false;
+      for (const hb of fd.hitboxes ?? []) {
+        if (tick >= hb.frames[0] && tick <= hb.frames[1]) {
+          const r = toWorldRect(hb.rect, f.posX, f.posY, f.facing);
+          ctx.fillStyle = "rgba(253,224,71,0.55)";
+          ctx.fillRect(unitsToPx(r[0]), floorY + unitsToPx(r[1]), unitsToPx(r[2]), unitsToPx(r[3]));
+          active = true;
+        }
+      }
+      ctx.fillStyle = active ? "#fde047" : "#e5e7eb";
+      const armY = y + bh * 0.3;
+      ctx.fillRect(f.facing > 0 ? x + bw : x - 34, armY, 34, 10);
+    }
+
+    // player tag
+    ctx.fillStyle = f.slot === 0 ? "#60a5fa" : "#f87171";
+    ctx.font = "bold 14px 'Segoe UI', sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(f.slot === 0 ? "P1" : "P2", cx, y - 8);
+    ctx.restore();
+  }
+
   private drawFighterSprite(
     ctx: CanvasRenderingContext2D,
     state: SimState,
@@ -187,6 +263,10 @@ export class BattleEntityRenderer {
     bundle: FighterBundle,
     floorY: number,
   ): void {
+    if (this.usePlaceholderModels) {
+      this.drawPlaceholderFighter(ctx, state, f, bundle, floorY);
+      return;
+    }
     const { animId, animTick } = resolveFighterAnimation(state, f, bundle);
     const animDef: AnimationDefinition | undefined =
       bundle.animations[animId] ?? bundle.animations["idle"];
@@ -265,6 +345,21 @@ export class BattleEntityRenderer {
     ab: AssistBundle,
     floorY: number,
   ): void {
+    if (this.usePlaceholderModels) {
+      const ax = unitsToPx(aState.posX);
+      const ay = floorY + unitsToPx(aState.posY);
+      ctx.save();
+      ctx.globalAlpha = 0.85;
+      ctx.fillStyle = placeholderColor(ab.assist.id);
+      ctx.fillRect(ax - 22, ay - 92, 44, 92);
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(ax - 22, ay - 92, 44, 92);
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(ax + aState.facing * 8 - 3, ay - 76, 6, 6);
+      ctx.restore();
+      return;
+    }
     const animDef = ab.animation;
     const frameIdx = simTickToAnimFrame(
       aState.moveTick,

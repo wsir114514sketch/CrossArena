@@ -84,7 +84,10 @@ class CrossArenaApp {
 
   public async init(): Promise<void> {
     this.input.attach();
+    this.canvas.tabIndex = 0;
+    this.canvas.focus();
     this.canvas.addEventListener("pointerdown", (ev) => {
+      this.canvas.focus();
       this.audio.unlock();
       const rect = this.canvas.getBoundingClientRect();
       const cx = ((ev.clientX - rect.left) / Math.max(1, rect.width)) * VIEWPORT_W;
@@ -270,7 +273,7 @@ class CrossArenaApp {
   private stepBattleTick(): void {
     if (!this.sim || !this.registry) return;
     const state = this.sim.state;
-    const p1Mask = this.input.readPlayerMask(0);
+    const p1Mask = this.input.readPlayerMask(0, this.mode !== "VERSUS_2P");
     let p2Mask = INPUT_NONE;
 
     if (this.mode === "VERSUS_2P") {
@@ -420,33 +423,22 @@ class CrossArenaApp {
 
     // Main Arcade Emblem
     ctx.textAlign = "center";
-    ctx.fillStyle = "#fbbf24";
-    ctx.font = "bold 16px 'Segoe UI', sans-serif";
-    ctx.fillText("COMPACT 2D DUAL-IP ANIME ARCADE FIGHTER · 60HZ DETERMINISTIC ENGINE", VIEWPORT_W * 0.5, 112);
-
     ctx.fillStyle = "#f8fafc";
     ctx.font = "italic bold 74px 'Segoe UI', sans-serif";
     ctx.fillText("CROSS ARENA", VIEWPORT_W * 0.5, 192);
 
-    if (this.registry) {
-      const ipNames = this.registry.ips.map((i) => i.name_zh).join("  ×  ");
-      ctx.fillStyle = "#38bdf8";
-      ctx.font = "bold 24px 'Microsoft YaHei UI', sans-serif";
-      ctx.fillText(`${ipNames}  —  紧凑街机格斗正式版`, VIEWPORT_W * 0.5, 238);
-    }
-
-    const menuItems: Array<{ mode: GameMode; title: string; desc: string }> = [
-      { mode: "VERSUS_CPU", title: "街机对战 ARCADE VS CPU", desc: "单人挑战战术 AI（支持三档难度、局内觉醒变身与援助召唤）" },
-      { mode: "VERSUS_2P", title: "本地双人 LOCAL 2P VERSUS", desc: "同屏键盘 / 双手柄零延迟街机立回与连段博弈" },
-      { mode: "TRAINING", title: "格斗训练房 TRAINING DOJO", desc: "实时帧数据 / 有利帧差 / 碰撞框可视化（F2）与木桩防御演练" },
-      { mode: "ROLLBACK_LAB", title: "回滚同步实验室 ROLLBACK LAB", desc: "模拟远程网络延迟 + RepeatLast 输入预测 + 帧快照回滚校验" },
+    const menuItems: Array<{ mode: GameMode; title: string }> = [
+      { mode: "VERSUS_CPU", title: "ARCADE VS CPU" },
+      { mode: "VERSUS_2P", title: "LOCAL 2P VERSUS" },
+      { mode: "TRAINING", title: "TRAINING" },
+      { mode: "ROLLBACK_LAB", title: "ROLLBACK LAB" },
     ];
 
     menuItems.forEach((item, idx) => {
-      const bx = VIEWPORT_W * 0.5 - 270;
-      const by = 286 + idx * 82;
-      const bw = 540;
-      const bh = 68;
+      const bx = VIEWPORT_W * 0.5 - 220;
+      const by = 270 + idx * 80;
+      const bw = 440;
+      const bh = 62;
       const active = this.titleCursor === idx;
 
       ctx.fillStyle = active ? "rgba(30, 41, 59, 0.96)" : "rgba(15, 23, 42, 0.84)";
@@ -456,12 +448,8 @@ class CrossArenaApp {
       ctx.strokeRect(bx, by, bw, bh);
 
       ctx.fillStyle = active ? "#fbbf24" : "#f8fafc";
-      ctx.font = "bold 20px 'Microsoft YaHei UI', sans-serif";
-      ctx.fillText(item.title, VIEWPORT_W * 0.5, by + 30);
-
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "13px 'Microsoft YaHei UI', sans-serif";
-      ctx.fillText(item.desc, VIEWPORT_W * 0.5, by + 54);
+      ctx.font = "bold 22px 'Segoe UI', sans-serif";
+      ctx.fillText(item.title, VIEWPORT_W * 0.5, by + 39);
 
       this.titleHotspots.push({
         x: bx,
@@ -474,15 +462,6 @@ class CrossArenaApp {
         },
       });
     });
-
-    // Bottom Keybinding Summary
-    ctx.fillStyle = "#cbd5e1";
-    ctx.font = "13px 'Microsoft YaHei UI', sans-serif";
-    ctx.fillText(
-      "P1 键位: WASD 移动/跳/蹲 · J轻 K中 U重 · I/O/P 招牌技 · H 必杀 · N 觉醒 · M 援助 · L 冲刺 · ; 防御 · Y 投技  |  F2 判定框调试",
-      VIEWPORT_W * 0.5,
-      VIEWPORT_H - 26,
-    );
   }
 
   private renderLoadingOrError(): void {

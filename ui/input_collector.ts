@@ -50,6 +50,17 @@ const P1_KEY_MAP: Record<string, number> = {
   KeyM: INPUT_ASSIST,
 };
 
+const P1_ALT_KEY_MAP: Record<string, number> = {
+  ArrowUp: INPUT_UP,
+  ArrowDown: INPUT_DOWN,
+  ArrowLeft: INPUT_LEFT,
+  ArrowRight: INPUT_RIGHT,
+  KeyZ: INPUT_LIGHT,
+  KeyX: INPUT_MEDIUM,
+  KeyC: INPUT_HEAVY,
+  Space: INPUT_UP,
+};
+
 const P2_KEY_MAP: Record<string, number> = {
   ArrowUp: INPUT_UP,
   ArrowDown: INPUT_DOWN,
@@ -119,13 +130,18 @@ export class InputCollector {
     this.justPressedCodes.clear();
   }
 
-  public readPlayerMask(slot: 0 | 1): number {
+  /** `p1AcceptsArrows`: in single-player modes P1 can also be driven with arrows + Z/X/C. */
+  public readPlayerMask(slot: 0 | 1, p1AcceptsArrows = false): number {
     const map = slot === 0 ? P1_KEY_MAP : P2_KEY_MAP;
     let mask = INPUT_NONE;
     for (const code of this.heldCodes) {
       const bit = map[code];
       if (bit !== undefined) {
         mask |= bit;
+      }
+      if (slot === 0 && p1AcceptsArrows) {
+        const alt = P1_ALT_KEY_MAP[code];
+        if (alt !== undefined) mask |= alt;
       }
     }
     mask |= this.readGamepadMask(slot);

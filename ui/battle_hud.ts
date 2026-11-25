@@ -342,7 +342,7 @@ export class BattleHud {
           ctx.fillStyle = "#4ade80";
           ctx.font = "bold 10px 'Segoe UI', sans-serif";
           ctx.textAlign = "left";
-          ctx.fillText(isLeft ? "M 援助就绪" : "= 援助就绪", isLeft ? ax + 44 : ax - 58, ay + 23);
+          ctx.fillText(isLeft ? "READY" : "READY", isLeft ? ax + 44 : ax - 46, ay + 23);
         }
         ctx.strokeRect(ax, ay, 38, 38);
       }
@@ -452,18 +452,18 @@ export class BattleHud {
       y + 27,
     );
 
-    this.drawHudMiniBtn(ctx, 742, y + 7, 178, 30, `木桩:${options.dummyMode} [F3]`, "#2563eb", options.onCycleDummy);
+    this.drawHudMiniBtn(ctx, 742, y + 7, 178, 30, `木桩:${options.dummyMode}`, "#2563eb", options.onCycleDummy);
     this.drawHudMiniBtn(
       ctx,
       928,
       y + 7,
       172,
       30,
-      `判定框:${options.showBoxes ? "开 ON" : "关 OFF"} [F2]`,
+      `判定框:${options.showBoxes ? "开" : "关"}`,
       options.showBoxes ? "#16a34a" : "#475569",
       options.onToggleBoxes,
     );
-    this.drawHudMiniBtn(ctx, 1108, y + 7, 152, 30, "重置位置/满气 [R]", "#d97706", options.onResetTraining);
+    this.drawHudMiniBtn(ctx, 1108, y + 7, 152, 30, "重置", "#d97706", options.onResetTraining);
   }
 
   private renderRollbackStrip(ctx: CanvasRenderingContext2D, rb: RollbackStats): void {
@@ -474,7 +474,7 @@ export class BattleHud {
     ctx.font = "13px 'Consolas', monospace";
     ctx.textAlign = "center";
     ctx.fillText(
-      `[ROLLBACK SYNCTEST LAB] Tick: ${rb.simulatedTicks} | Rollbacks: ${rb.rollbackCount} | Resimulated Frames: ${rb.totalResimulatedFrames} | Max Depth: ${rb.maxRollbackDepth}f | Checksum: 0x${rb.lastChecksum} | [F2] Hitboxes`,
+      `[ROLLBACK SYNCTEST LAB] Tick: ${rb.simulatedTicks} | Rollbacks: ${rb.rollbackCount} | Resimulated Frames: ${rb.totalResimulatedFrames} | Max Depth: ${rb.maxRollbackDepth}f | Checksum: 0x${rb.lastChecksum}`,
       VIEWPORT_W * 0.5,
       y + 24,
     );
@@ -545,10 +545,10 @@ export class BattleHud {
     ctx.fillText(`“${b.fighter.victory_quote_zh ?? "胜负已分！"}”`, rx, cardY + 168);
 
     // Settlement Menu Buttons
-    this.drawHudMiniBtn(ctx, rx, cardY + 216, 240, 44, "再来一局 REMATCH [Enter]", "#16a34a", actions.onRematch);
-    this.drawHudMiniBtn(ctx, rx + 256, cardY + 216, 240, 44, "重新选人 SELECT [C]", "#2563eb", actions.onCharSelect);
-    this.drawHudMiniBtn(ctx, rx, cardY + 276, 240, 44, "校验并导出录像 REPLAY [V]", "#7c3aed", actions.onExportReplay);
-    this.drawHudMiniBtn(ctx, rx + 256, cardY + 276, 240, 44, "返回主菜单 MENU [Esc]", "#475569", actions.onMainMenu);
+    this.drawHudMiniBtn(ctx, rx, cardY + 216, 240, 44, "再来一局", "#16a34a", actions.onRematch);
+    this.drawHudMiniBtn(ctx, rx + 256, cardY + 216, 240, 44, "重新选人", "#2563eb", actions.onCharSelect);
+    this.drawHudMiniBtn(ctx, rx, cardY + 276, 240, 44, "导出录像", "#7c3aed", actions.onExportReplay);
+    this.drawHudMiniBtn(ctx, rx + 256, cardY + 276, 240, 44, "主菜单", "#475569", actions.onMainMenu);
   }
 
   private renderPauseOverlay(ctx: CanvasRenderingContext2D, actions: SettlementActions): void {
